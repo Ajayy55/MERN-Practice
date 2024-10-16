@@ -1,0 +1,47 @@
+[
+  {
+    "username": "vivek singh",
+    "email": "vivek@gmail.com",
+    "mobile": 108012112,
+    "password": "$2b$10$swrywc0cl0cfVHwEmhwfy.Kmupx3e6mfjyuJpqNU13GQ.2gMeHj.e",
+    "gender": "male",
+    "id": "DSX3M_Cn0"
+  },
+  {
+    "username": "vivek singh",
+    "email": "vivek@gmail.co",
+    "mobile": 108012113,
+    "password": "$2b$10$CnpJQ.6PkpIHn75kBSPFp.IFWokcxvKctTGGolXVs.fh.NW4RcGHO",
+    "gender": "male",
+    "id": "DSXO7YFLJSX`_oe"
+  },
+  {
+    "username": "ajay",
+    "email": "ajay@gmail.com",
+    "mobile": 8080808090,
+    "gender": "male",
+    "password": "$2b$10$GOiWo97IfnGHbO96KC5Ml.49XdJiXlLNftKE2KEEVxvdotEqAiFhe",
+    "password1": "test12",
+    "id": "DSX-nJslfRe4VoG7",
+    "profile": "http://localhost:4000/userProfiles/1729059893554-334340437-starbucks-cup-background-png-favpng-HZ7Gj2jtXMsm9K8WsSiVQzWa6.jpg"
+  },
+  {
+    "username": "akash",
+    "email": "akash@gmail.com",
+    "mobile": 1231231231,
+    "gender": "male",
+    "password": "$2b$10$89rN30ViTHqwU9T.2EQ49eyROVrSeVL9pZTEXnknO.H24mftdkwGe",
+    "password1": "test12",
+    "id": "DSX-b2S[jcGjM6TT"
+  },
+  {
+    "username": "Akshay",
+    "email": "akshay@gmail.com",
+    "mobile": 8054121212,
+    "gender": "male",
+    "password": "$2b$10$UWv3JiRTn8UP9Z8m/WEb7uAqs8HtR3df0SIgsiVRy4TmsDMEmFFJC",
+    "password1": "test12",
+    "id": "DSX-^eIonED`PjSV",
+    "profile": "http://localhost:4000/userProfiles/1729082238619-237304670-iPhone_15_Pro_Max_Natural_Titanium_PDP_Image_Position-1__WWEN.jpg"
+  }
+]

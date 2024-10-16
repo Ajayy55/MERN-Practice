@@ -1,0 +1,46 @@
+
+.Hero-area{
+    background-color: #ff6b81;
+    color:#fff;
+    margin-top: 0;
+    height: auto;
+    width:100%;
+    align-items: center;
+    padding: 10em 0 5em 0;
+    font-family: Inter,sans-serif;
+  }
+
+  .Hero-area h1{
+    font-family: Inter,sans-serif;
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 50px;
+    color: #fff;
+    text-shadow: 0px 3px 8px #00000017;
+    text-transform: capitalize;
+    padding: 10px 0;
+  }
+  .Hero-area p{
+    font-family: Inter,sans-serif;
+    font-size: 14px;
+ }
+  .btn-appstore:hover{
+    background-color: black;
+    color:white;
+  }
+  .btn-appstore{
+    color: #ff6b81;
+    background-color:white;
+  }
+  
+  .btn-playstore:hover{
+    background-color: white;
+    color: #ff6b81;
+  }
+  .btn-playstore{
+    background-color: #ff6b81;
+     color:white;
+  }
+  
+  
+  

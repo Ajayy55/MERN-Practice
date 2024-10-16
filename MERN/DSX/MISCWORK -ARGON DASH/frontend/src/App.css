@@ -1,0 +1,57 @@
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+.nav-item {
+  position: relative; /* Required for dropdown positioning */
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem; /* Adjust padding for spacing */
+  color: #333; /* Default link color */
+  text-decoration: none; /* Remove underline */
+  transition: background-color 0.3s; /* Smooth background transition */
+}
+
+.nav-link:hover {
+  background-color: #f0f0f0; /* Light gray background on hover */
+}
+
+.icon {
+  width: 24px; /* Set icon size */
+  height: 24px; /* Set icon size */
+}
+
+.dropdown-menu {
+  position: absolute; /* Position dropdown below the nav item */
+  top: 100%; /* Align with the bottom of the nav item */
+  left: 0; /* Align to the left */
+  z-index: 1000; /* Ensure it appears above other elements */
+  background-color: #fff; /* Dropdown background color */
+  border: 1px solid #ddd; /* Light border for dropdown */
+  border-radius: 4px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  display: none; /* Initially hidden */
+}
+
+.nav-item:hover .dropdown-menu {
+  display: block; /* Show dropdown on hover */
+}
+
+.dropdown-item {
+  padding: 0.5rem 1rem; /* Padding for dropdown items */
+  color: #333; /* Default item color */
+  text-decoration: none; /* Remove underline */
+}
+
+.dropdown-item:hover {
+  background-color: #f0f0f0; /* Highlight on hover */
+}

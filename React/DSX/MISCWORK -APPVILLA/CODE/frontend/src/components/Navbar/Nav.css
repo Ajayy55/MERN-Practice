@@ -1,0 +1,36 @@
+.nav-nav{
+  display: flex !important;
+  flex-basis: auto;
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+}
+.nav-container{
+    margin-top: 0;
+    display: flex;
+    justify-content: center;
+    background-color: #ff6b81;
+    color: #fff ;
+    position: fixed;
+    width: 100%;
+  
+  }
+  .nav-container.active{
+    color: black;
+    background-color: #fff; 
+  }
+.na-1{
+  color: #fff;
+}
+.na-1.active{
+  color: #000;
+}
+  .btn-nav {
+    background-color: #ff6b81;
+    color: #fff 
+  }
+  .logo-img{
+    height: 30px;
+    margin-right: 20px;
+  }
+  
+  

@@ -1,0 +1,35 @@
+.features-section h3{
+    color: #ff6b81;
+    font-size: 15px;
+    margin-top: 40px;
+}
+.features-section p{
+  color: #888;
+  font-size: 15px;
+  margin-top: 40px;
+}
+.features{
+  height: auto; 
+  background: color #888;;
+
+}
+
+.card-icon{
+  background-color: #ff6b81;
+  border-radius: 4px;
+  padding: 5px;
+  margin: 2px;
+}
+
+.features-section h2 {
+  font-size: 34px;
+  margin-bottom: 25px;
+  line-height: 42px;
+  text-transform: capitalize;
+  position: relative;
+  font-weight: 800;
+}
+*{
+  font-family: "Inter", sans-serif;
+  
+}

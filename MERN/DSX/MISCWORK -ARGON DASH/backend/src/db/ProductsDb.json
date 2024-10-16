@@ -1,0 +1,73 @@
+[
+  {
+    "product": "Red tape ultra pro",
+    "category": "Mens",
+    "SKU": 170878790,
+    "price": 1699,
+    "stock": 200,
+    "weight": "200gm",
+    "desc": [
+      "good fit",
+      "comfortable",
+      "breathable"
+    ],
+    "discount": 1,
+    "createdAt": "10/16/2024, 3:24:13 PM",
+    "updatedAt": "10/16/2024, 6:28:39 PM",
+    "id": "shoes-j48LMEpGQngp",
+    "subCateogry": "shoes"
+  },
+  {
+    "product": "Redmi 16 Pro",
+    "category": "electronics",
+    "subCateogry": "mobiles",
+    "price": 1599,
+    "stock": 200,
+    "weight": "200gm",
+    "desc": [
+      "good fit",
+      "comfortable",
+      "breathable"
+    ],
+    "discount": 1,
+    "createdAt": "10/16/2024, 3:45:24 PM",
+    "updatedAt": "10/16/2024, 3:45:24 PM",
+    "id": "elect-BaEVmCTTTq3Q"
+  },
+  {
+    "product": "samsung 43 led",
+    "category": "electronics",
+    "subCateogry": "Tv",
+    "SKU": 170878790,
+    "price": 1599,
+    "stock": 200,
+    "weight": "200gm",
+    "desc": [
+      "good fit",
+      "comfortable",
+      "breathable"
+    ],
+    "discount": 1,
+    "createdAt": "10/16/2024, 3:45:49 PM",
+    "updatedAt": "10/16/2024, 3:45:49 PM",
+    "id": "elect-HULer5QnQC3U"
+  },
+  {
+    "product": "alover gel",
+    "category": "alovera gel",
+    "subCateogry": "beauty",
+    "SKU": 170878790,
+    "price": 599,
+    "stock": 200,
+    "weight": "200gm",
+    "desc": [
+      "good fit",
+      "comfortable",
+      "breathable"
+    ],
+    "discount": 1,
+    "createdAt": "10/16/2024, 6:09:43 PM",
+    "updatedAt": "10/16/2024, 6:09:43 PM",
+    "id": "alove-YHA52f\\qkmA4"
+  }
+]

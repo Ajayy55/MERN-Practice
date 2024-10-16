@@ -1,0 +1,20 @@
+
+.nav-container{
+  background-color: #ff6b81;
+  color:#fff;
+  margin-top: 0;
+}
+/* .nav-container:hover{
+  background-color: #f6f5f5;
+  color: black;
+} */
+.btn-nav {
+
+  background-color: #ff6b81;
+  color: #fff 
+}
+.logo-img{
+  height: 30px;
+  margin-right: 20px;
+}
+
