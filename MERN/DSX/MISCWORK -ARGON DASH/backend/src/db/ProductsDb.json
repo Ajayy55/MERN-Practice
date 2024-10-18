@@ -1,73 +1,212 @@
 [
   {
-    "product": "Red tape ultra pro",
-    "category": "Mens",
-    "SKU": 170878790,
-    "price": 1699,
-    "stock": 200,
-    "weight": "200gm",
-    "desc": [
-      "good fit",
-      "comfortable",
-      "breathable"
+    "product": "alover for skin care",
+    "category": "alovera",
+    "subCateogry": "beauty",
+    "sku": "170878790",
+    "price": "599",
+    "stock": 0,
+    "weight": "1",
+    "desc": "for soft intense skin care ss",
+    "discount": "1",
+    "createdAt": "10/17/2024, 9:40:55 AM",
+    "updatedAt": "10/17/2024, 5:00:40 PM",
+    "id": "ALOVE-LoamT8lMDhof",
+    "p_images": [
+      "http://localhost:4000/products/1729138255215-871205202-starbucks-cup-background-png-favpng-HZ7Gj2jtXMsm9K8WsSiVQzWa6.jpg",
+      "http://localhost:4000/products/1729138255270-470132588-iPhone_15_Pro_Max_Natural_Titanium_PDP_Image_Position-1__WWEN.jpg"
     ],
-    "discount": 1,
-    "createdAt": "10/16/2024, 3:24:13 PM",
-    "updatedAt": "10/16/2024, 6:28:39 PM",
-    "id": "shoes-j48LMEpGQngp",
-    "subCateogry": "shoes"
+    "p_video": [
+      "http://localhost:4000/products/1729138255216-353351329-car glight.mov"
+    ]
+  },
+  {
+    "product": "Red tape ultra",
+    "category": "Mens",
+    "subCateogry": "shoes",
+    "sku": "170878790",
+    "price": "1599",
+    "stock": "15",
+    "weight": "1",
+    "desc": "light weight",
+    "discount": "1",
+    "createdAt": "10/17/2024, 9:42:46 AM",
+    "updatedAt": "10/17/2024, 9:42:46 AM",
+    "id": "MENS-lKmZr^pVnEZj",
+    "p_images": [
+      "http://localhost:4000/products/1729138366582-570344227-starbucks-cup-background-png-favpng-HZ7Gj2jtXMsm9K8WsSiVQzWa6.jpg",
+      "http://localhost:4000/products/1729138366634-215501787-iPhone_15_Pro_Max_Natural_Titanium_PDP_Image_Position-1__WWEN.jpg"
+    ],
+    "p_video": [
+      "http://localhost:4000/products/1729138366583-628994256-car glight.mov"
+    ]
   },
   {
     "product": "Redmi 16 Pro",
     "category": "electronics",
     "subCateogry": "mobiles",
-    "price": 1599,
-    "stock": 200,
+    "sku": "170878790",
+    "price": "15990",
+    "stock": "200",
     "weight": "200gm",
-    "desc": [
-      "good fit",
-      "comfortable",
-      "breathable"
+    "desc": "smart feature 64 mp camera",
+    "discount": "1",
+    "createdAt": "10/17/2024, 9:43:42 AM",
+    "updatedAt": "10/17/2024, 9:43:42 AM",
+    "id": "ELECT-Uc6qdnmOcRYX",
+    "p_images": [
+      "http://localhost:4000/products/1729138422195-341087657-starbucks-cup-background-png-favpng-HZ7Gj2jtXMsm9K8WsSiVQzWa6.jpg",
+      "http://localhost:4000/products/1729138422253-589010913-iPhone_15_Pro_Max_Natural_Titanium_PDP_Image_Position-1__WWEN.jpg"
     ],
-    "discount": 1,
-    "createdAt": "10/16/2024, 3:45:24 PM",
-    "updatedAt": "10/16/2024, 3:45:24 PM",
-    "id": "elect-BaEVmCTTTq3Q"
+    "p_video": [
+      "http://localhost:4000/products/1729138422197-410473998-car glight.mov"
+    ]
   },
   {
     "product": "samsung 43 led",
     "category": "electronics",
-    "subCateogry": "Tv",
-    "SKU": 170878790,
-    "price": 1599,
-    "stock": 200,
+    "subCateogry": "Teleivsion",
+    "sku": "170878790",
+    "price": "35990",
+    "stock": "200",
     "weight": "200gm",
-    "desc": [
-      "good fit",
-      "comfortable",
-      "breathable"
+    "desc": "smart feature 64 mp camera",
+    "discount": "1",
+    "createdAt": "10/17/2024, 9:44:18 AM",
+    "updatedAt": "10/17/2024, 9:44:18 AM",
+    "id": "ELECT-bdnE[VmVlYc`",
+    "p_images": [
+      "http://localhost:4000/products/1729138458640-743396006-starbucks-cup-background-png-favpng-HZ7Gj2jtXMsm9K8WsSiVQzWa6.jpg",
+      "http://localhost:4000/products/1729138458730-789158024-iPhone_15_Pro_Max_Natural_Titanium_PDP_Image_Position-1__WWEN.jpg"
     ],
-    "discount": 1,
-    "createdAt": "10/16/2024, 3:45:49 PM",
-    "updatedAt": "10/16/2024, 3:45:49 PM",
-    "id": "elect-HULer5QnQC3U"
+    "p_video": [
+      "http://localhost:4000/products/1729138458642-232385010-car glight.mov"
+    ]
   },
   {
-    "product": "alover gel",
-    "category": "alovera gel",
-    "subCateogry": "beauty",
-    "SKU": 170878790,
-    "price": 599,
-    "stock": 200,
-    "weight": "200gm",
-    "desc": [
-      "good fit",
-      "comfortable",
-      "breathable"
-    ],
+    "product": "asa",
+    "category": "Mens Fashion",
+    "subCategory": "Shoes",
+    "price": 12,
+    "stock": 12,
+    "sku": "12",
+    "desc": "12qs",
+    "weight": 12,
     "discount": 1,
-    "createdAt": "10/16/2024, 6:09:43 PM",
-    "updatedAt": "10/16/2024, 6:09:43 PM",
-    "id": "alove-YHA52f\\qkmA4"
+    "p_images": [],
+    "createdAt": "10/17/2024, 12:49:19 PM",
+    "updatedAt": "10/17/2024, 12:49:19 PM",
+    "id": "MENS -0`fX\\ZNsNYrh",
+    "p_video": []
+  },
+  {
+    "filename": "undefined",
+    "product": "asa",
+    "category": "Mens Fashion",
+    "subCategory": "Shoes",
+    "price": "12",
+    "stock": "12",
+    "sku": "12",
+    "desc": "12qs",
+    "weight": "12",
+    "discount": "1",
+    "p_images": [
+      "http://localhost:4000/products/1729150533388-470578447-iPhone_15_Pro_Max_Natural_Titanium_PDP_Image_Position-1__WWEN.jpg"
+    ],
+    "createdAt": "10/17/2024, 1:05:33 PM",
+    "updatedAt": "10/17/2024, 1:05:33 PM",
+    "id": "MENS -ZEFf_VPgGShb",
+    "p_video": []
+  },
+  {
+    "files": "[object FileList]",
+    "filename": "undefined",
+    "product": "bag",
+    "category": "Mens Fashion",
+    "subCategory": "mobiles",
+    "price": "1999",
+    "stock": "10",
+    "sku": "1d2qdsd2",
+    "desc": "sdssd",
+    "weight": "1",
+    "discount": "1",
+    "p_images": [],
+    "createdAt": "10/17/2024, 1:14:14 PM",
+    "updatedAt": "10/17/2024, 1:14:14 PM",
+    "id": "MENS -Jq72DGEMCRQG",
+    "p_video": []
+  },
+  {
+    "files": "[object FileList]",
+    "filename": "undefined",
+    "product": "assas",
+    "category": "Mens Fashion",
+    "subCategory": "Shoes",
+    "price": "1999",
+    "stock": "12",
+    "sku": "1212",
+    "desc": "1",
+    "weight": "1",
+    "discount": "1",
+    "p_images": [],
+    "createdAt": "10/17/2024, 1:16:51 PM",
+    "updatedAt": "10/17/2024, 1:16:51 PM",
+    "id": "MENS -sNBAl_gjlRYN",
+    "p_video": []
+  },
+  {
+    "product": "iphone",
+    "category": "Mens Fashion",
+    "subCategory": "Shoes",
+    "price": "90820",
+    "stock": "1",
+    "sku": "1",
+    "desc": "12121255",
+    "weight": "1",
+    "discount": "1",
+    "p_images": [
+      "http://localhost:4000/products/1729166850125-459183057-sdrkart-Apple-iPhone-16-6.1-inch-128GB-Blue.webp"
+    ],
+    "createdAt": "10/17/2024, 2:26:33 PM",
+    "updatedAt": "10/17/2024, 5:37:30 PM",
+    "id": "MENS -CIEreN_l_V7p",
+    "p_video": [],
+    "filename": "sdrkart-Apple-iPhone-16-6.1-inch-128GB-Blue.webp"
+  },
+  {
+    "filename": "iPhone_15_Pro_Max_Natural_Titanium_PDP_Image_Position-1__WWEN.jpg",
+    "product": "MSI Bravo",
+    "category": "Electronics",
+    "subCategory": "Laptop",
+    "price": "43999",
+    "stock": "50",
+    "sku": "1212931",
+    "desc": "gaming laptop",
+    "weight": "2",
+    "discount": "1",
+    "p_images": [
+      "http://localhost:4000/products/1729156079145-863728085-iPhone_15_Pro_Max_Natural_Titanium_PDP_Image_Position-1__WWEN.jpg"
+    ],
+    "createdAt": "10/17/2024, 2:37:59 PM",
+    "updatedAt": "10/17/2024, 2:37:59 PM",
+    "id": "ELECT-RJPTb`4\\J_m2",
+    "p_video": []
+  },
+  {
+    "filename": "sdrkart-Apple-iPhone-16-6.1-inch-128GB-Blue.webp",
+    "product": "asics shoes",
+    "category": "Mens Fashion",
+    "subCategory": "Shoes",
+    "price": "1999",
+    "stock": "2",
+    "sku": "1261666",
+    "desc": "iuhaa",
+    "weight": "1",
+    "discount": "1",
+    "p_images": [],
+    "createdAt": "10/17/2024, 6:12:43 PM",
+    "updatedAt": "10/17/2024, 6:12:43 PM",
+    "id": "MENS -LIdMVeRLbeUS",
+    "p_video": []
   }
 ]

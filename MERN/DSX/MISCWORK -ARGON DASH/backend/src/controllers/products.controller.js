@@ -5,9 +5,9 @@ const DATA_FILE='./src/db/ProductsDb.json'
 
 const addProduct =async(req,res)=>{
     const product=req.body;
-    // console.log('product',product);
-    // const files=req?.files;
-    // console.log(files);
+    console.log('product',product);
+    const files=req?.files;
+    console.log('kk',files);
     // return res.status(200).json({m:'hi'})
 
     const items = readData(DATA_FILE);
@@ -31,6 +31,23 @@ const addProduct =async(req,res)=>{
         product.createdAt=date.toLocaleString();
         product.updatedAt=date.toLocaleString();
         product.id=genratePID(product.category)
+        let images=[];
+        let video=[];
+
+        files?.map((file,index)=>{
+            if(file?.mimetype=='image/jpeg')
+            {
+                images.push('http://localhost:4000/products/'+file.filename)
+            }
+            if(file?.mimetype=='video/quicktime')
+            {
+                video.push('http://localhost:4000/products/'+file.filename)
+            }
+        })
+
+        product.p_images=images;
+        product.p_video=video;
+        
 
         items.push(product)
         writeData(DATA_FILE,items);
@@ -96,12 +113,16 @@ const removeProduct=(req,res)=>{
 const editProduct=async(req,res)=>{
     const id=req?.params?.id;
     const data=req?.body;
+    const files=req?.files;
+    console.log('kk',files);
     console.log(id);
-   
-
+    console.log(req.body); 
+    let images=[];
+    
     if (Object.keys(data).length === 0) {
         return res.status(400).json({ message: "empty set of data recieved ..!" });
       }
+    
 
     const products= readData(DATA_FILE);
 
@@ -113,6 +134,9 @@ const editProduct=async(req,res)=>{
     for (const key in data) {
         products[index][key]= data[key]
         }
+    
+    images.push('http://localhost:4000/products/'+files[0].filename)
+    products[index].p_images=images;
 
     //update updated time
     const date=new Date();
@@ -124,8 +148,17 @@ const editProduct=async(req,res)=>{
 
 }
 
+const singleProduct=(req,res)=>{
+    const id=req.params.id;
+    // console.log(id);
+    const products= readData(DATA_FILE);
 
-export {addProduct,allProducts,removeProduct,editProduct}
+    const product=products.find((product)=>product.id===id)
+
+    res.status(200).json(product)
+}
+
+export {addProduct,allProducts,removeProduct,editProduct,singleProduct}
 
 
 

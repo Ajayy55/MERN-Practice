@@ -12,6 +12,8 @@ import Login from "./pages/Login/Login";
 import LoginProtectedRoutes from "./pages/ProtectectedRoutes/LoginProtectedRoutes";
 import ProfileLayout from "./layouts/ProfileLayout";
 import Products from "./pages/Products/Products";
+import AddProducts from "./pages/Products/AddProducts";
+import UpdateProduct from "./pages/Products/UpdateProduct";
 
 
 function App() {
@@ -33,6 +35,9 @@ function App() {
              <Route path="/tables" element={<Tables />} />
              <Route path="/profile" element={<ProfileLayout/>}/>
              <Route path="/products" element={<Products/>}/>
+             <Route path="/addProduct" element={<AddProducts/>}/>
+             <Route path="/updateProduct" element={<UpdateProduct/>}/>
+             
 
           </Route>
           
