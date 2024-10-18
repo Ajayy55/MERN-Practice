@@ -12,8 +12,7 @@ function Navbar() {
     setToken(localStorage.getItem("Token") || sessionStorage.getItem("Token"));
     checkTokenExpiry();
     console.log('inside nav useeffect');
-    
-  }, [TokenExp]);
+  }, [TokenExp,token]);
 
   function myStopFunction(stopCheck) {
     Swal.fire({
@@ -36,7 +35,7 @@ function Navbar() {
       const stopCheck = setInterval(() => {
         if (decode.exp < Math.round(Date.now() / 1000)) {
           console.log("expired");
-          setTokenExp(false);
+          setToken(false);
           myStopFunction(stopCheck);
         }
       }, 5000);
@@ -126,7 +125,7 @@ function Navbar() {
               </li>
               <li className="nav-item d-xl-none ps-3 d-flex align-items-center">
                 <a
-                  href=""
+                  
                   className="nav-link text-white p-0"
                   id="iconNavbarSidenav"
                 >

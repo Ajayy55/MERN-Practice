@@ -2,7 +2,7 @@
   {
     "product": "alover for skin care",
     "category": "alovera",
-    "subCateogry": "beauty",
+    "subCategory": "beauty",
     "sku": "170878790",
     "price": "599",
     "stock": 0,
@@ -23,7 +23,7 @@
   {
     "product": "Red tape ultra",
     "category": "Mens",
-    "subCateogry": "shoes",
+    "subCategory": "shoes",
     "sku": "170878790",
     "price": "1599",
     "stock": "15",
@@ -44,7 +44,7 @@
   {
     "product": "Redmi 16 Pro",
     "category": "electronics",
-    "subCateogry": "mobiles",
+    "subCategory": "mobiles",
     "sku": "170878790",
     "price": "15990",
     "stock": "200",
@@ -65,7 +65,7 @@
   {
     "product": "samsung 43 led",
     "category": "electronics",
-    "subCateogry": "Teleivsion",
+    "subCategory": "Teleivsion",
     "sku": "170878790",
     "price": "35990",
     "stock": "200",
@@ -84,80 +84,28 @@
     ]
   },
   {
-    "product": "asa",
-    "category": "Mens Fashion",
-    "subCategory": "Shoes",
-    "price": 12,
-    "stock": 12,
-    "sku": "12",
-    "desc": "12qs",
-    "weight": 12,
-    "discount": 1,
-    "p_images": [],
-    "createdAt": "10/17/2024, 12:49:19 PM",
-    "updatedAt": "10/17/2024, 12:49:19 PM",
-    "id": "MENS -0`fX\\ZNsNYrh",
-    "p_video": []
-  },
-  {
     "filename": "undefined",
-    "product": "asa",
-    "category": "Mens Fashion",
-    "subCategory": "Shoes",
-    "price": "12",
-    "stock": "12",
+    "product": "iphone",
+    "category": "Electronics",
+    "subCategory": "mobiles",
+    "price": "120225",
+    "stock": "50",
     "sku": "12",
-    "desc": "12qs",
-    "weight": "12",
+    "desc": "Camera 64 Mp",
+    "weight": "1",
     "discount": "1",
     "p_images": [
-      "http://localhost:4000/products/1729150533388-470578447-iPhone_15_Pro_Max_Natural_Titanium_PDP_Image_Position-1__WWEN.jpg"
+      "http://localhost:4000/products/1729251154277-560868511-png-transparent-coffee-bean-schwarzmahler-espresso-commodity-granos-de-cafe-coffee-black-drinking.png"
     ],
     "createdAt": "10/17/2024, 1:05:33 PM",
-    "updatedAt": "10/17/2024, 1:05:33 PM",
+    "updatedAt": "10/18/2024, 5:02:34 PM",
     "id": "MENS -ZEFf_VPgGShb",
     "p_video": []
   },
   {
-    "files": "[object FileList]",
-    "filename": "undefined",
-    "product": "bag",
-    "category": "Mens Fashion",
-    "subCategory": "mobiles",
-    "price": "1999",
-    "stock": "10",
-    "sku": "1d2qdsd2",
-    "desc": "sdssd",
-    "weight": "1",
-    "discount": "1",
-    "p_images": [],
-    "createdAt": "10/17/2024, 1:14:14 PM",
-    "updatedAt": "10/17/2024, 1:14:14 PM",
-    "id": "MENS -Jq72DGEMCRQG",
-    "p_video": []
-  },
-  {
-    "files": "[object FileList]",
-    "filename": "undefined",
-    "product": "assas",
-    "category": "Mens Fashion",
-    "subCategory": "Shoes",
-    "price": "1999",
-    "stock": "12",
-    "sku": "1212",
-    "desc": "1",
-    "weight": "1",
-    "discount": "1",
-    "p_images": [],
-    "createdAt": "10/17/2024, 1:16:51 PM",
-    "updatedAt": "10/17/2024, 1:16:51 PM",
-    "id": "MENS -sNBAl_gjlRYN",
-    "p_video": []
-  },
-  {
     "product": "iphone",
-    "category": "Mens Fashion",
-    "subCategory": "Shoes",
+    "category": "Electronics",
+    "subCategory": "mobiles",
     "price": "90820",
     "stock": "1",
     "sku": "1",
@@ -165,12 +113,15 @@
     "weight": "1",
     "discount": "1",
     "p_images": [
-      "http://localhost:4000/products/1729166850125-459183057-sdrkart-Apple-iPhone-16-6.1-inch-128GB-Blue.webp"
+      "http://localhost:4000/products/1729229645907-766079039-starbucks-cup-background-png-favpng-HZ7Gj2jtXMsm9K8WsSiVQzWa6.jpg",
+      "http://localhost:4000/products/1729229645909-605939919-wp3315252-shri-krishna-hd-wallpaper.jpg"
     ],
     "createdAt": "10/17/2024, 2:26:33 PM",
-    "updatedAt": "10/17/2024, 5:37:30 PM",
+    "updatedAt": "10/18/2024, 11:15:13 AM",
     "id": "MENS -CIEreN_l_V7p",
-    "p_video": [],
+    "p_video": [
+      "http://localhost:4000/products/1729229645873-170703764-car glight.mov"
+    ],
     "filename": "sdrkart-Apple-iPhone-16-6.1-inch-128GB-Blue.webp"
   },
   {
@@ -193,20 +144,25 @@
     "p_video": []
   },
   {
-    "filename": "sdrkart-Apple-iPhone-16-6.1-inch-128GB-Blue.webp",
-    "product": "asics shoes",
-    "category": "Mens Fashion",
-    "subCategory": "Shoes",
-    "price": "1999",
-    "stock": "2",
-    "sku": "1261666",
-    "desc": "iuhaa",
-    "weight": "1",
+    "product": "msi bravo 14",
+    "category": "Electronics",
+    "subCategory": "Laptop",
+    "price": "42990",
+    "stock": "1",
+    "sku": "50",
+    "desc": "gaming laptop",
+    "weight": "2",
     "discount": "1",
-    "p_images": [],
-    "createdAt": "10/17/2024, 6:12:43 PM",
-    "updatedAt": "10/17/2024, 6:12:43 PM",
-    "id": "MENS -LIdMVeRLbeUS",
-    "p_video": []
+    "p_images": [
+      "http://localhost:4000/products/1729226709825-523479075-iPhone_15_Pro_Max_Natural_Titanium_PDP_Image_Position-1__WWEN.jpg",
+      "http://localhost:4000/products/1729226709828-988009575-png-transparent-coffee-bean-schwarzmahler-espresso-commodity-granos-de-cafe-coffee-black-drinking.png",
+      "http://localhost:4000/products/1729226709828-822496731-starbucks-cup-background-png-favpng-HZ7Gj2jtXMsm9K8WsSiVQzWa6.jpg"
+    ],
+    "createdAt": "10/18/2024, 10:15:09 AM",
+    "updatedAt": "10/18/2024, 10:15:09 AM",
+    "id": "ELECT-7SundefinedT9ZundefinedR1undefinedQQ",
+    "p_video": [
+      "http://localhost:4000/products/1729226709767-486647482-car glight.mov"
+    ]
   }
 ]

@@ -13,7 +13,7 @@ function UpdateProduct() {
     const dispatch=useDispatch();
     const location=useLocation()
     const id=location.state;
-    const [file,setFiles]=useState();
+    const [files,setFiles]=useState([]);
 
     const [data,setData]=useState( {
         product: '',
@@ -65,9 +65,12 @@ function UpdateProduct() {
             formData.append("desc",data.desc)
             formData.append("weight",data.weight)
             formData.append("discount",data.discount)
-            if (file) {
-                formData.append("files", file);
-                formData.append("filename", file.name);
+
+            if (files) {
+                  
+                files.forEach(file => {
+                  formData.append("files", file);
+                });
             }
             console.log('ss',data);
             
@@ -91,34 +94,6 @@ function UpdateProduct() {
             console.error('Error updating product:', error);
         }
     };
-
-    // const handleSubmit=async(e)=>{
-    //     e.preventDefault();
-     
-          
-    //     try { 
-
-    //         const formData = new FormData();
-    //         formData.append("files", file);
-    //         formData.append("filename", file.name); 
-        
-        
-    //           console.log('form data',formData);
-
-    //        const url=`${PORT}editProduct/${id}` 
-    //         const response=await axios.post(url,data,formData,{
-    //             headers: {
-    //               "content-Type": "multipart/form-data",
-    //             },
-    //           })
-
-    //     } catch (error) {
-    //         console.log('error occured whilr updating product',error);   
-    //     }
-
-
-    // }
-    
 
   return (
     <>
@@ -157,11 +132,13 @@ function UpdateProduct() {
                    required
                    maxLength={40}
                  >  
+                <option onChange={handleChange}></option>
                  <option name="electronic" value={"Electronics"} onChange={handleChange} defaultValue>Electronics</option>
                  <option name="mens" value={"Mens Fashion"} onChange={handleChange}>Mens Fashion</option>
                  <option name="womens" value={"Womens Fashion"} onChange={handleChange}>Womens Fashion</option>
                  <option name="home" value={"Home Decore"} onChange={handleChange}>Home Decore</option>
                  <option name="kids" value={"Kids"} onChange={handleChange}>Kids</option>
+                 <option name="Others" value={"Others"}>Others</option>
                  </select>
                </div>
 
@@ -176,11 +153,13 @@ function UpdateProduct() {
                    required
                    maxLength={40}
                  >  
-                 <option name="Cloths" value={"Cloths"} defaultValue>Mobiles</option>
+                 <option onChange={handleChange}></option>
+                 <option name="mobiles" value={"mobiles"} defaultValue>Mobiles</option>
                  <option name="Shoes" value={"Shoes"}>Shoes</option>
-                 <option name="mobiles" value={"mobiles"}>Cloths</option>
+                 <option name="Cloths" value={"mobiles"}>Cloths</option>
                  <option name="Televison" value={"Televison"}>Televison</option>
                  <option name="Laptop" value={"Laptop"}>Laptop</option>
+                 <option name="Others" value={"Others"}>Others</option>
                  </select>
                </div>
 
@@ -269,9 +248,8 @@ function UpdateProduct() {
                    aria-label="Password"
                    name='files'
                     onChange={(e)=>{ 
-                    setFiles(e.target.files[0])
-                    console.log('wwww',e.target.files);
-                    
+                      const files = Array.from(e.target.files);
+                      setFiles(files)
                 }} 
                    multiple
                  />

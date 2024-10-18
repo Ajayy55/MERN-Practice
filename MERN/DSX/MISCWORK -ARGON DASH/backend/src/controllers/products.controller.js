@@ -35,16 +35,21 @@ const addProduct =async(req,res)=>{
         let video=[];
 
         files?.map((file,index)=>{
-            if(file?.mimetype=='image/jpeg')
+            console.log('inside map' ,file);
+            
+            if(file?.mimetype.split('/')[0]=='image' )
             {
+                console.log('inside img');
+                
                 images.push('http://localhost:4000/products/'+file.filename)
             }
-            if(file?.mimetype=='video/quicktime')
+            if(file?.mimetype.split('/')[0]=='video')
             {
                 video.push('http://localhost:4000/products/'+file.filename)
             }
         })
-
+        console.log('images',images);
+        
         product.p_images=images;
         product.p_video=video;
         
@@ -118,6 +123,7 @@ const editProduct=async(req,res)=>{
     console.log(id);
     console.log(req.body); 
     let images=[];
+    let video=[];
     
     if (Object.keys(data).length === 0) {
         return res.status(400).json({ message: "empty set of data recieved ..!" });
@@ -131,12 +137,33 @@ const editProduct=async(req,res)=>{
         return res.status(500).json({message:'No record found to edit'})
     }
 
+    //edit fields
     for (const key in data) {
         products[index][key]= data[key]
         }
+
+    //edit files
+    files?.map((file,index)=>{
+            console.log('inside map' ,file);
+            
+            if(file?.mimetype.split('/')[0]=='image' )
+            {
+                console.log('inside img');
+                
+                images.push('http://localhost:4000/products/'+file.filename)
+            }
+            if(file?.mimetype.split('/')[0]=='video')
+            {
+                video.push('http://localhost:4000/products/'+file.filename)
+            }
+        })
     
-    images.push('http://localhost:4000/products/'+files[0].filename)
-    products[index].p_images=images;
+        if(files.length>0){
+            products[index].p_images=images;
+            products[index].p_video=video;
+        }
+    
+
 
     //update updated time
     const date=new Date();
