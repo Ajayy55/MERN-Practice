@@ -32,7 +32,8 @@ const addProduct =async(req,res)=>{
         product.updatedAt=date.toLocaleString();
         product.id=genratePID(product.category)
         let images=[];
-        let video=[];
+        let videos=[];
+
 
         files?.map((file,index)=>{
             console.log('inside map' ,file);
@@ -41,17 +42,17 @@ const addProduct =async(req,res)=>{
             {
                 console.log('inside img');
                 
-                images.push('http://localhost:4000/products/'+file.filename)
+                images.push({image:`http://localhost:4000/products/${file.filename}`})
             }
             if(file?.mimetype.split('/')[0]=='video')
             {
-                video.push('http://localhost:4000/products/'+file.filename)
+                videos.push({video:`http://localhost:4000/products/${file.filename}`})
             }
         })
         console.log('images',images);
         
-        product.p_images=images;
-        product.p_video=video;
+        product.media= [...images, ...videos];
+        // product.media+=video;
         
 
         items.push(product)
@@ -83,7 +84,7 @@ const allProducts =(req,res)=>{
 }
 
 
-//remove product
+//remove product0
 const removeProduct=(req,res)=>{
     const id=req.params.id;
     console.log(id);
@@ -122,9 +123,7 @@ const editProduct=async(req,res)=>{
     console.log('kk',files);
     console.log(id);
     console.log(req.body); 
-    let images=[];
-    let video=[];
-    
+   
     if (Object.keys(data).length === 0) {
         return res.status(400).json({ message: "empty set of data recieved ..!" });
       }
@@ -143,24 +142,51 @@ const editProduct=async(req,res)=>{
         }
 
     //edit files
-    files?.map((file,index)=>{
-            console.log('inside map' ,file);
+    // files?.map((file,index)=>{
+    //         console.log('inside map' ,file);
             
-            if(file?.mimetype.split('/')[0]=='image' )
-            {
-                console.log('inside img');
+    //         if(file?.mimetype.split('/')[0]=='image' )
+    //         {
+    //             console.log('inside img');
                 
-                images.push('http://localhost:4000/products/'+file.filename)
-            }
-            if(file?.mimetype.split('/')[0]=='video')
-            {
-                video.push('http://localhost:4000/products/'+file.filename)
-            }
-        })
+    //             images.push('http://localhost:4000/products/'+file.filename)
+    //         }
+    //         if(file?.mimetype.split('/')[0]=='video')
+    //         {
+    //             video.push('http://localhost:4000/products/'+file.filename)
+    //         }
+    //     })
+    let images=[];
+    let videos=[];
+    if(data.del){
+        let arr=data.del.split()
+        console.log('inside del',arr);
+        arr.forEach(element => {
+            console.log('sss',products[index].media?.splice(element,1));
+            
+            products[index].media
+        });
+        
+    }
+
+    files?.map((file,index)=>{
+        console.log('inside map' ,file);
+        
+        if(file?.mimetype.split('/')[0]=='image' )
+        {
+            console.log('inside img');
+            
+            images.push({image:`http://localhost:4000/products/${file.filename}`})
+        }
+        if(file?.mimetype.split('/')[0]=='video')
+        {
+            videos.push({video:`http://localhost:4000/products/${file.filename}`})
+        }
+    })
+    console.log('images',images);
     
         if(files.length>0){
-            products[index].p_images=images;
-            products[index].p_video=video;
+            products[index].media.push(...images, ...videos);
         }
     
 

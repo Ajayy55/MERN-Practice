@@ -21,11 +21,11 @@ const style = {
   p: 4,
 };
 
-const UploadModal = ({media,setMedia}) => {
-//   const [media, setMedia] = useState([]);
+const UploadModal = () => {
+  const [media, setMedia] = useState([]);
   const [open, setOpen] = useState(true);
 
-  const handleOpen = () => setOpen(true);
+  const handleOpen = () => setOpen(false);
   const handleClose = () => setOpen(false);
 
   const handleMediaChange = (e) => {

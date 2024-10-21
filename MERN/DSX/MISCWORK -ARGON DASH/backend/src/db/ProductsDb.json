@@ -1,16 +1,16 @@
 [
   {
     "product": "alover for skin care",
-    "category": "alovera",
-    "subCategory": "beauty",
+    "category": "Womens Fashion",
+    "subCategory": "Others",
     "sku": "170878790",
     "price": "599",
-    "stock": 0,
+    "stock": "0",
     "weight": "1",
     "desc": "for soft intense skin care ss",
     "discount": "1",
     "createdAt": "10/17/2024, 9:40:55 AM",
-    "updatedAt": "10/17/2024, 5:00:40 PM",
+    "updatedAt": "10/21/2024, 2:10:26 PM",
     "id": "ALOVE-LoamT8lMDhof",
     "p_images": [
       "http://localhost:4000/products/1729138255215-871205202-starbucks-cup-background-png-favpng-HZ7Gj2jtXMsm9K8WsSiVQzWa6.jpg",
@@ -22,8 +22,8 @@
   },
   {
     "product": "Red tape ultra",
-    "category": "Mens",
-    "subCategory": "shoes",
+    "category": "Mens Fashion",
+    "subCategory": "Shoes",
     "sku": "170878790",
     "price": "1599",
     "stock": "15",
@@ -31,7 +31,7 @@
     "desc": "light weight",
     "discount": "1",
     "createdAt": "10/17/2024, 9:42:46 AM",
-    "updatedAt": "10/17/2024, 9:42:46 AM",
+    "updatedAt": "10/21/2024, 6:17:11 PM",
     "id": "MENS-lKmZr^pVnEZj",
     "p_images": [
       "http://localhost:4000/products/1729138366582-570344227-starbucks-cup-background-png-favpng-HZ7Gj2jtXMsm9K8WsSiVQzWa6.jpg",
@@ -39,20 +39,21 @@
     ],
     "p_video": [
       "http://localhost:4000/products/1729138366583-628994256-car glight.mov"
-    ]
+    ],
+    "del": ""
   },
   {
     "product": "Redmi 16 Pro",
-    "category": "electronics",
+    "category": "Electronics",
     "subCategory": "mobiles",
     "sku": "170878790",
     "price": "15990",
     "stock": "200",
-    "weight": "200gm",
+    "weight": "1",
     "desc": "smart feature 64 mp camera",
     "discount": "1",
     "createdAt": "10/17/2024, 9:43:42 AM",
-    "updatedAt": "10/17/2024, 9:43:42 AM",
+    "updatedAt": "10/21/2024, 2:15:07 PM",
     "id": "ELECT-Uc6qdnmOcRYX",
     "p_images": [
       "http://localhost:4000/products/1729138422195-341087657-starbucks-cup-background-png-favpng-HZ7Gj2jtXMsm9K8WsSiVQzWa6.jpg",
@@ -64,16 +65,16 @@
   },
   {
     "product": "samsung 43 led",
-    "category": "electronics",
-    "subCategory": "Teleivsion",
+    "category": "Electronics",
+    "subCategory": "Televison",
     "sku": "170878790",
     "price": "35990",
     "stock": "200",
-    "weight": "200gm",
+    "weight": "5",
     "desc": "smart feature 64 mp camera",
     "discount": "1",
     "createdAt": "10/17/2024, 9:44:18 AM",
-    "updatedAt": "10/17/2024, 9:44:18 AM",
+    "updatedAt": "10/21/2024, 2:14:45 PM",
     "id": "ELECT-bdnE[VmVlYc`",
     "p_images": [
       "http://localhost:4000/products/1729138458640-743396006-starbucks-cup-background-png-favpng-HZ7Gj2jtXMsm9K8WsSiVQzWa6.jpg",
@@ -164,5 +165,152 @@
     "p_video": [
       "http://localhost:4000/products/1729226709767-486647482-car glight.mov"
     ]
+  },
+  {
+    "product": "iphone 14",
+    "category": "Electronics",
+    "subCategory": "Cloths",
+    "price": "620000",
+    "stock": "1",
+    "sku": "1",
+    "desc": "jhsd",
+    "weight": "1",
+    "discount": "1",
+    "p_images": [],
+    "createdAt": "10/18/2024, 6:28:03 PM",
+    "updatedAt": "10/18/2024, 6:28:03 PM",
+    "id": "ELECT-BI5SEVJWBYM7",
+    "p_video": []
+  },
+  {
+    "product": "assasa",
+    "category": "Electronics",
+    "subCategory": "Cloths",
+    "price": "12121",
+    "stock": "1212",
+    "sku": "1",
+    "desc": "1121",
+    "weight": "1",
+    "discount": "1",
+    "p_images": [],
+    "createdAt": "10/21/2024, 10:42:25 AM",
+    "updatedAt": "10/21/2024, 10:42:25 AM",
+    "id": "ELECT-OH7QPDNLG0SV",
+    "p_video": []
+  },
+  {
+    "product": "shirt",
+    "category": "Mens Fashion",
+    "subCategory": "mobiles",
+    "price": "300",
+    "stock": "1",
+    "sku": "1",
+    "desc": "sdsd",
+    "weight": "1",
+    "discount": "1",
+    "p_images": [
+      "http://localhost:4000/products/1729490262118-699645561-iPhone_15_Pro_Max_Natural_Titanium_PDP_Image_Position-1__WWEN.jpg",
+      "http://localhost:4000/products/1729490262119-180796891-png-transparent-coffee-bean-schwarzmahler-espresso-commodity-granos-de-cafe-coffee-black-drinking.png",
+      "http://localhost:4000/products/1729490262121-292992930-starbucks-cup-background-png-favpng-HZ7Gj2jtXMsm9K8WsSiVQzWa6.jpg",
+      "http://localhost:4000/products/1729490262121-636388276-wp3315252-shri-krishna-hd-wallpaper.jpg"
+    ],
+    "createdAt": "10/21/2024, 11:27:42 AM",
+    "updatedAt": "10/21/2024, 11:27:42 AM",
+    "id": "MENS -NK2T7B3GO4FM",
+    "p_video": [
+      "http://localhost:4000/products/1729490262099-639426999-car glight.mov"
+    ]
+  },
+  {
+    "product": "a",
+    "category": "Mens Fashion",
+    "subCategory": "mobiles",
+    "price": "1",
+    "stock": "1",
+    "sku": "1",
+    "desc": "1",
+    "weight": "1",
+    "discount": "1",
+    "p_images": [
+      "http://localhost:4000/products/1729490740418-19852968-iPhone_15_Pro_Max_Natural_Titanium_PDP_Image_Position-1__WWEN.jpg"
+    ],
+    "createdAt": "10/21/2024, 11:35:40 AM",
+    "updatedAt": "10/21/2024, 11:35:40 AM",
+    "id": "MENS -H8OST22RM7U4",
+    "p_video": []
+  },
+  {
+    "product": "a",
+    "category": "Mens Fashion",
+    "subCategory": "mobiles",
+    "price": "1",
+    "stock": "1",
+    "sku": "1",
+    "desc": "1",
+    "weight": "1",
+    "discount": "1",
+    "p_images": [
+      "http://localhost:4000/products/1729490957091-237185804-starbucks-cup-background-png-favpng-HZ7Gj2jtXMsm9K8WsSiVQzWa6.jpg",
+      "http://localhost:4000/products/1729490957092-1232070-iPhone_15_Pro_Max_Natural_Titanium_PDP_Image_Position-1__WWEN.jpg"
+    ],
+    "createdAt": "10/21/2024, 11:39:17 AM",
+    "updatedAt": "10/21/2024, 11:39:17 AM",
+    "id": "MENS -MYVQQJ7XIB7T",
+    "p_video": [
+      "http://localhost:4000/products/1729490957094-267678913-car glight.mov"
+    ]
+  },
+  {
+    "product": "a",
+    "category": "Womens Fashion",
+    "subCategory": "mobiles",
+    "price": "1",
+    "stock": "1",
+    "sku": "1",
+    "desc": "1",
+    "weight": "1",
+    "discount": "1",
+    "p_images": "",
+    "createdAt": "10/21/2024, 11:52:29 AM",
+    "updatedAt": "10/21/2024, 2:12:24 PM",
+    "id": "MENS -P668VW7L1XUX",
+    "media": [
+      {
+        "image": "http://localhost:4000/products/1729491749669-439397287-starbucks-cup-background-png-favpng-HZ7Gj2jtXMsm9K8WsSiVQzWa6.jpg"
+      },
+      {
+        "image": "http://localhost:4000/products/1729491749670-593184121-iPhone_15_Pro_Max_Natural_Titanium_PDP_Image_Position-1__WWEN.jpg"
+      },
+      {
+        "video": "http://localhost:4000/products/1729491749672-567819770-car glight.mov"
+      }
+    ]
+  },
+  {
+    "product": "nike shoe",
+    "category": "Mens Fashion",
+    "subCategory": "Others",
+    "price": "2199",
+    "stock": "100",
+    "sku": "1",
+    "desc": "comfortable shoe",
+    "weight": "1",
+    "discount": "1",
+    "p_images": "",
+    "createdAt": "10/21/2024, 11:55:10 AM",
+    "updatedAt": "10/21/2024, 6:19:14 PM",
+    "id": "MENS -R9CI9GL7S2BA",
+    "media": [
+      {
+        "image": "http://localhost:4000/products/1729491910478-722549411-starbucks-cup-background-png-favpng-HZ7Gj2jtXMsm9K8WsSiVQzWa6.jpg"
+      },
+      {
+        "video": "http://localhost:4000/products/1729491910449-460093837-car glight.mov"
+      },
+      {
+        "image": "http://localhost:4000/products/1729511511386-640457280-102711697_1713941465412002_5501018774060929278_n.jpg"
+      }
+    ],
+    "del": "3,2"
   }
 ]

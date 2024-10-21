@@ -9,7 +9,9 @@ import axios from "axios";
 import { PORT } from "../../PORT/PORT";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import UploadModal from "../../utils/UploadModal";
+import { FaEye } from "react-icons/fa";
+import { IoCaretBackSharp } from "react-icons/io5";
+
 import {
   Button,
   Modal,
@@ -47,37 +49,39 @@ const initialValues = {
 
 function AddProducts() {
   const [media, setMedia] = useState([]);
-  const [open, setOpen] = useState(true);
-
+  const [open, setOpen] = useState(false);
+  const [previewFiles, setpreviewFiles] = useState([]);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   const handleMediaChange = (e) => {
-    const files = Array.from(e.target.files).map((file) => ({
+    const files = Array.from(e.target.files);
+    setMedia((prevMedia) => prevMedia.concat(files));
+
+    const Pfiles = Array.from(e.target.files).map((file) => ({
       url: URL.createObjectURL(file),
       type: file.type,
     }));
-    setMedia((prevMedia) => prevMedia.concat(files));
+    setpreviewFiles((prevMedia) => prevMedia.concat(Pfiles));
     e.target.value = ""; // Reset input
   };
 
   const handleRemoveMedia = (index) => {
+    setpreviewFiles((prevMedia) => prevMedia.filter((_, i) => i !== index));
     setMedia((prevMedia) => prevMedia.filter((_, i) => i !== index));
   };
 
   const navigate = useNavigate();
-  const [files, setFiles] = useState([]);
+
   const { values, errors, handleBlur, touched, handleChange, handleSubmit } =
     useFormik({
       initialValues: initialValues,
       // validationSchema:SignUpSchema,
       onSubmit: async (values) => {
         try {
-          console.log(values);
-          console.log("fdfdfdfd", files);
           const formData = new FormData();
 
-          files.forEach((files) => {
+          media.forEach((files) => {
             formData.append("files", files);
           });
 
@@ -113,8 +117,21 @@ function AddProducts() {
           <div className="row">
             <div className="col-xl-10 col-lg-8 col-md-7 mx-auto">
               <div className="card z-index-0">
-                <div className="card-header text-center pt-4">
-                  <h5>Add product</h5>
+                <div
+                  className="card-header text-center pt-4 align-middle"
+                  style={{ display: "flex" }}
+                >
+                  <button
+                    onClick={() => {
+                      navigate("/products");
+                    }}
+                    className="btn btn-primary"
+                    style={{ display: "flex", alignItems: "center" }}
+                  >
+                    <IoCaretBackSharp />
+                    Back
+                  </button>
+                  <h5 style={{ marginLeft: "35%" }}>Add product</h5>
                 </div>
                 <div className="card-body">
                   <form onSubmit={handleSubmit}>
@@ -326,37 +343,42 @@ function AddProducts() {
                         maxLength={140}
                       />
                     </div>
-                    <div className="mb-3">
+
+                    <div
+                      className="mb-3"
+                      style={{
+                        alignContent: "center",
+                        display: "flex",
+                      }}
+                    >
                       <input
                         type="file"
                         className="form-control"
                         aria-label="files"
                         name="files"
-                        value={values.password1}
                         onChange={handleMediaChange}
-                        // onChange={(e) => {
-                        //   const files = Array.from(e.target.files);
-                        //   setFiles(files);
-                        //   console.log("wwww", files);
-                        // }}
                         multiple
                       />
+                      <span
+                        variant="outlined"
+                        onClick={handleOpen}
+                        style={{
+                          alignContent: "center",
+                          marginLeft: "-30px",
+                        }}
+                      >
+                        <FaEye />
+                      </span>
                     </div>
 
                     <Modal open={open} onClose={handleClose}>
                       <Box sx={style}>
                         <Typography variant="h6" component="h2" gutterBottom>
-                          Upload and View Media
+                          Uploaded Media
                         </Typography>
-                        {/* <input
-                          type="file"
-                          accept="image/*,video/*"
-                          multiple
-                          onChange={handleMediaChange}
-                          style={{ marginBottom: "16px" }}
-                        /> */}
+
                         <Grid container spacing={2}>
-                          {media.map((item, index) => (
+                          {previewFiles.map((item, index) => (
                             <Grid item xs={4} key={index}>
                               <Box position="relative">
                                 {item.type.startsWith("image/") ? (
@@ -364,7 +386,8 @@ function AddProducts() {
                                     src={item.url}
                                     alt={`Uploaded ${index + 1}`}
                                     style={{
-                                      width: "100%",
+                                      width: "100px",
+                                      height:"150px",
                                       borderRadius: "8px",
                                     }}
                                   />
@@ -382,8 +405,9 @@ function AddProducts() {
                                   onClick={() => handleRemoveMedia(index)}
                                   style={{
                                     position: "absolute",
-                                    top: 0,
-                                    right: 0,
+                                    top: -25,
+                                    left: -20,
+                                    margin: 0,
                                     color: "red",
                                   }}
                                 >

@@ -42,7 +42,7 @@ function SideNav() {
             <span className="nav-link-text ms-1">Products</span>
           </Link>
         </li>
-        <li className="nav-item">
+        {/* <li className="nav-item">
           <a className="nav-link " href="./pages/virtual-reality.html">
             <div className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i className="ni ni-app text-info text-sm opacity-10"></i>
@@ -57,7 +57,7 @@ function SideNav() {
             </div>
             <span className="nav-link-text ms-1">RTL</span>
           </a>
-        </li>
+        </li> */}
 
         <li className="nav-item mt-3">
           <h6 className="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>

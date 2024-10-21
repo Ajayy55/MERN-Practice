@@ -40,6 +40,7 @@ const removeItem=async()=>{
     handleError('Something went wrong while removing product')
   }
 }
+
 const handleRemove=async()=>{
   try {
 
@@ -76,11 +77,15 @@ const handleRemove=async()=>{
                   <td>
                     <div className="d-flex px-2 py-1">
                       <div>
-                        <img
+                      { data?.media ?(<img src={data?.media[0]?.image} className="avatar avatar-sm me-3" />)
+                      :
+                      ( <img
                           src={data?.p_images[0]}
                           className="avatar avatar-sm me-3"
                           alt="user1"
-                        />
+                        />)}
+
+                       
                       </div>
                       <div className="d-flex flex-column justify-content-center">
                         <h6 className="mb-0 text-sm">{data?.product}</h6>

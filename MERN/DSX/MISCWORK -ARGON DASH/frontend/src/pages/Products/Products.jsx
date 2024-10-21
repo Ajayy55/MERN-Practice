@@ -71,8 +71,8 @@ const Products = () => {
                   <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                   Price
                   </th>
-                  <th className="text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7 ps-2">
-                  Action
+                  <th className="text-uppercase text-secondary text-LEFT text-xxs font-weight-bolder opacity-7 ps-2">
+                  Action's
                   </th>                 
                   <th className="text-secondary opacity-7" />
                 </tr>
@@ -93,6 +93,7 @@ const Products = () => {
     </div>
   </div>
   </div>
+ 
     </Layout>
     </>
 
