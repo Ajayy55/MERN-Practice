@@ -39,7 +39,67 @@ function Profile() {
         <div className="card shadow-lg mx-4 card-profile-bottom">
           <div className="card-body p-3">
             <div className="row gx-4">
-              <div className="col-auto">
+              
+            <div className="col-auto">
+  <div className="avatar avatar-xl position-relative">
+    {data?.profile ? (
+      <img
+        src={data?.profile}
+        alt="profile_image"
+        className="w-100 border-radius-lg shadow-sm"
+      />
+    ) : (
+      <img
+        src="https://avatar.iran.liara.run/public/boy?username=Ash"
+        alt="profile_image"
+        className="w-100 border-radius-lg shadow-sm"
+      />
+    )}
+    
+    {/* Add Image Icon */}
+    <span className="add_icon" onClick={handleOpen}>
+      <i className="ni ni-fat-add grid-58 text-warning text-lg opacity-10" />
+    </span>
+  </div>
+
+  {/* Modal for Image Upload */}
+  <ImageUploadModal
+    open={open}
+    handleClose={handleClose}
+    uid={data?.id}
+  />
+
+  <style jsx>{`
+    .avatar {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .add_icon {
+      border:1px;
+      border-radius:100%;
+      background-color:#fff;
+      position: absolute;
+      bottom: -10px; // Position below the profile image
+      right: 0; // Align to the right
+      background-color: white; // Background color for better visibility
+      border-radius: 50%; // Circular background
+      padding: 5px; // Padding around the icon
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); // Subtle shadow for depth
+      cursor: pointer; // Pointer cursor for interactivity
+      transition: transform 0.3s; // Animation for hover effect
+    }
+
+    .add_icon:hover {
+      transform: scale(1.1); // Scale effect on hover
+    }
+  `}</style>
+</div>
+
+              {/* <div className="col-auto">
                 <div className="avatar avatar-xl position-relative">
                { data?.profile ? <img
                     // src="../assets/img/team-1.jpg"
@@ -56,17 +116,12 @@ function Profile() {
                }  
                   
                 </div>
-                  
-                {/* <span>
-                <input type="file" ref={inputRef}/>
-
-                </span> */}
                 <span className="add_icon" onClick={handleOpen}><i className="ni ni-fat-add grid-58 text-warning text-lg  opacity-10"/><ImageUploadModal
                       open={open}
                       handleClose={handleClose}
                       uid={data?.id}
                     /></span>
-              </div>
+              </div> */}
               <div className="col-auto my-auto">
                 <div className="h-100">
                   <h5 className="mb-0 text-capitalize">{data?.username}</h5>

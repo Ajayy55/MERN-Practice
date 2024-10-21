@@ -372,6 +372,85 @@ function AddProducts() {
                     </div>
 
                     <Modal open={open} onClose={handleClose}>
+                      <Box
+                        sx={{
+                          bgcolor: "white",
+                          borderRadius: "10px",
+                          boxShadow: 24,
+                          padding: 2,
+                          maxWidth: "800px",
+                          margin: "auto",
+                          maxHeight: "80vh", // Set a max height for the modal
+                          overflowY: "auto", // Enable vertical scrolling
+                        }}
+                      >
+                        <Typography variant="h6" component="h2" gutterBottom>
+                          Uploaded Media
+                        </Typography>
+
+                        <Grid container spacing={2}>
+                          {previewFiles.map((item, index) => (
+                            <Grid item xs={4} key={index}>
+                              <Box
+                                position="relative"
+                                sx={{
+                                  borderRadius: "10px",
+                                  overflow: "hidden",
+                                  boxShadow: 2,
+                                  "&:hover": {
+                                    transform: "scale(1.02)",
+                                    transition: "transform 0.3s",
+                                  },
+                                }}
+                              >
+                                {item.type.startsWith("image/") ? (
+                                  <img
+                                    src={item.url}
+                                    alt={`Uploaded ${index + 1}`}
+                                    style={{
+                                      width: "100%",
+                                      height: "auto", // Maintain aspect ratio
+                                      borderRadius: "10px",
+                                    }}
+                                  />
+                                ) : (
+                                  <video
+                                    src={item.url}
+                                    controls
+                                    style={{
+                                      width: "100%",
+                                      height: "150px",
+                                      borderRadius: "10px",
+                                    }}
+                                  />
+                                )}
+                                <IconButton
+                                  onClick={() => handleRemoveMedia(index)}
+                                  aria-label={`Remove ${
+                                    item.type.startsWith("image/")
+                                      ? "image"
+                                      : "video"
+                                  } ${index + 1}`}
+                                  sx={{
+                                    position: "absolute",
+                                    top: 8,
+                                    right: 8,
+                                    margin: 0,
+                                    color: "white",
+                                    bgcolor: "red",
+                                    "&:hover": { bgcolor: "darkred" },
+                                  }}
+                                >
+                                  <CloseIcon />
+                                </IconButton>
+                              </Box>
+                            </Grid>
+                          ))}
+                        </Grid>
+                      </Box>
+                    </Modal>
+
+                    {/* <Modal open={open} onClose={handleClose}>
                       <Box sx={style}>
                         <Typography variant="h6" component="h2" gutterBottom>
                           Uploaded Media
@@ -418,7 +497,7 @@ function AddProducts() {
                           ))}
                         </Grid>
                       </Box>
-                    </Modal>
+                    </Modal> */}
 
                     <div className="text-center">
                       <button

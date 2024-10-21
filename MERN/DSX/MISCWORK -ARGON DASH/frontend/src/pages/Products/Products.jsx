@@ -43,8 +43,8 @@ const Products = () => {
       <div className="card mb-4">
         <div className="card-header pb-0" style={{ display: 'flex', justifyContent: 'space-between' }}>
         <span> Products View  
-          <span className='mx-2  text-bold shadow ' onClick={()=>{!grid ? setGrid(true) : setGrid(false)}}>{grid? <IoGrid className='align-middle mb-1  '/> : <FaThList className='align-middle mb-1 ' />}
-          </span></span>
+          <Link className='mx-2  text-bold shadow view-toggle' onClick={()=>{!grid ? setGrid(true) : setGrid(false)}}>{grid? <IoGrid className='align-middle mb-1  '/> : <FaThList className='align-middle mb-1 ' />}
+          </Link></span>
           <Link to='/addProduct' className='btn btn-primary'>Add Product +</Link>
         </div>
         <div className="card-body px-0 pt-0 pb-2">

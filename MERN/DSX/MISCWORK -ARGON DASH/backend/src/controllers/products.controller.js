@@ -159,11 +159,10 @@ const editProduct=async(req,res)=>{
     let images=[];
     let videos=[];
     if(data.del){
-        let arr=data.del.split()
+        let arr=data.del.split(',').map(Number).sort(function(a, b){return b - a}).reverse()
         console.log('inside del',arr);
         arr.forEach(element => {
             console.log('sss',products[index].media?.splice(element,1));
-            
             products[index].media
         });
         

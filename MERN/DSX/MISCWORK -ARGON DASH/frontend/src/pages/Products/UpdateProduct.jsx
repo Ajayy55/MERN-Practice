@@ -17,7 +17,8 @@ import {
   IconButton,
   Typography,
   Grid,
-} from "@mui/material";
+  Divider
+} from "@mui/material";   
 import CloseIcon from "@mui/icons-material/Close";
 
 const style = {
@@ -66,11 +67,10 @@ function UpdateProduct() {
 
   const singleProduct = useSelector((state) => state.allProducts.data);
 
-
   useEffect(() => {
     if (singleProduct) {
       setData(singleProduct); // Update state with fetched product
-      console.log('si', singleProduct);
+      console.log('Fetched product:', singleProduct);
       
       const Pfiles = singleProduct.media?.map((file) => {
         if (file.image) {
@@ -81,13 +81,17 @@ function UpdateProduct() {
         } else if (file.video) {
           return {
             url: file.video,
-            type: 'video/jpeg', // Corrected typo from 'vidoe/jpeg' to 'video/jpeg'
+            type: 'video/jpeg', // Ensure the type is correct
           };
         }
-         // Return null for entries that don't match
-      }).filter(file => file !== null || file !== undefined ); // Filter out any null entries
-      
-      setpreviewFiles((prevMedia) => prevMedia.concat(Pfiles));
+        return null; // Return null for entries that don't match
+      }).filter(file => file !== null); // Filter out any null entries
+      console.log('Processed media files:', Pfiles);
+      if(Pfiles)
+      {
+        setpreviewFiles((prevMedia) => Pfiles); // Use spread operator for cleaner concat
+      }
+     
     }
   }, [singleProduct]);
   
@@ -418,106 +422,144 @@ console.log('ppp',previewFiles);
                         <FaEye />
                       </span>
                     </div>
-
                     <Modal open={open} onClose={handleClose}>
-                    <Box sx={style}>
-                    <Typography variant="h6" component="h2" gutterBottom>
-                          Uploaded Media
-                        </Typography>
+  <Box 
+    sx={{ 
+      bgcolor: 'white', 
+      borderRadius: '10px', 
+      boxShadow: 24, 
+      padding: 3, 
+      maxWidth: '800px', 
+      margin: 'auto', 
+      maxHeight: '80vh', 
+      overflowY: 'auto' 
+    }}
+  >
+    <Grid container spacing={2}>
+      {previewFiles.length > 0 ? (
+        previewFiles.map((item, index) => (
+          <Grid item xs={4} key={index}>
+            <Box 
+              position="relative" 
+              sx={{ 
+                borderRadius: '10px', 
+                overflow: 'hidden', 
+                boxShadow: 2, 
+                transition: 'transform 0.3s',
+                '&:hover': { transform: 'scale(1.05)' }
+              }}
+            >
+              {item?.type?.startsWith("image/") ? (
+                <img
+                  src={item?.url}
+                  alt={`Uploaded ${index + 1}`}
+                  style={{
+                    width: "100%",
+                    height: "150px", 
+                    objectFit: "cover", 
+                    borderRadius: "8px"
+                  }}
+                />
+              ) : (
+                <video
+                  src={item?.url}
+                  controls
+                  style={{
+                    width: "100%",
+                    height: "150px", 
+                    borderRadius: "8px",
+                  }}
+                />
+              )}
+              <IconButton
+                onClick={() => handleRemoveMedia(index)}
+                aria-label={`Remove ${item?.type?.startsWith("image/") ? "image" : "video"} ${index + 1}`}
+                sx={{
+                  position: "absolute",
+                  top: 8,
+                  right: 8,
+                  margin: 0,
+                  color: "white",
+                  bgcolor: "red",
+                  '&:hover': { bgcolor: 'darkred' },
+                }}
+              >
+                <CloseIcon />
+              </IconButton>
+            </Box>
+          </Grid>
+        ))
+      ) : (
+        <Grid item xs={12}>
+          <Typography variant="body1" color="gray">No uploaded media.</Typography>
+        </Grid>
+      )}
+    </Grid>
 
-                        <Grid container spacing={2}>
-                          {previewFiles.length>0 ? previewFiles?.map((item, index) => (
-                            <Grid item xs={4} key={index}>
-                              <Box position="relative">
-                                {item?.type?.startsWith("image/") ? (
-                                  <img
-                                    src={item?.url}
-                                    alt={`Uploaded ${index + 1}`}
-                                    style={{
-                                      width: "100px",
-                                      height:"150px",
-                                      borderRadius: "8px",
-                                    }}
-                                  />
-                                ) : (
-                                  <video
-                                    src={item?.url}
-                                    controls
-                                    style={{
-                                      width: "100%",
-                                      borderRadius: "8px",
-                                    }}
-                                  />
-                                )}
-                                <IconButton
-                                  onClick={() => handleRemoveMedia(index)}
-                                  style={{
-                                    position: "absolute",
-                                    top: -25,
-                                    left: -20,
-                                    margin: 0,
-                                    color: "red",
-                                  }}
-                                >
-                                  <CloseIcon />
-                                </IconButton>
-                              </Box>
-                            </Grid>
-                          )):""
-                          
-                          }
-                        </Grid>
-                        <Typography variant="h6" component="h2" gutterBottom>
-                          New uploads
-                       </Typography>
+    <Divider sx={{ my: 3 }} />
 
-                        <Grid container spacing={2}>
-                          {previeNewFiles.length>0 ?previeNewFiles.map((item, index) => (
-                            <Grid item xs={4} key={index}>
-                              <Box position="relative">
-                                {item?.type?.startsWith("image/") ? (
-                                  <img
-                                    src={item?.url}
-                                    alt={`Uploaded ${index + 1}`}
-                                    style={{
-                                      width: "100px",
-                                      height:"150px",
-                                      borderRadius: "8px",
-                                    }}
-                                  />
-                                ) : (
-                                  <video
-                                    src={item?.url}
-                                    controls
-                                    style={{
-                                      width: "100%",
-                                      borderRadius: "8px",
-                                    }}
-                                  />
-                                )}
-                                <IconButton
-                                  onClick={() => handleRemoveMediaNew(index)}
-                                  style={{
-                                    position: "absolute",
-                                    top: -25,
-                                    left: -20,
-                                    margin: 0,
-                                    color: "red",
-                                  }}
-                                >
-                                  <CloseIcon />
-                                </IconButton>
-                              </Box>
-                            </Grid>
-                          )):""
-                          
-                          }
-                        </Grid>
-
-                      </Box>
-                    </Modal>
-
-                        {/*  */}
+    <Grid container spacing={2}>
+      {previeNewFiles.length > 0 ? (
+        previeNewFiles.map((item, index) => (
+          <Grid item xs={4} key={index}>
+            <Box 
+              position="relative" 
+              sx={{ 
+                borderRadius: '10px', 
+                overflow: 'hidden', 
+                boxShadow: 2, 
+                transition: 'transform 0.3s',
+                '&:hover': { transform: 'scale(1.05)' }
+              }}
+            >
+              {item?.type?.startsWith("image/") ? (
+                <img
+                  src={item?.url}
+                  alt={`New upload ${index + 1}`}
+                  style={{
+                    width: "100%",
+                    height: "150px", 
+                    objectFit: "cover", 
+                    borderRadius: "8px"
+                  }}
+                />
+              ) : (
+                <video
+                  src={item?.url}
+                  controls
+                  style={{
+                    width: "100%",
+                    height: "150px", 
+                    borderRadius: "8px",
+                  }}
+                />
+              )}
+              <IconButton
+                onClick={() => handleRemoveMediaNew(index)}
+                aria-label={`Remove new ${item?.type?.startsWith("image/") ? "image" : "video"} ${index + 1}`}
+                sx={{
+                  position: "absolute",
+                  top: 8,
+                  right: 8,
+                  margin: 0,
+                  color: "white",
+                  bgcolor: "red",
+                  '&:hover': { bgcolor: 'darkred' },
+                }}
+              >
+                <CloseIcon />
+              </IconButton>
+            </Box>
+          </Grid>
+        ))
+      ) : (
+        <Grid item xs={12}>
+          <Typography variant="body1" color="gray">No new uploads.</Typography>
+        </Grid>
+      )}
+    </Grid>
+  </Box>
+</Modal>
 
                     <div className="text-center">
                       <button
