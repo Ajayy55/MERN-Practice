@@ -1,0 +1,72 @@
+.list-view-society-user {
+    /* margin-top: 1rem; */
+  }
+  .list-view-house-user {
+    overflow-y: auto;
+    height: auto;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+  }
+  
+  .user-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .user-table th,
+  .user-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+  }
+  .user-table th {
+    background-color: rgb(247, 247, 247);
+    color: #555;
+  }
+  
+  .user-table tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  h2 {
+    text-align: center;
+    color: #333;
+  }
+  .list-view-house-user-heading {
+    width: 100%;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    height: 50px;
+    background-color: #5e72e4;
+    color: white;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    padding-left: 12px;
+    font-weight: 700;
+    justify-content: space-between;
+    font-family: "Montserrat", sans-serif;
+  }
+  .rwa-user-list-pagination-main-div {
+    border: none !important;
+    border: 1px solid black;
+  }
+  .rwa-user-list-pagination-inner-div {
+    position: fixed;
+  }
+  .rwa-user-list-search-bar {
+    width: 20%;
+    max-width: 400px;
+    font-family: "Montserrat", sans-serif;
+  
+    background-color: #5e72e4;
+    color: white;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    border-radius: 0;
+    outline: none;
+  }
+  .rwa-user-list-search-bar::placeholder {
+    color: white;
+  }
+  

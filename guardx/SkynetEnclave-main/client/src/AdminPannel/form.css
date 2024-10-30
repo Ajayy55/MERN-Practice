@@ -1,0 +1,674 @@
+.editLabel {
+  font-size: 22px;
+
+  font-weight: 520;
+}
+.editLabel1 {
+  font-size: 22px;
+
+  font-weight: 520;
+  margin-bottom: 10px;
+}
+.editLabel-regular-modal-images {
+  font-size: 22px;
+  padding-left: -1.4rem;
+  font-weight: 520;
+}
+.add {
+  border: none;
+}
+
+.edit-input {
+  height: 40px;
+  width: 350px !important;
+  border: 1px solid rgba(238, 180, 190, 0.713);
+  padding: 5px;
+  font-size: 20px;
+  border-radius: 5px;
+}
+
+.radio_input {
+  margin: 5px;
+  margin-top: 15px;
+}
+
+.edit-input_select {
+  height: 40px;
+  width: 350px;
+  border: 1px solid rgba(255, 81, 110, 0.713);
+  padding: 5px;
+  font-size: 20px;
+  border-radius: 5px;
+}
+
+.edit-button {
+  height: 40px;
+  width: 90%;
+  margin-top: 20px;
+  background-color: #e11d48;
+  color: #fff;
+  font-size: 22px;
+  border: none;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid black;
+}
+
+.edit-btn,
+.dlt-btn {
+  /* height: 30px; */
+  width: max-content;
+  border-radius: 5px;
+  color: #e11d48;
+  background-color: transparent;
+  font-size: 28px;
+  border: none;
+  padding: 5px;
+}
+
+.edit-btn:hover,
+.dlt-btn:hover {
+  cursor: pointer;
+}
+
+.add-details {
+  height: 40px;
+  background-color: #e11d48;
+  color: #fff;
+  font-size: 20px;
+  border: none;
+  border-radius: 5px;
+}
+
+.edit-btn,
+.dlt-btn {
+  /* height: 30px; */
+  width: max-content;
+  border-radius: 5px;
+  color: #e11d48;
+  background-color: transparent;
+  font-size: 28px;
+  border: none;
+  padding: 5px;
+}
+
+.add_btn {
+  height: 30px;
+  width: 200px;
+  background-color: #e11d48;
+  color: #fff;
+  font-size: 17px;
+  border: none;
+  border-radius: 5px;
+}
+
+button {
+  border: none;
+}
+
+.swal2-title {
+  z-index: 999999999999 !important;
+}
+
+.MuiBox-root {
+  z-index: 1;
+}
+
+.my-swal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 300000;
+}
+
+.edit-input {
+  margin: 0.8rem 0px 6px 0px;
+}
+
+.hrline {
+  width: 100%;
+}
+
+.heading_top {
+  font-weight: 600;
+  color: #e11d48;
+}
+
+.errors {
+  color: red;
+  font-size: 13px;
+}
+
+.errorss_entry {
+  color: red;
+  font-size: 13px;
+  padding-left: 3px;
+}
+
+.check_entry_div {
+  display: flex;
+  justify-content: center;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.check_entry_div input {
+  width: 20px;
+  height: 20px;
+}
+
+.check_entry_div label {
+  margin: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.dropdown {
+  text-transform: capitalize;
+}
+
+.paper {
+  text-transform: capitalize;
+}
+
+.MuiButtonBase-root {
+  background-color: #e11d48;
+}
+
+.paper {
+  width: 12rem;
+}
+
+.menulist {
+  border: 1px solid black !important;
+}
+
+.add_regular {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 1rem;
+}
+
+.heading_houseMaid {
+  width: 100%;
+}
+
+.heading_houseMaid h3 {
+  display: flex;
+  justify-content: flex-end;
+  width: 90%;
+}
+
+.heading_houseMaid h2 {
+  text-align: center;
+}
+
+.add {
+  width: 100%;
+  display: flex;
+  justify-content: right;
+  padding-right: 68px;
+  position: relative;
+}
+
+.head {
+  margin: 20px auto;
+  text-align: center;
+}
+
+.head h1 {
+  letter-spacing: 2px;
+}
+
+.add-btn {
+  position: absolute;
+  top: 1.2rem;
+  right: 2rem;
+  height: 40px;
+  width: 170px;
+  background-color: #e11d48;
+  color: #fff;
+  font-size: 17px;
+  border: none;
+  border-radius: 5px;
+}
+
+.modal_dropdown_housemaid {
+  min-height: 200px;
+  width: 100%;
+}
+
+.house_maid_form input {
+  width: 100%;
+}
+
+.house_maid_form {
+  display: flex;
+  flex-wrap: wrap;
+
+  width: 100%;
+
+  margin-left: auto;
+}
+
+.house_maid_form1 {
+  display: flex;
+  flex-wrap: wrap;
+
+  width: 100%;
+  align-items: center;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-left: auto;
+  padding: 50px;
+}
+
+.house_maid_form1 label,
+.house_maid_form1 input {
+  padding: 10px 2px;
+}
+
+.label_input_radio {
+  display: flex;
+  cursor: pointer;
+  padding-left: 8px;
+}
+
+.house_maid_gender input[type="radio"]#genderFemale {
+  accent-color: #e11d48;
+  cursor: pointer;
+}
+
+.house_maid_gender input[type="radio"]#genderMale {
+  accent-color: #e11d48;
+  cursor: pointer;
+}
+
+.webcam-style {
+  width: 20%;
+  height: 20%;
+}
+
+.error {
+  font-size: 12px;
+  color: red;
+}
+
+.add_btn_purpose {
+  height: 30px;
+  width: 150px;
+  background-color: #e11d48;
+  color: #fff;
+  font-size: 17px;
+  border: none;
+  border-radius: 5px;
+}
+
+.male_radio {
+  display: flex;
+}
+
+.female_radio {
+  display: flex;
+}
+
+.error_gender {
+  color: red;
+  margin-left: 6rem;
+  font-size: 14px;
+}
+
+#genderFemale {
+  width: 6%;
+  margin: 2px;
+  
+}
+
+#genderMale {
+  width: 6%;
+  margin: 2px;
+}
+
+.button_cross {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  /* position: relative; */
+}
+
+.button_cross1 {
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+  border: 1px solid black;
+  /* top: -79px; */
+  /* left: 57px; */
+}
+
+.btn_cross_div_add_entry {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.cross_icon {
+  font-size: 2rem;
+  width: 100%;
+  border: 1px solid rgb(219, 211, 211) !important;
+  display: flex;
+  justify-content: flex-end;
+  border-radius: 5px;
+  color: black;
+}
+
+.button_cross4 {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+  top: -27px;
+  left: 28px;
+}
+
+.cross_icon4 {
+  font-size: 2rem;
+  width: 100%;
+  border: 1px solid rgb(219, 211, 211) !important;
+  display: flex;
+  justify-content: flex-end;
+  border-radius: 5px;
+}
+
+.css-8g3mac {
+  padding: 20px !important;
+}
+
+.export_btn_house {
+  padding: 5px;
+  background-color: #5e72e4;
+  border-radius: 5px;
+  color: white;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+
+  color: #e11d48;
+}
+
+.button_cross2 {
+  position: relative;
+  top: -26px;
+  left: 27px;
+}
+
+.button_crossmaid {
+  position: relative;
+  top: -26px;
+  left: 27px;
+}
+
+.error-house {
+  color: red;
+}
+
+.entry_type_div_radio {
+  margin-top: 8px;
+}
+
+.entry_type_radio {
+  margin-left: -6px;
+  margin-bottom: 5px;
+}
+.entry_type_radio label {
+  cursor: pointer;
+}
+
+.entry_type_radio input {
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.btn_cross_edit_entry {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.add-button-housedetails {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 1.2rem;
+  right: 0rem;
+  height: 40px;
+  width: 170px;
+  background-color: #5e72e4;
+  color: #fff;
+  font-size: 17px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.edit-form-container {
+  display: flex;
+  background-color: white;
+  border: 1px solid rgb(224, 218, 218);
+  width: 75%;
+  margin: 3rem;
+  padding: 1rem;
+  border-radius: 10px;
+
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  margin-bottom: 0.5rem;
+}
+
+.edit_image_view {
+  width: 48%;
+  display: flex;
+  flex-direction: column;
+  border-bottom: 0.5px dotted rgba(0, 0, 0, 0.261);
+  padding: 5px;
+  margin: 10px 0px;
+  border-radius: 10px;
+  /* border: 1px solid black; */
+}
+.edit_image_view-for-optional {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border-bottom: 0.5px dotted rgba(0, 0, 0, 0.261);
+  padding: 5px;
+  margin: 10px 0px;
+  border-radius: 10px;
+}
+.house_maid_gender1 {
+  width: 50%;
+}
+
+.house_maid_gender1 div {
+  margin: 0 auto;
+  width: 80%;
+}
+
+.house_maid_gender1 input[type="radio"]#genderFemale {
+  accent-color: #5e72e4;
+  cursor: pointer !important;
+}
+
+.house_maid_gender1 input[type="radio"]#genderMale {
+  accent-color: #5e72e4;
+  cursor: pointer !important;
+}
+
+.view-regular-images {
+  font-size: 18px;
+  color: #5e72e4;
+}
+
+.view-regular-images:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.add_house_logo {
+  margin-left: 3rem !important;
+}
+
+.add-item-button_entry {
+  width: 130px;
+  cursor: pointer;
+}
+.add-item-button {
+  cursor: pointer;
+}
+
+.add-item-button_entry .add-item-button_entry {
+  width: 100%;
+  display: flex;
+  align-items: center;
+
+  height: 60px;
+  gap: 30px;
+  position: relative;
+  height: 40px;
+  justify-content: center;
+  width: 80%;
+  padding: 5px 8px;
+  background-color: #5e72e4;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+.house_main_div_table {
+  width: 95%;
+}
+
+.edit_entry {
+  border: 1px solid rgb(235, 219, 219);
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.edit_button_div {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  /* border: 1px solid black; */
+}
+.edit_button_div button {
+  width: 80% !important;
+}
+.edit_entry_heading_div {
+  padding: 15px;
+}
+.edit_house_button {
+  /* border: 1px solid black; */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.edit_house_gender {
+  position: relative;
+  right: 180px;
+}
+.add_entry_backbutton {
+  margin-top: 1.5rem;
+}
+.edit_entry_occ_regular {
+  background-color: white;
+}
+.house_icon_field {
+  height: 40px;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: #5e72e4;
+  color: white;
+}
+.entry_placeholder_house {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+  width: 60px;
+  height: 50px;
+  font-size: 1.5rem;
+  color: white;
+}
+.add_entry {
+  background-color: #fff;
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px #0000001a;
+  height: 100%;
+  position: relative;
+  top: 100px;
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  padding: 20px;
+}
+.edit-input {
+  margin: 0.8rem 0 6px;
+  border: 1px solid #5e72e4;
+  border-radius: 5px;
+  font-size: 20px;
+  height: 50px;
+  padding: 5px;
+  width: 90%;
+}
+.edit-button {
+  background-color: #5e72e4;
+  cursor: pointer;
+  font-size: 22px;
+  margin-top: 20px;
+  width: 40%;
+  border: none;
+}
+.main_button_div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.actions button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.actions button[disabled]:hover {
+  opacity: 0.5;
+}
+.add-entry-radio-button {
+  display: flex;
+  align-items: center;
+}
+.edit-house-owner-isRwaMember-radio-div {
+  display: flex;
+  align-items: center;
+}
+.edit-house-owner-isRwaMember {
+  width: 50%;
+  position: relative;
+  left: -125px;
+}
+.edit-house-owner-isRwaMember-radio {
+  display: flex;
+  align-items: center;
+}
+.house-view-icon{color: #5e72e4;;}

@@ -168,6 +168,14 @@ function AddProducts() {
                         required
                         maxLength={40}
                       >
+                         <option
+                          name=""
+                          value=""
+                          onChange={handleChange}
+                          defaultValue
+                        >
+                          -- Select Category --
+                        </option>
                         <option
                           name="electronic"
                           value={"Electronics"}
@@ -223,6 +231,14 @@ function AddProducts() {
                         required
                         maxLength={40}
                       >
+                         <option
+                          name=""
+                          value=""
+                          onChange={handleChange}
+                          defaultValue
+                        >
+                          -- Select Sub Category --
+                        </option>
                         <option name="Cloths" value={"Cloths"} defaultValue>
                           Mobiles
                         </option>
@@ -373,21 +389,17 @@ function AddProducts() {
 
                     <Modal open={open} onClose={handleClose}>
                       <Box
-                        sx={{
-                          bgcolor: "white",
-                          borderRadius: "10px",
-                          boxShadow: 24,
-                          padding: 2,
-                          maxWidth: "800px",
-                          margin: "auto",
-                          maxHeight: "80vh", // Set a max height for the modal
-                          overflowY: "auto", // Enable vertical scrolling
-                        }}
-                      >
-                        <Typography variant="h6" component="h2" gutterBottom>
-                          Uploaded Media
-                        </Typography>
-
+                          sx={{ 
+                            bgcolor: 'white', 
+                            borderRadius: '10px', 
+                            boxShadow: 24, 
+                            padding: 3, 
+                            maxWidth: '800px', 
+                            margin: 'auto', 
+                            maxHeight: '80vh', 
+                            overflowY: 'auto' 
+                          }}
+                        >
                         <Grid container spacing={2}>
                           {previewFiles.map((item, index) => (
                             <Grid item xs={4} key={index}>

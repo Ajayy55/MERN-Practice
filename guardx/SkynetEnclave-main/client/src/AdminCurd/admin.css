@@ -1,0 +1,26 @@
+.main_search_And_add_button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
+}
+
+.admin_notfound_error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.no_data {
+  width: 100%;
+  position: relative;
+  left: 50vh;
+  text-align: center;
+  padding: 1rem;
+}
+.user_import_search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}

@@ -1,0 +1,17 @@
+.list_house_maid {
+    font-size: 2rem;
+}
+
+.export_btn_verify {
+    padding: 5px;
+   background-color: #E11D48;
+   border-radius: 5px;
+   color: white;
+   display: flex;
+   align-items: center;
+   font-weight: 600;
+   font-size: 15px;
+   cursor: pointer;
+  
+}
+/* .user_images_heading{padding-left: 1rem;} */

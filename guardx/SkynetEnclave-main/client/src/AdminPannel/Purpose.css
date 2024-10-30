@@ -1,0 +1,635 @@
+.editLabel {
+  font-size: 22px;
+  font-weight: 520;
+}
+
+.edit-input {
+  height: 50px;
+  width: 90%;
+  border: 1px solid #5e72e4;
+  padding: 5px;
+  font-size: 20px;
+  border-radius: 5px;
+}
+
+.edit-button {
+  height: 40px;
+  width: 40%;
+  margin-top: 20px;
+  background-color: #5e72e4;
+  color: #fff;
+  font-size: 22px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.edit-check-Entry {
+  height: 40px;
+
+  background-color: #e11d48;
+
+  color: #fff;
+  font-size: 20px;
+  border: none;
+  border-radius: 5px;
+}
+
+.edit-btn,
+.dlt-btn {
+  /* height: 30px; */
+  width: max-content;
+  border-radius: 5px;
+  color: #e11d48;
+  background-color: transparent;
+  font-size: 28px;
+  border: none;
+  padding: 5px;
+}
+
+.add_btn {
+  height: 30px;
+  width: 200px;
+  background-color: #e11d48;
+  color: #fff;
+  font-size: 17px;
+  border: none;
+  border-radius: 5px;
+}
+
+button {
+  border: none;
+}
+
+.swal2-title {
+  z-index: 999999999999 !important;
+}
+
+.MuiBox-root {
+  z-index: 1;
+}
+
+.my-swal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 300000;
+}
+
+.edit-input {
+  margin: 0.8rem 0px 6px 0px;
+}
+
+.hrline {
+  border-bottom: 1px solid white;
+  width: 100%;
+}
+
+.heading_top {
+  font-weight: 600;
+  color: #e11d48;
+}
+
+.error {
+  color: red;
+  font-size: 15px;
+  padding-left: 4px;
+}
+
+.check_entry_div {
+  display: flex;
+  justify-content: center;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.check_entry_div input {
+  width: 20px;
+  height: 20px;
+}
+
+.check_entry_div label {
+  margin: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.dropdown {
+  text-transform: capitalize;
+}
+
+.paper {
+  text-transform: capitalize;
+}
+
+.paper {
+  width: 12rem;
+}
+
+.menulist {
+  border: 1px solid black !important;
+}
+
+.add_regular {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 1rem;
+}
+
+.heading_houseMaid {
+  width: 100%;
+}
+
+.heading_houseMaid h3 {
+  display: flex;
+  justify-content: flex-end;
+  width: 90%;
+}
+
+.heading_houseMaid h2 {
+  text-align: center;
+}
+
+.add {
+  width: 95%;
+  display: flex;
+
+  /* padding-right: 68px; */
+  position: relative;
+  align-items: center;
+}
+
+.head {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.head h1 {
+  letter-spacing: 2px;
+}
+
+.add-btn {
+  position: absolute;
+  top: 1.2rem;
+  right: 2rem;
+  height: 40px;
+  width: 170px;
+  background-color: #e11d48;
+  color: #fff;
+  font-size: 17px;
+  border: none;
+  border-radius: 5px;
+}
+
+.modal_dropdown_housemaid {
+  min-height: 200px;
+  width: 100%;
+}
+
+.house_maid_form input {
+  width: 100%;
+}
+
+.house_maid_form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.house_maid_gender {
+  width: 40%;
+  display: flex;
+
+  justify-content: space-evenly;
+}
+
+.house_maid_gender input[type="radio"]#genderFemale {
+  accent-color: #e11d48;
+  cursor: pointer;
+}
+
+.house_maid_gender input[type="radio"]#genderMale {
+  accent-color: #e11d48;
+  cursor: pointer;
+}
+
+.webcam-style {
+  width: 20%;
+  height: 20%;
+}
+
+.label_input_radio {
+  display: flex;
+  gap: 10px;
+}
+
+.error {
+  font-size: 14px;
+  color: red;
+}
+
+.image_div {
+  border: 1px solid black;
+}
+
+.accordian_hosuemaid {
+  width: 15%;
+}
+
+.data-table-container {
+  margin: 10px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.data-table-purpose {
+  width: 60%;
+  border-collapse: collapse;
+}
+
+.data-table-purpose th,
+.data-table-purpose td {
+  border: 1px solid #dddddd;
+
+  padding: 7px;
+  font-size: 14px;
+  text-align: center;
+  text-align: center;
+  width: max-content;
+}
+
+.data-table-purpose th {
+  text-align: left;
+  text-align: center;
+  color: #e11d48;
+  background-color: rgb(236, 227, 227);
+}
+
+.data-table-purpose tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.data-table-purpose tr:hover {
+  background-color: #dddddd;
+}
+
+.entry-type,
+.purpose-type,
+.house-details,
+.adhar-image,
+.user-photo {
+  max-width: 70px;
+}
+
+.delete-button button {
+  height: 30px;
+  width: max-content;
+  border-radius: 5px;
+  color: #e11d48;
+  background-color: transparent;
+  font-size: 28px;
+  border: none;
+  padding: 5px;
+}
+
+.pagination button {
+  border: none;
+  border-radius: 50px;
+  color: #fff;
+  background-color: #e11d47;
+  font-size: 16px;
+  padding: 10px;
+  font-weight: 600;
+}
+
+.pagination span {
+  color: black;
+  font-size: 22px;
+}
+
+.pagination {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.main-form {
+  margin: 120px auto;
+}
+
+.form-container {
+  /* background-color: #e11d48; */
+  color: white;
+  padding: 20px;
+  width: 300px;
+  margin: 0 auto;
+  border-radius: 10px;
+
+  padding: 20px;
+  width: 40%;
+}
+
+.form-container h2 {
+  padding: 10px;
+  text-align: center;
+  font-size: 32px;
+}
+
+.form-field {
+  margin-bottom: 15px;
+}
+
+.form-field label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 20px;
+  font-weight: 450;
+}
+
+.form-field input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 17px;
+}
+
+.error-message {
+  color: #fff;
+  font-size: 17px;
+  margin-top: 5px;
+}
+
+.submit-button {
+  background-color: #000000;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 20px;
+  letter-spacing: 1px;
+}
+
+.submit-button:hover {
+  background-color: white;
+  color: #5e72e4;
+}
+
+.main-form {
+  height: 70vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.s-page {
+  margin-top: 5px;
+  padding: 5px;
+  font-size: 20px;
+  font-weight: 450;
+}
+
+.s-page:hover {
+  text-decoration: underline;
+}
+
+.s-page span {
+  text-decoration: underline;
+}
+
+.logout {
+  height: max-content;
+  width: 100px;
+  background-color: #e11d48;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border-radius: 5px;
+  color: #ffffff;
+  font-size: 18px;
+}
+
+.preview_image {
+  font-size: 15px !important;
+  display: flex;
+  color: #5e72e4;
+  border: none !important;
+  align-items: center !important;
+  justify-content: center;
+  text-decoration: underline;
+  text-transform: capitalize;
+}
+
+.preview_icon {
+  margin: 2px;
+  margin-top: 5px;
+  border: none !important;
+}
+
+.image_div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  gap: 20px;
+  padding: 1rem;
+}
+
+.image_div img {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  transition: all 0.5s;
+}
+
+.image_div img:hover {
+  transform: scale(2, 2);
+}
+
+.preview_heading {
+  text-align: center;
+  padding-top: -1rem;
+}
+
+.loader_div {
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.modal {
+  overflow-x: scroll;
+}
+
+.actions {
+  width: 200px !important;
+}
+
+.heading_purpose {
+  font-size: 2rem;
+}
+
+.purpose_btn_div {
+  width: 95%;
+  display: flex;
+
+  align-items: center;
+}
+
+.purpose_btn_div h2 {
+  width: 100%;
+  text-align: center;
+}
+
+.add_btn_purpose {
+  height: 30px;
+  width: 150px;
+  background-color: #e11d48;
+  color: #fff;
+  font-size: 17px;
+  border: none;
+  border-radius: 5px;
+}
+
+.css-10w330c-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected {
+  background-color: rgb(77, 73, 73) !important;
+  opacity: 0.7;
+}
+
+.export_btn_purpose {
+  padding: 5px;
+  background-color: #e11d48;
+  border-radius: 5px;
+  color: white;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.button_cross3 {
+  position: relative;
+  top: -77px;
+  left: 10px;
+}
+
+.p-export-btn {
+  height: 30px;
+  width: 100px;
+  background-color: #e11d48;
+  color: #ffffff;
+  border-radius: 10px;
+}
+
+.p-export-btn button {
+  height: 100%;
+  width: 100%;
+  background-color: #5e72e4;
+  color: #ffffff;
+  font-weight: 800;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  z-index: 1000;
+}
+
+.important_field {
+  color: red;
+}
+
+.add-item-button_purpose {
+  width: 220px;
+}
+.add-item-button {
+  height: 48px;
+  font-size: 18px;
+  background-color: #5e72e4;
+}
+
+.purpose_table {
+  width: 95%;
+}
+.purpose_edit_back_button {
+  margin-top: 2rem;
+  margin-left: 1rem;
+}
+.edit_purpose_entry {
+  position: relative;
+  top: 100px;
+  background-color: white;
+  width: 80%;
+  height: 100%;
+  border-radius: 20px;
+  border: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.edit_purpose_back {
+  margin-top: 2rem;
+}
+.purpose_image_icon {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+}
+.purpose_icon_title {
+  display: flex;
+  justify-content: center;
+}
+.initialss {
+  width: 70px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  border-radius: 50%;
+  background-color: #5e72e4;
+  color: white;
+}
+.purpose-image {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: white;
+}
+.purpose-image img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+.purpose_image_div {
+  border: 1px solid black;
+}
+.dropdown_select_purpose {
+  margin: 0.8rem 0 6px;
+  border: 1px solid #5e72e4;
+  border-radius: 5px;
+  font-size: 20px;
+  height: 50px;
+  padding: 5px;
+  width: 350px !important;
+}
+.dropdown_option_purpose {
+  font-size: 20px !important;
+  color: black !important;
+}

@@ -1,0 +1,42 @@
+.activeDeactive_div {
+  width: 40%;
+}
+
+.activeDeactiveBtn {
+  border: 1px solid rgb(214, 210, 210);
+  height: 40px;
+  width: 150px;
+  background-color: #e11d48;
+  color: #fff;
+  font-size: 17px;
+  border: none;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  margin: 0.8rem 0.8rem 0.8rem 1.2rem;
+  justify-content: space-evenly;
+}
+
+.errorAdmin {
+  padding: 0rem 1rem 1rem 1rem;
+  color: red;
+  width: 90%;
+  margin-top: -0.6rem;
+}
+
+.togglePasswordVisibility {
+  position: absolute;
+  top: 3.6rem;
+  right: 27px;
+  cursor: pointer;
+}
+.toggle_button {
+  position: relative;
+}
+
+.role_add_back_btn {
+  margin-top: 1px;
+}
+.add_back_user {
+  margin-top: 1rem;
+}

@@ -1,0 +1,24 @@
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+/* .screen{
+  visibility: hidden;
+} */
+@media screen and (orientation: landscape) and (min-device-width: 368px) and (max-device-width: 1370px) {
+  .screen{
+       visibility: visible;
+  }
+  .p-color{
+    color: #E11D48;
+  }
+  .m-font {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+  
+  }
+}
+
+
+/*  */

@@ -38,31 +38,36 @@
     "discount": "1",
     "p_images": "",
     "createdAt": "10/21/2024, 9:37:04 PM",
-    "updatedAt": "10/21/2024, 9:56:48 PM",
+    "updatedAt": "10/22/2024, 10:48:21 AM",
     "id": "ELECT-Q9WJ9XNUU60K",
     "media": [
       {
         "image": "http://localhost:4000/products/1729526824320-512534763-iPhone_15_Pro_Max_Natural_Titanium_PDP_Image_Position-1__WWEN.jpg"
       },
       {
-        "image": "http://localhost:4000/products/1729528008034-621677917-iPhone_15_Pro_Max_Natural_Titanium_PDP_Image_Position-1__WWEN.jpg"
+        "image": "http://localhost:4000/products/1729573053658-760467043-wp3315252-shri-krishna-hd-wallpaper.jpg"
       },
       {
-        "image": "http://localhost:4000/products/1729528008036-129664930-iPhone_15_Pro_Max_Natural_Titanium_PDP_Image_Position-1__WWEN.jpg"
+        "image": "http://localhost:4000/products/1729574301897-587299812-iPhone_15_Pro_Max_Natural_Titanium_PDP_Image_Position-1__WWEN.jpg"
       },
       {
-        "image": "http://localhost:4000/products/1729528008040-353990304-png-transparent-coffee-bean-schwarzmahler-espresso-commodity-granos-de-cafe-coffee-black-drinking.png"
+        "image": "http://localhost:4000/products/1729574301898-370745806-iPhone_15_Pro_Max_Natural_Titanium_PDP_Image_Position-1__WWEN.jpg"
       },
       {
-        "image": "http://localhost:4000/products/1729528008042-278095631-starbucks-cup-background-png-favpng-HZ7Gj2jtXMsm9K8WsSiVQzWa6.jpg"
+        "image": "http://localhost:4000/products/1729574301899-825608624-png-transparent-coffee-bean-schwarzmahler-espresso-commodity-granos-de-cafe-coffee-black-drinking.png"
       },
       {
-        "image": "http://localhost:4000/products/1729528008044-110527636-wp3315252-shri-krishna-hd-wallpaper.jpg"
+        "image": "http://localhost:4000/products/1729574301899-443068741-starbucks-cup-background-png-favpng-HZ7Gj2jtXMsm9K8WsSiVQzWa6.jpg"
       },
       {
-        "video": "http://localhost:4000/products/1729528007982-982611524-car glight.mov"
+        "image": "http://localhost:4000/products/1729574301900-562401674-wp3315252-shri-krishna-hd-wallpaper.jpg"
+      },
+      {
+        "video": "http://localhost:4000/products/1729574301861-512922546-car glight.mov"
+      },
+      {
+        "video": "http://localhost:4000/products/1729574301879-949430002-car glight.mov"
       }
-    ],
-    "del": "1"
-  }
+    ]
+    }
 ]

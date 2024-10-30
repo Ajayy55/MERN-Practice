@@ -1,0 +1,504 @@
+.main-admin {
+  height: 550px;
+  width: 100%;
+  display: flex;
+  overflow: hidden;
+}
+
+.admin-nav {
+  height: 100%;
+  width: 20% !important;
+  background-color: #ece3e3;
+  overflow-y: scroll;
+}
+
+.admin-nav ul {
+  height: max-content;
+  width: max-content;
+  display: flex;
+  flex-direction: column;
+
+  /* gap: 2px; */
+  font-size: 16px;
+  margin-left: 7px;
+}
+
+.admin-nav ul a {
+  background-color: white;
+  text-decoration: none;
+  font-weight: 500;
+  color: black;
+  margin: 2px;
+  width: auto;
+}
+
+.admin-content {
+  height: 100%;
+  width: 100%;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.admin-content::-webkit-scrollbar {
+  display: none;
+}
+
+.active {
+  color: #5e72e4 !important;
+  background-color: #e1e3f0 !important;
+}
+
+.request {
+  font-size: 30px;
+  color: black !important;
+  border-bottom: 2px solid #e11d48;
+  border-radius: 5px;
+}
+
+.actions {
+  width: 200px !important;
+}
+
+.add {
+  width: 100%;
+  display: flex;
+  justify-content: right;
+  padding-right: 68px;
+  /* position: relative; */
+  border: 1px solid black;
+}
+
+.head {
+  margin: 20px auto;
+  text-align: center;
+  font-size: 20px;
+}
+
+.head h2 {
+  letter-spacing: 1px;
+}
+
+.data-table-house {
+  width: 90%;
+  margin: 20px auto;
+}
+
+.house-no {
+  width: 140px !important;
+}
+
+.add-btnn {
+  position: absolute;
+  background-color: transparent;
+}
+
+.data_not h1 {
+  font-size: 20px;
+}
+
+.table-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 5px;
+}
+
+.nav_spinner {
+  width: 40%;
+
+  /* display: flex;justify-content: center;align-items: center; */
+}
+
+.loader_width {
+  width: 10%;
+}
+
+.edit-btn_add:hover {
+  cursor: pointer;
+}
+
+.btn-2:hover {
+  cursor: pointer;
+}
+
+.add_btn_purpose:hover {
+  cursor: pointer;
+}
+
+@media screen and (orientation: landscape) and (min-device-width: 368px) and (max-device-width: 1370px) {
+  .add-btn {
+    right: 10px;
+    top: 10px;
+  }
+
+  .table-maid {
+    width: 80% !important;
+    margin: 0 auto;
+  }
+
+  .data-table-entry {
+    width: 80% !important;
+    margin: 0 auto;
+  }
+}
+
+.add_entry_logo {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: white;
+  margin-left: 6rem;
+}
+
+.add_entry_logo img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.edit_Entry_image_modal {
+  width: 200px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-self: center;
+}
+
+.css-1wnsr1i {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.edit_Entry_image_modal img {
+  width: 100%;
+  height: 100%;
+}
+
+.verify_entry {
+  height: max-content;
+}
+
+.regular_entry_div {
+  width: 100% !important;
+  margin-left: -1rem;
+}
+.regular_ul {
+  margin-top: -1rem;
+  margin-left: 1.6rem;
+}
+
+.regular_main {
+  margin-bottom: 0.2rem;
+  /* margin-left: -0.4rem; */
+}
+
+.regular_entry_div li {
+  list-style: none;
+  cursor: pointer;
+  font-size: 10px;
+}
+
+.css-15v22id-MuiAccordionDetails-root {
+  padding: none;
+}
+
+.active_item {
+  color: #5e72e4;
+}
+
+.modal_edit_entry_image {
+  width: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999999 !important;
+  /* m */
+}
+
+.css-1wnsr1i {
+  position: absolute !important;
+  top: 50%;
+  left: 167% !important;
+}
+
+.add_entry_logo_not {
+  background-color: #5e72e4;
+  color: white;
+}
+
+.logo-regular-section {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: black;
+}
+.logo-regular-section h6 {
+  color: white;
+  font-size: 10px;
+  padding-top: 10px;
+}
+.img-regular-section {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+}
+
+.regular_entries_title {
+  width: 100%;
+  margin-left: -1rem;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-weight: 500;
+}
+
+.dropDown_regular_title {
+  overflow-y: scroll;
+  height: 20vh;
+  margin-top: 0.5rem;
+  transition: all 1s ease;
+}
+
+.dropDown_regular_title::-webkit-scrollbar {
+  width: 7px;
+}
+
+.dropDown_regular_title::-webkit-scrollbar-thumb {
+  background-color: #5e72e4; 
+  border-radius: 10px; 
+}
+
+.dropDown_regular_title::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+.admin_navbar_heading {
+  font-weight: 500 !important;
+}
+
+.dropdown-logout-btn {
+  margin-bottom: 1rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 0.6rem;
+}
+
+.permission {
+  display: flex !important;
+  align-items: center !important;
+  width: 100%;
+  justify-content: center !important;
+  height: 500px;
+}
+
+.entry_main_table {
+  width: 94%;
+}
+
+.setting_list {
+  width: 100%;
+  margin-left: -1rem;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-weight: 500;
+}
+
+.icon_setting {
+  font-size: 20px;
+}
+
+.noneBackground {
+  width: 100% !important;
+  margin: 10px !important;
+}
+
+.css-15v22id-MuiAccordionDetails-root {
+  padding: none !important;
+}
+
+.accordian_style_setting {
+  padding: 1px 0px 0px 0px !important;
+  margin: 1px 0px 0px 0px !important;
+}
+
+.three_circle_loader {
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100% !important;
+}
+
+.data-table-entry {
+  margin-left: auto;
+}
+.no_data_entry {
+  padding: 0.5rem;
+  font-size: 17px;
+}
+/* Sidebar styles */
+.sidenav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100vh;
+  background-color: #f8f9fa;
+  border-right: 1px solid #dee2e6;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.sidenav-visible {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.sidenav-hidden {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+
+/* Sidebar toggle button */
+.sidenav-toggler-inner {
+  cursor: pointer;
+}
+
+.sidenav-toggler-line {
+  display: block;
+  height: 3px;
+  width: 25px;
+  background-color: #fff;
+  margin: 5px 0;
+}
+.society_logo_div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+.society_logo_div img {
+  border-radius: 50%;
+
+}
+.nav_spinner_navbarleft {
+  /* border: 1px solid black; */
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  position: relative;
+  top: 40%;
+}
+.purpose_default_icon {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: #5e72e4;
+}
+.purpose_default_icon h5 {
+  font-size: 40px;
+  color: white;
+}
+.regular_loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem;
+}
+.icon_font_size {
+  font-size: 18px;
+  /* margin-left: -.6rem; */
+  font-weight: bold !important;
+}
+.society_logo_div h6 {
+  padding-top: 18px;
+
+  height: 60px;
+  width: 70px;
+}
+.inner_society_logo_div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.inner_text_logo {
+  width: 100%;
+}
+
+.guard_logo_div img {
+  width: 100%;
+  height: 100%;
+}
+.guard_logo_div {
+  width: 40%;
+  height: 40%;
+}
+
+.nav-item {
+  /* padding-left: 1rem !important; */
+  text-align: center;
+}
+.side-nav-main-div {
+  width: 100%;
+  overflow: auto;
+  height: 500px;
+}
+
+.side-nav-main-div ul {
+  padding: 0;
+  margin-bottom: 1.5rem;
+}
+
+.side-nav-main-div ul li {
+  margin: 0;
+  font-weight: 400;
+  font-family: "Montserrat", sans-serif;
+}
+
+.side-nav-main-div::-webkit-scrollbar {
+  width: 2px;
+}
+
+.side-nav-main-div::-webkit-scrollbar-thumb {
+  background: #5e72e4;
+  border-radius: 4px;
+}
+
+.side-nav-main-div::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+.css-9l5vo-MuiCollapse-wrapperInner {
+  height: fit-content !important;
+}
+.css-9l5vo-MuiCollapse-wrapperInner {
+  margin: 0 !important;
+}
+.css-1f773le-MuiButtonBase-root-MuiAccordionSummary-root {
+  height: 20px !important;
+}
+
+.css-1f773le-MuiButtonBase-root-MuiAccordionSummary-root.Mui-expanded {
+  min-height: 42px !important;
+}
+.society-logo-on-nav{    width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}

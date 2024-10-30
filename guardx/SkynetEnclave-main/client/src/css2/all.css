@@ -1,0 +1,89 @@
+/* .numbers p{width: 40%;} */
+.numbers_heading {
+  width: 300px;
+}
+.icon-shape {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+.dashboard_icons {
+  font-size: 20px !important;
+}
+.change_color_regular_side {
+  color: #67748e;
+  font-weight: 500;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.875rem;
+  position: relative;
+  right: -3px;
+  width: 100% !important;
+}
+.accordion-icon {
+  font-size: 10px;
+}
+.button_css {
+  height: 30px;
+  width: 60px;
+  margin-left: 1rem;
+  border-radius: 5px;
+  background-color: #5e72e4;
+  color: white;
+  border: none;
+}
+.main_heading_nav_table {
+  display: flex;
+  justify-content: space-between;
+}
+.search_filter_all {
+  margin-right: 1rem;
+}
+.add-item-button {
+  background-color: #5e72e4 !important;
+  margin-left: 1rem;
+}
+.export_icon {
+  color: #5e72e4 !important;
+}
+.search-input {
+  color: #5e72e4 !important;
+}
+.table_heading {
+  /* border: 1px solid black; */
+  position: relative;
+  top: 20px;
+  width: 90%;
+  left: 15px;
+  color: white !important;
+}
+.table_heading h5 {
+  color: white !important;
+}
+.hrline {
+  color: white !important;
+}
+.add_regular_div {
+  /* margin-top: 1rem; */
+  background-color: white !important;
+  border: none !important;
+  border-radius: 10px;
+  /* margin-bottom: 20px; */
+}
+.add_And_export_btn {
+  display: flex !important;
+  gap: 2px;
+  width: 20%;
+}
+.edit-btn {
+  color: #5e72e4 !important;
+}
+.dlt-btn {
+  color: #5e72e4 !important;
+}
+.attendance-data {
+  color: #5e72e4 !important;
+}
+.all_data {
+  color: #5e72e4 !important;
+}

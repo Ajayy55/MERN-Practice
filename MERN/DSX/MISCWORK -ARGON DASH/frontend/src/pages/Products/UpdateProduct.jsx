@@ -496,7 +496,7 @@ console.log('ppp',previewFiles);
       )}
     </Grid>
 
-    <Divider sx={{ my: 3 }} />
+    <Divider sx={{ my: 3,color: "black" ,bgcolor: "black"}} />
 
     <Grid container spacing={2}>
       {previeNewFiles.length > 0 ? (

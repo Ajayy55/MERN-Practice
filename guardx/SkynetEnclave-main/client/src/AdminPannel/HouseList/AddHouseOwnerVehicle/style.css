@@ -1,0 +1,93 @@
+.add-vehicle-detail-title-div {
+    height: 50px;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    background-color: #5e72e4;
+    color: white;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    padding-left: 12px;
+    font-weight: 700;
+    font-family: "Montserrat", sans-serif
+  }
+  
+  .vehicle-form-container {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-bottom: 20px;
+    position: relative;
+  }
+  
+  .input-container-vehicle {
+    margin-bottom: 15px;
+  }
+  
+  .input-with-icon-vehicle {
+    display: flex;
+    align-items: center;
+  }
+  
+  .input-with-icon-vehicle input,
+  .input-with-icon-vehicle select {
+    flex: 1;
+    padding: 8px;
+    margin-right: 10px;
+  }
+  
+  .input-icon {
+    font-size: 20px;
+  }
+  
+  .error {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+  
+  .add-vehicle-button,
+  .remove-vehicle-button,
+  .add-vehicle-back-button,
+  .add-vehicle-next-button,
+  .add-vehicle-save-button {
+    padding: 10px 15px;
+    margin: 5px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+  }
+  
+  .add-vehicle-button {
+    background-color:  #5e72e4;
+    color: white;
+  }
+  
+  .remove-vehicle-button {
+    background-color: #f44336;
+    color: white;
+    position: absolute;
+    display: flex;align-items: center;justify-content: center;
+    top:1px;
+    right: 10px;
+    width: 80px;
+    height: 40px;
+  }
+  
+  .add-vehicle-back-button,
+  .add-vehicle-next-button {
+    background-color: #5e72e4;
+    color: white;
+  }
+  
+  .add-vehicle-save-button {
+    background-color: #5e72e4;;
+    color: white;
+  }
+  .add-vehicle-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+  .add-vehicle-form-action-buttons {
+    display: flex;
+    justify-content: flex-end;
+  }

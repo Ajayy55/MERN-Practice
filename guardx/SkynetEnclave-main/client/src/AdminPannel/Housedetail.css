@@ -1,0 +1,282 @@
+.house_table {
+  width: 90%;
+  margin: auto;
+  margin-top: 3rem;
+}
+
+.add_btn_house {
+  color: white;
+}
+
+.house_main_div {
+  display: flex;
+  flex-wrap: wrap;
+  width: 80%;
+  padding: 1rem;
+  border-radius: 10px;
+  margin-top: 4rem;
+  margin-bottom: 1rem;
+  background-color: white;
+  justify-content: start;
+  margin: 3rem auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.house_outer_main_div {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.house_form_div {
+  width: 100%;
+
+  flex-wrap: wrap;
+  padding: 20px;
+  justify-content: center;
+  justify-content: flex-start;
+  align-items: center;
+}
+.house_main_div input {
+  margin: 0.5rem;
+}
+.house-form-inner-div {
+  display: flex;
+  align-items: center;
+}
+
+.css-1wnsr1i {
+  width: 61% !important;
+  border: none !important;
+}
+
+.edit_house_lable {
+  font-size: 22px;
+  font-weight: 520;
+  width: 100% !important;
+  margin-left: 1rem;
+}
+
+.error_msg_house {
+  color: red;
+  padding-left: 1rem;
+  padding-top: -2rem;
+  padding-bottom: 0.5rem;
+  font-size: 13px;
+}
+
+.house_btn {
+  height: 40px;
+  width: 200px !important;
+  background-color: #5e72e4;
+  color: white;
+  padding: 5px;
+  font-size: 20px;
+
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.house_bottom_btn_div {
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  margin-top: 1rem;
+}
+
+.edit-input_gender {
+  height: 50px;
+  width: 350px !important;
+  border: 1px solid #5e72e4;
+  position: relative;
+  left: -8px;
+  padding: 5px;
+  font-size: 20px;
+  border-radius: 5px;
+
+  margin-top: 0.1rem;
+}
+
+.add_house_back_button {
+  position: absolute;
+  top: 26%;
+  left: 23%;
+}
+
+.add_house_back_button button {
+  border: none;
+  height: 40px;
+  width: 40px;
+  background-color: #e11d48;
+  color: #fff;
+  border-radius: 50px;
+  font-size: 20px;
+}
+
+.add_house_back_button button:hover {
+  cursor: pointer;
+}
+
+.house_top_heading {
+  margin: 1rem;
+}
+
+.export_house_btn {
+  padding: 5px;
+  background-color: #e11d48;
+  border-radius: 5px;
+  color: white;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.house_btn_div {
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  align-items: center;
+  margin: auto;
+  margin-top: 1rem;
+}
+
+.image_error {
+  display: flex;
+  position: relative;
+  margin-left: 4px;
+  margin-top: -10px;
+}
+
+.icon_house_back {
+  font-size: 30px;
+}
+
+.owner_image_lable {
+  padding-left: 1.1rem;
+}
+
+.error_owner_image {
+  padding-left: 1.1rem;
+}
+
+.error_regular_gender {
+  padding-left: 1.1rem;
+  padding-top: 1rem;
+}
+.no_data_house {
+  width: 100%;
+  position: relative;
+  left: 61vh;
+  text-align: center;
+  padding: 1rem;
+}
+
+/* New Css For House List */
+.house_outer_main_div {
+  display: flex;
+  justify-content: center;
+
+  width: 100%;
+}
+
+.edit_house_lable {
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.edit-input {
+  width: 100%;
+  padding: 5px 5px 5px 5px;
+
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.edit-input_gender {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.error_msg_house,
+.error_msg_vehicle {
+  color: red;
+  font-size: 12px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.house_bottom_btn_div {
+  display: flex;
+  justify-content: center;
+}
+
+.house_btn {
+  background-color: #5e72e4;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.house_btn:disabled {
+  background-color: #bdb8b8;
+  color: black;
+}
+
+.vehicle-image-div,
+.formik_img_div {
+  margin-bottom: 20px;
+}
+
+.image_error {
+  margin-top: 5px;
+}
+
+.edit-house-vehicle {
+  margin-bottom: 20px;
+  position: absolute;
+  left: 30px !important;
+  border: 1px solid black !important;
+}
+
+.add-house-main-div {
+  height: auto;
+  background-color: white;
+  border-radius: 10px;
+  margin-top: 5rem;
+  padding: 15px;
+}
+.add-house-form-div {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+.edit-house-form-div {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.edit-house-owner-images {
+  position: relative;
+  display: flex; align-items: center
+}
+.icon {
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+}

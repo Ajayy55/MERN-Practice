@@ -1,0 +1,27 @@
+.navbar_title {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  justify-content: center;
+}
+.navbar_icon_title {
+  font-size: 25px;
+  font-weight: bolder;
+}
+.backbutton_all {
+  position: relative;
+  top: 35px;
+}
+.addEntriesPage {
+  position: absolute;
+  right: 15px;
+  bottom: 14px;
+  position: fixed;
+  height: 30px;
+}
+.page_icon {
+  font-size: 25px;
+}
+.addEntriesPage {
+  background: none;
+}

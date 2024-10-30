@@ -1,0 +1,162 @@
+.modal-entries {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.filter_div {
+  /* border: 1px solid black; */
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  position: sticky !important;
+  top: -16px;
+  background-color: white;
+  z-index: 100;
+}
+.ci_filter {
+  font-size: 18px;
+  font-weight: 500;
+}
+.filter-clear {
+  display: flex;
+  align-items: center;
+  width: 30%;
+  gap: 10px;
+}
+.clear-filter button {
+  margin-bottom: 1rem;
+  letter-spacing: -0.025rem;
+  width: 80px !important;
+  height: 40px;
+  text-transform: none;
+  border-radius: 8px;
+  display: flex;
+  background-color: rgb(94, 114, 228);
+  color: white;
+  flex-direction: column;
+  align-items: center;
+  font-size: 12px;
+  font-weight: bold;
+  justify-content: center;
+  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+.modal-entry.selected {
+  background-color: rgb(211, 216, 248) !important;
+  border: 1px solid #007bff;
+}
+
+.modal-entry {
+  width: 100px;
+  background-color: #f7f7f7;
+  border-radius: 15px;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+  position: relative;
+  height: fit-content;
+}
+.modal-image {
+  width: 100%;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #e5e5e5;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+.modal-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 50px;
+  font-size: 2.5rem;
+  border-radius: 15px;
+}
+.modal-word {
+  color: black;
+  font-size: 20px;
+  font-weight: 500 !important;
+}
+.modal-image-div {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal-name {
+  font-size: 10px;
+  color: #333;
+  font-weight: bold !important;
+  word-wrap: break-word;
+  display: block;
+}
+.modal-entry img {
+  object-fit: cover;
+  aspect-ratio: 3/2;
+  height: 70px;
+
+  width: 100%;
+  border-radius: 10px;
+}
+.modal-button {
+  border-radius: 7px;
+  padding: 5px;
+  background-color: rgb(94, 114, 228);
+  color: white;
+  font-size: 13px;
+}
+.search-icon {
+  color: rgb(94, 114, 228) !important ;
+}
+.modal-button:disabled {
+  background-color: #cccccc;
+  color: black;
+  cursor: not-allowed;
+}
+.my-swal-modal {
+  z-index: 9999999;
+  margin-left: -13rem;
+}
+.label_modal {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.select_all_icon {
+  font-size: 16px;
+  font-weight: 600;
+}
+.no-data-modal {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.5rem;
+  min-height: 300px;
+  font-weight: 600;
+}
+.calender-search-entry input {
+  border: 1px solid rgb(225, 222, 222);
+  height: 45px;
+  outline: none;
+  width: 300px;
+  border-radius: 10px;
+  font-family: inherit;
+  padding-left: 15px;
+  padding-right: 40px;
+  margin-left: 0.5rem;
+  margin-top: 15px;
+}
+.search-icon-entry{    position: absolute;
+  right: 15px;
+top: 63%;
+  transform: translateY(-50%);
+  font-size: 20px;
+  color: grey;
+  pointer-events: none}

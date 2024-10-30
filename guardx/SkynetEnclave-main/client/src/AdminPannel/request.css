@@ -1,0 +1,89 @@
+.attendance-head {
+  align-items: center;
+  position: relative;
+}
+
+.attendance-heading {
+  width: 100%;
+  text-align: center;
+  font-size: 20px;
+}
+.attendance-heading h2 {
+  color: white;
+}
+
+.attendance-export {
+  position: absolute;
+  right: 68px;
+  top: 0px;
+  background-color: white;
+}
+
+.search-boxes1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+
+  margin-bottom: 10px;
+}
+.regular_drawer {
+  width: 20% !important;
+}
+
+.attendance_back_button {
+  position: relative;
+  top: 30px;
+  left: 17px;
+  width: 50%;
+}
+
+.attendance_back_button button {
+  padding: 5px;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  background-color: white;
+  color: #5e72e4;
+}
+.maid_data_table {
+  background-color: white !important;
+}
+.user_images_heading_optional {
+  font-size: 17px;
+}
+.dlt_btn_attendance {
+  font-size: 25px;
+  color: #5e72e4;
+  cursor: pointer;
+}
+
+.edit-input-regular {
+  width: 100% !important;
+  padding:9px 5px 5px 5px;
+  height: 50px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+}
+.edit-input-regular-main-input-div {
+  width: 100%;
+}
+.input-eye-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  
+}
+
+.edit-input-regular {
+  flex: 1;
+}
+
+.eyes_view_regular {
+  cursor: pointer;
+  margin-left: -25px;
+  font-size: 20px;
+}

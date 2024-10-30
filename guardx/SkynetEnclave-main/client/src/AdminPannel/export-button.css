@@ -1,0 +1,70 @@
+.filtered-div{
+    width: 95%;
+    display: flex;
+    align-items: center;
+  
+    height: 60px;
+    gap: 30px;
+    position: relative;
+}
+.add-item-button{
+    width: 100%;
+    display: flex;
+    align-items: center;
+  
+    height: 60px;
+    gap: 30px;
+    position: relative;height: 40px;
+    justify-content: center;
+    width: 45%;
+    padding: 5px 8px;
+    background-color: #e11d47;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 4px;
+
+}
+.add-item-button_main{width: 24%}
+.export-dropdown{
+margin-bottom: 2% !important;
+
+
+}
+.search-filter-box{
+    position: absolute;
+    right: 0;
+}
+.heading-admin-panel{
+    width: 95%;
+    margin: 20px 0px;
+    font-size: 22px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+.main-header-verify{
+width: 100%;
+}
+.export_icon{
+    color: #E11D48;
+    font-size: 25px
+}
+.filtered-attendance-div{
+    width: 95%;
+    display: flex;
+    align-items: center;
+    height: 60px;
+    gap: 30px;
+    position: relative;
+    margin: 0 auto;
+    width: 90%;
+    margin-top: 40px;
+
+}
+.date-filterd-attendance{
+    display: flex;
+     gap: 19px;
+}
+.dlt-btn:hover{
+    cursor: pointer;
+
+}

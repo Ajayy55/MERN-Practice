@@ -1,0 +1,9 @@
+.view-full-announcement-for-description {
+  overflow: auto;
+  height: 80px;
+  line-height: 30px;
+}
+.view-full-announcement-for-description-title {
+  display: flex;
+  align-items: center;
+}

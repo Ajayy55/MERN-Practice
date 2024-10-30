@@ -1,0 +1,35 @@
+body {
+  font-family: Montserrat-500;
+}
+.back-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.back-btn button {
+  border: none;
+  height: 45px;
+  width: 45px;
+  background-color: #5e72e4;
+  color: #fff;
+  border-radius: 50px;
+  font-size: 25px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.back-btn button:hover {
+  cursor: pointer;
+}
+/* @media (max-width: 1024px) { */
+.back-btn {
+  position: absolute;
+  top: 14% !important;
+  left: 5%;
+}
+.back_text {
+  font-weight: 700;
+  color: black;
+}
+/* } */

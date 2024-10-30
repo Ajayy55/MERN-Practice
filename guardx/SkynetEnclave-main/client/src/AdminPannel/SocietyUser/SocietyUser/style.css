@@ -1,0 +1,146 @@
+.society-view-details-tabs {
+  margin: 22px;
+}
+.css-1gsv261 {
+  border: none !important;
+}
+.top-header-society-user {
+  width: 100%;
+  height: auto;
+}
+.top-heading-label-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: #5e72e4 !important;
+  font-weight: 700;
+  text-transform: none;
+  font-family: "Montserrat", sans-serif;
+}
+.top-heading-label-icon {
+  font-size: 20px !important;
+}
+.add-rwa-detail-section {
+  width: 100%;
+
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.form-heading {
+  width: 87%;
+  margin-bottom: 30px;
+  font-size: 1.5rem;
+  color: #333;
+  text-align: left !important;
+}
+.add-rwa-detail-inner-section {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  background-color: rgb(247, 247, 247);
+  overflow-y: auto;
+  height: 350px;
+  gap: 10px;
+  padding: 20px;
+}
+.add-rwa-detail-inner-section::-webkit-scrollbar {
+  display: none;
+}
+.input-container-rwa {
+  margin-bottom: 20px;
+}
+
+.input-container-rwa label {
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.input-with-icon-rwa {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 8px;
+  background-color: white;
+}
+
+.input-with-icon-rwa input {
+  border: none;
+  outline: none;
+  width: 400px;
+  height: 33px;
+  font-size: 1rem;
+}
+
+.input-icon {
+  margin-left: 10px;
+  color: #888;
+}
+
+.input-with-icon-rwa:hover {
+  border-color: #007bff;
+}
+.input-with-icon-rwa select {
+  border: none;
+  outline: none;
+  width: 400px;
+  height: 33px;
+  font-size: 1rem;
+
+  background-color: white;
+  border-radius: 5px;
+}
+
+.input-with-icon-rwa select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+.add-rwa-detail-title-div {
+  height: 50px;
+  width: 100%;
+  border-top-left-radius: 7px;
+  border-top-right-radius: 7px;
+  background-color: #5e72e4;
+  color: white;
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  padding-left: 12px;
+  font-weight: 700;
+  font-family: "Montserrat", sans-serif;
+}
+.add-society-rwa-form-action-buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.add-society-rwa-save-button {
+  padding: 10px 10px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  margin: -1rem 0px 8px 0px;
+  font-family: "Montserrat", sans-serif;
+}
+.add-society-rwa-save-button {
+  background-color: #5e72e4;
+  color: white;
+}
+
+.add-society-rwa-save-button:hover {
+  background-color: #0056b3;
+}
+.add-society-rwa-form-action-buttons-icon {
+  font-size: 1.3rem;
+}

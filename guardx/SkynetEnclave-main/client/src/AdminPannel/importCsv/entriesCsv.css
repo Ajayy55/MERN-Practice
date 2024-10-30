@@ -1,0 +1,284 @@
+.csv_uplaod_main {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 15px;
+}
+.csv_uplaod_main button {
+  margin: 1.5rem;
+  padding: 7px 15px;
+  border-radius: 5px;
+  background-color: #e11d48;
+  color: white;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.button_csv_import {
+  display: flex;
+  justify-content: center;
+}
+
+.input_csv_input {
+  display: flex;
+  align-items: center;
+  border: 1px solid rgb(212, 206, 206);
+  /* margin: 1rem; */
+  padding: 0.4rem;
+  cursor: pointer;
+  border-radius: 5px;
+
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.tabel_csv_data_preview {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tabel_csv_data_preview th,
+.tabel_csv_data_preview td {
+  padding: 8px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.tabel_csv_data_preview th {
+  background-color: #f2f2f2;
+  color: #333;
+}
+.tabel_csv_data_preview_houselist_view {
+  width: 50%;
+  border-collapse: collapse;
+
+}
+.tabel_csv_data_preview_houselist_view th,
+.tabel_csv_data_preview_houselist_view td {
+  padding: 8px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+.tabel_csv_data_preview_houselist_view th {
+  background-color: #f2f2f2;
+  color: #333;
+}
+.preview_heading_csv {
+  padding: 0.5rem;
+}
+.overflow_div_houselist{overflow-x: scroll;}
+
+.error_msg_csv {
+  margin-top: 10px;
+}
+
+.export_csv_back_button {
+  border: 1px solid black;
+  padding: 5px;
+  font-size: 30px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.upload-files-container {
+  background-color: #f7fff7;
+  width: 100%;
+  height: 80%;
+  padding: 30px 60px;
+  border-radius: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 10px 20px, rgba(0, 0, 0, 0.28) 0px 6px 6px;
+}
+.drag-file-area {
+  border: 2px dashed #5e72e4;
+  border-radius: 40px;
+  margin: 35px 0 15px;
+  padding: 30px 50px;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+.drag-file-area .upload-icon {
+  font-size: 15px;
+}
+
+.drag-file-area h3 {
+  font-size: 12px;
+  margin: 15px 0;
+}
+.drag-file-area label {
+  font-size: 10px;
+}
+.upload-button {
+  background-color: #5e72e4;
+  color: #f7fff7;
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  border: none;
+  border-radius: 20px;
+  margin: 10px;
+  padding: 7.5px 50px;
+  cursor: pointer;
+}
+.alerts-danger {
+  color: #8c2d33;
+  background-color: #ffdbdd;
+  border-color: #ffcccf;
+}
+.alerts {
+  position: relative;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+}
+.main-content {
+  grid-template-rows: repeat(2, 45px) 115px 60px auto;
+  max-width: 100%;
+}
+.mt-custom {
+  margin-top: 1.5rem !important;
+}
+.main-content > div {
+  max-width: 100%;
+}
+
+.title {
+  background: #217346;
+  text-align: center;
+  display: grid;
+  place-content: center;
+  color: #fff;
+}
+.cell-content {
+  border: 1px solid #e6e6e6;
+  background: #e6e6e6;
+  display: grid;
+  padding: 10px;
+  grid-template-columns: 50px auto;
+}
+.cells {
+  position: relative;
+  display: grid;
+  grid-template-columns: 40px repeat(3, calc((100% - 50px) / 3));
+  grid-template-rows: repeat(11, 27px);
+  grid-gap: 1px;
+  background: #cdcdcd;
+  grid-auto-flow: dense;
+  max-width: 100%;
+  overflow: hidden;
+}
+.purpose_cells {
+  position: relative;
+  display: grid;
+  grid-template-columns: 40px repeat(1, calc((100% - 50px) / 1));
+  grid-template-rows: repeat(11, 27px);
+  grid-gap: 1px;
+  background: #cdcdcd;
+  grid-auto-flow: dense;
+  max-width: 100%;
+  overflow: hidden;
+}
+.user_cells {
+  position: relative;
+  display: grid;
+  grid-template-columns: 40px repeat(4, calc((100% - 50px) / 4));
+  grid-template-rows: repeat(11, 27px);
+  grid-gap: 1px;
+  background: #cdcdcd;
+  grid-auto-flow: dense;
+  max-width: 100%;
+  overflow: hidden;
+}
+.house_cells {
+  position: relative;
+  display: grid;
+  grid-template-columns: 40px repeat(7, calc((100% - 50px) / 7));
+  grid-template-rows: repeat(11, 27px);
+  grid-gap: 1px;
+  background: #cdcdcd;
+  grid-auto-flow: dense;
+  max-width: 100%;
+  overflow: hidden;
+}
+.society_cells{
+  position: relative;
+  display: grid;
+  grid-template-columns: 40px repeat(7, calc((100% - 50px) / 7));
+  grid-template-rows: repeat(11, 27px);
+  grid-gap: 1px;
+  background: #cdcdcd;
+  grid-auto-flow: dense;
+  max-width: 100%;
+  overflow: hidden;
+}
+.regular_cells{ position: relative;
+  display: grid;
+  grid-template-columns: 40px repeat(4, calc((100% - 50px) / 4));
+  grid-template-rows: repeat(11, 27px);
+  grid-gap: 1px;
+  background: #cdcdcd;
+  grid-auto-flow: dense;
+  max-width: 100%;
+  overflow: hidden;}
+.cells__spacer {
+  background: #e6e6e6;
+  position: relative;
+}
+.cells__alphabet {
+  background: #e6e6e6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cells__number {
+  background: #e6e6e6;
+  grid-column: 1 / span 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.cells__input {
+  border: none;
+  padding: 0 6px;
+  background: #ffffff;
+  border: 1px solid;
+  width: 100%;
+  overflow: auto;
+  /* width: 500px; */
+}
+.heading_import {
+  display: flex;
+  gap: 20px;
+}
+.heading_import button {
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #5e72e4;
+  color: white;
+}
+.buttom_download {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.upload_button_div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.success_msg {
+  color: green;
+}
+.title {
+  color: white !important;
+}
+.upload-button:disabled {
+  background-color: #ccc; /* Disabled color */
+  color: #888; /* Text color for disabled button */
+  cursor: not-allowed; /* Change cursor to indicate the button is disabled */
+}

@@ -58,7 +58,7 @@ function Profile() {
     
     {/* Add Image Icon */}
     <span className="add_icon" onClick={handleOpen}>
-      <i className="ni ni-fat-add grid-58 text-warning text-lg opacity-10" />
+      <i className="ni ni-fat-add grid-58 text-success text-lg opacity-10" />
     </span>
   </div>
 
@@ -76,21 +76,23 @@ function Profile() {
       justify-content: center;
       align-items: center;
       margin-bottom: 10px;
+      font-size:20px
+      bg-color:grey;
     }
 
     .add_icon {
+      cursor: pointer;
+      transition: transform 0.3s;
       border:1px;
-      border-radius:100%;
+      border-radius:100%; 
       background-color:#fff;
       position: absolute;
-      bottom: -10px; // Position below the profile image
-      right: 0; // Align to the right
-      background-color: white; // Background color for better visibility
-      border-radius: 50%; // Circular background
-      padding: 5px; // Padding around the icon
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); // Subtle shadow for depth
-      cursor: pointer; // Pointer cursor for interactivity
-      transition: transform 0.3s; // Animation for hover effect
+      bottom: -25px; 
+      right: 0; 
+      background-color: white;
+      border-radius: 50%; 
+      padding: 2px; 
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
     }
 
     .add_icon:hover {
