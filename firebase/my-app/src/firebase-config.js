@@ -1,16 +1,16 @@
 
 import { initializeApp } from "firebase/app";
-import { getMessaging, getToken, onMessage } from "firebase/messaging";
+import { getMessaging, getToken, onMessage ,deleteToken} from "firebase/messaging";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBWOSjroht9qgjFC_eDbZtPPiva8MHAi8Y",
-  authDomain: "guardx-26adc.firebaseapp.com",
-  databaseURL: "https://guardx-26adc-default-rtdb.firebaseio.com",
-  projectId: "guardx-26adc",
-  storageBucket: "guardx-26adc.appspot.com",
-  messagingSenderId: "1041144258617",
-  appId: "1:1041144258617:web:d42eb3d5397540d28d6de8",
-  vapidKey: "BDkwYZSKWlI5vyaDGtT3B9V-j_XV4dv-B6yn3YjzePH3OOAlZODp3IoL-mvD-vg8rXqWYBfwJHbzhDLGazCy9ns",
+  apiKey: process.env.REACT_APP_apiKey,
+  authDomain: process.env.REACT_APP_authDomain,
+  databaseURL: process.env.REACT_APP_databaseURL ,
+  projectId: process.env.REACT_APP_projectId,
+  storageBucket: process.env.REACT_APP_storageBucket,
+  messagingSenderId: process.env.REACT_APP_messagingSenderId,
+  appId: process.env.REACT_APP_appId,
+  vapidKey: process.env.REACT_APP_vapidKey,
 };
 
 // Initialize Firebase app
@@ -21,8 +21,13 @@ export const messaging = getMessaging(app);
 export const genToken = async () => {
   const permission = await Notification.requestPermission();
   if (permission === 'granted') {
-    const token = await getToken(messaging, { vapidKey: firebaseConfig.vapidKey });
-    console.log('Token:', token);
+    getToken(messaging, { vapidKey: firebaseConfig.vapidKey })
+    .then(res=>{
+      console.log(res);
+      localStorage.setItem('PushToken',res)
+    })
+
+    // console.log('Token:', token);
   } else {
     console.log('Permission denied');
   }
@@ -39,9 +44,26 @@ const setupMessageListener = () => {
     });
   });
 };
-
-// Call the function to request permission and generate token
-genToken();
-
 // Call the message listener setup once
 setupMessageListener();
+
+export async function deleteFCMToken() {
+  const messaging = getMessaging();
+
+  try {
+      // Get the current token
+      const currentToken = await getToken(messaging);
+      
+      if (currentToken) {
+          // Delete the current token
+          await deleteToken(messaging);
+          console.log('Token deleted successfully.');
+      } else {
+          console.log('No valid token found to delete.');
+      }
+  } catch (error) {
+      console.error('Error deleting token:', error);
+  }
+}
+
+
