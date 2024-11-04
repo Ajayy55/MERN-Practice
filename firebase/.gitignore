@@ -1,0 +1,6 @@
+config
+# Node modules
+node_modules/
+
+# Service account key
+config/serviceAccountKey.json

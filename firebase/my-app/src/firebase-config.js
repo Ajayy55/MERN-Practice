@@ -21,11 +21,14 @@ export const messaging = getMessaging(app);
 export const genToken = async () => {
   const permission = await Notification.requestPermission();
   if (permission === 'granted') {
-    getToken(messaging, { vapidKey: firebaseConfig.vapidKey })
-    .then(res=>{
-      console.log(res);
-      localStorage.setItem('PushToken',res)
-    })
+   const token=await getToken(messaging, { vapidKey: firebaseConfig.vapidKey })
+   console.log(token);
+  localStorage.setItem('PushToken',token)
+  return token;
+    // .then(res=>{
+    //   console.log(res);
+    //   localStorage.setItem('PushToken',res)
+    // })
 
     // console.log('Token:', token);
   } else {
@@ -45,7 +48,7 @@ const setupMessageListener = () => {
   });
 };
 // Call the message listener setup once
-setupMessageListener();
+// setupMessageListener();
 
 export async function deleteFCMToken() {
   const messaging = getMessaging();
