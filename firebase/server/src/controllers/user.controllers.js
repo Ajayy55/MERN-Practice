@@ -1,7 +1,6 @@
 const User =require("../models/user.model");
 const bcrypt = require('bcrypt');
 const genToken = require("../utils/JWT");
-const admin = require('./../../firebaseAdmin')
 
 const registerUser =async(req,res)=>{
 
@@ -16,7 +15,6 @@ try {
         const isUserExisted = await User.findOne({
             $or: [{ email }, { mobile }]
         });
-        console.log(isUserExisted);
         
         if(isUserExisted){
             return res.status(401).json({message:'email or mobile number already existed in our DB'})
@@ -52,7 +50,7 @@ try {
 
 const loginUser = async (req, res) => {
     const { email, password ,FCM_Token} = req.body;
-    console.log(FCM_Token);
+    // console.log(FCM_Token);
     
     //check user data
     if (!email || !password) {
@@ -85,7 +83,7 @@ const loginUser = async (req, res) => {
       user.FCM_Token=FCM_Token;
       await user.save()
 
-      res.status(200).json({ message: "Login Successfully", Token });
+      res.status(200).json({ message: "Login Successfully", Token,id:user._id});
     } catch (error) {
       console.log("Internal server error while login", error);
       res.status(500).json({ message: "Internal server error while Loging" });
@@ -115,26 +113,6 @@ const SignInWithGoogle=async(req,res)=>{
 
 }
 
-const sendPushNotification =async(req,res)=>{
 
-  const { token, title, body } = req.body;
 
-  const message = {
-    notification: {
-      title: title,
-      body: body,
-    },
-    token: token,
-  };
-  
-  try {
-    const response = await admin.messaging().send(message);
-    console.log('Successfully sent message:', response);
-    res.status(200).send({ success: true, messageId: response });
-  } catch (error) {
-    console.error('Error sending message:', error);
-    res.status(500).send({ success: false, error: error.message });
-  }
-}
-
-module.exports={registerUser,loginUser,SignInWithGoogle,sendPushNotification}
+module.exports={registerUser,loginUser,SignInWithGoogle}

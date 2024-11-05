@@ -29,15 +29,18 @@ const userSchema=new mongoose.Schema({
     uid :{
         type:String,
         unique:true,
-       
     },
     photoURL:{
         type:String,
     },
     FCM_Token:{
         type:String
+    },
+    role:{
+        type: String,
+    enum:['user','admin'],
+    default:'user'
     }
-
 },{timestamps:true});
 
 const User=new mongoose.model('User',userSchema);

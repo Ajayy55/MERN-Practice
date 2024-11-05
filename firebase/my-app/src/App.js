@@ -8,7 +8,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { getAuth } from 'firebase/auth';
 import Home from './pages/Home/Home';
 import ProtectedRoutes from './ProtectedRoutes/ProtectedRoutes';
-
+import './App.css'
+import LoginRoutes from './ProtectedRoutes/LoginRoutes';
 
 const App = () => {
   useEffect(() => {
@@ -31,11 +32,14 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
+
+      <Route element={<LoginRoutes/>}>
         <Route path="/login" element={<Login/>}/>
           <Route path="/signup" element={<Signup/>} />
+        </Route>
 
           <Route element={<ProtectedRoutes/>}>
-          <Route path="/" element={<Home/>} />
+          <Route path="/home" element={<Home/>} />
           </Route>
 
           <Route path="*" element={<div>No Page found</div>} />

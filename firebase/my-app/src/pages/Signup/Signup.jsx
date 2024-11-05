@@ -190,13 +190,15 @@ const Signup = () => {
                   <div className="login__field">
                     <i className="login__icon fas fa-phone"></i>
                     <input
-                      type="text"
+                      type="number"
                       className="login__input"
                       placeholder="Enter Mobile Number"
                       name="mobile"
                       value={values.mobile}
                       onChange={handleChange}
                       onBlur={handleBlur}
+                       pattern="\d{10}"
+                       maxLength={10} 
                     />
                     {errors.mobile && touched.mobile && (
                       <div className="error-message">{errors.mobile}</div>

@@ -1,65 +1,83 @@
-import React, { useCallback } from 'react';
-import { Formik } from 'formik';
-import * as Yup from 'yup';
-import axios from 'axios';
-import './style_Login.css';
-import { Link, useNavigate } from 'react-router-dom';
-import { getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword } from "firebase/auth";
-import { handleError, handleSuccess } from '../../utils/Toastify';
-import { ToastContainer } from 'react-toastify';
-import { deleteFCMToken, genToken } from '../../firebase-config';
-import { debounce } from 'lodash';
+import React, { useCallback } from "react";
+import { Formik } from "formik";
+import * as Yup from "yup";
+import axios from "axios";
+import "./style_Login.css";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  getAuth,
+  signInWithPopup,
+  GoogleAuthProvider,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { handleError, handleSuccess } from "../../utils/Toastify";
+import { ToastContainer } from "react-toastify";
+import { deleteFCMToken, genToken } from "../../firebase-config";
+import { debounce } from "lodash";
 
 const Login = () => {
   const initialValues = {
-    email: '',
-    password: '',
+    email: "",
+    password: "",
     rememberMe: false,
-    FCM_Token:'',
+    FCM_Token: "",
   };
   const navigate = useNavigate();
+  const notifyAdmin = async (id) => {
+    try {
+      //admin notification
+      const logNotify = await axios.post(
+        `${process.env.REACT_APP_PORT}StaffLoginNotifyAdmin`,
+        { staffId: id }
+      );
+      console.log("log notify", logNotify);
+    } catch (error) {
+      console.log("login notify error", error);
+    }
+  };
 
-  const signInWithGoogle =async () => {
+  const signInWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
     const auth = getAuth();
     try {
       const result = await signInWithPopup(auth, provider);
-      
+
       // Get credential and user information
       const credential = GoogleAuthProvider.credentialFromResult(result);
       const token = credential.accessToken;
       const user = result.user;
-  
+
       if (user) {
         // Prepare user data for backend storage
-        await deleteFCMToken();
+        // await deleteFCMToken(); //del prvoius assigned token
         const userData = {
           uid: user.uid,
           email: user.email,
           username: user.displayName,
           photoURL: user.photoURL,
-          FCM_Token:await genToken()
+          FCM_Token: await genToken(),
         };
-  
 
         // Send user data to your backend for storage in MongoDB
-        const response = await axios.post(`${process.env.REACT_APP_PORT}SignInWithGoogle`, userData);
-  
-        if (response.status === 200) {
+        const response = await axios.post(
+          `${process.env.REACT_APP_PORT}SignInWithGoogle`,
+          userData
+        );
 
-         // Store user details in local storage
-        localStorage.setItem('Token', token);
-        localStorage.setItem('uid', user.uid);
-        localStorage.setItem('email', user.email);
-        localStorage.setItem('user', user.displayName);
-          handleSuccess('Login successful');
-  
-          // Redirect after a short delay
+        if (response.status === 200) {
+          // Store user details in local storage
+          localStorage.setItem("FireToken", user.accessToken);
+          localStorage.setItem("uid", user.uid);
+          localStorage.setItem("email", user.email);
+          localStorage.setItem("user", user.displayName);
+          handleSuccess("Login successful");
           setTimeout(() => {
-            navigate('/');
+            navigate("/home");
           }, 1000);
+          notifyAdmin(response?.data?.user._id);
+          // Redirect after a short delay
         } else {
-          handleError('Failed to store user information in the database.');
+          handleError("Failed to store user information in the database.");
         }
       }
     } catch (error) {
@@ -69,52 +87,58 @@ const Login = () => {
 
   const validationSchema = Yup.object({
     email: Yup.string()
-      .email('Invalid email format')
-      .required('Email is required'),
+      .email("Invalid email format")
+      .required("Email is required"),
     password: Yup.string()
-      .required('Password is required')
-      .min(6, 'Password must be at least 6 characters'),
+      .required("Password is required")
+      .min(6, "Password must be at least 6 characters"),
   });
 
   const handleSubmit = async (values, { setSubmitting, setErrors }) => {
     console.log(values);
-    
+
     const auth = getAuth();
 
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, values.email, values.password);
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        values.email,
+        values.password
+      );
       const user = userCredential.user;
 
       if (user) {
-         await deleteFCMToken();
-        localStorage.setItem('Token', user.accessToken);
-        localStorage.setItem('uid', user.uid);
-        localStorage.setItem('email', user.email);
-        values.FCM_Token=await genToken();
-        try{
-               // Send login info to your backend
-        const response = await axios.post(`${process.env.REACT_APP_PORT}login`, values);
-        console.log('Login response:', response);
+        // await deleteFCMToken();
+        localStorage.setItem("FireToken", user.accessToken);
 
-        if (response.status === 200) {
-         
-          handleSuccess('Login successful');
-          setTimeout(() => {
-            navigate('/');
-          }, 1000);
+        localStorage.setItem("uid", user.uid);
+        localStorage.setItem("email", user.email);
+        values.FCM_Token = await genToken();
+        try {
+          const response = await axios.post(
+            `${process.env.REACT_APP_PORT}login`,
+            values
+          );
+          console.log("Login response:", response);
+
+          if (response.status === 200) {
+            localStorage.setItem("Token", response?.data?.Token);
+            handleSuccess("Login successful");
+            setTimeout(() => {
+              navigate("/home");
+            }, 1000);
+            notifyAdmin(response?.data?.id); //send push notification to admin
+          }
+        } catch (error) {
+          handleError(error?.response?.data?.message)
+          console.log(error);
         }
-          
-        }
-        catch(error){
-          console.log(error)
-        }
-   
       }
     } catch (error) {
       const errorMessage = error.message;
-      console.error('Authentication error:', error);
+      console.error("Authentication error:", error);
       handleError(errorMessage);
-      setErrors({ email: 'Login failed. Check your email and password.' });
+      setErrors({ email: "Login failed. Check your email and password." });
     } finally {
       setSubmitting(false);
     }
@@ -139,9 +163,17 @@ const Login = () => {
                 debouncedHandleSubmit(values, actions);
               }}
             >
-              {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
+              {({
+                values,
+                errors,
+                touched,
+                handleChange,
+                handleBlur,
+                handleSubmit,
+                isSubmitting,
+              }) => (
                 <form className="login" onSubmit={handleSubmit}>
-                  <div className='login_heading mb-4'>Login</div>
+                  <div className="login_heading mb-4">Login</div>
                   <div className="login__field">
                     <i className="login__icon fas fa-user"></i>
                     <input
@@ -152,6 +184,7 @@ const Login = () => {
                       value={values.email}
                       onChange={handleChange}
                       onBlur={handleBlur}
+                      maxLength={50}
                     />
                     {errors.email && touched.email && (
                       <div className="error-message">{errors.email}</div>
@@ -167,26 +200,38 @@ const Login = () => {
                       value={values.password}
                       onChange={handleChange}
                       onBlur={handleBlur}
+                      maxLength={30}
                     />
                     {errors.password && touched.password && (
                       <div className="error-message">{errors.password}</div>
                     )}
                   </div>
-                  <button className="button login__submit" type="submit" disabled={isSubmitting}>
+                  <span className=""><p>Forget Password ?</p></span>
+                  <button
+                    className="button login__submit"
+                    type="submit"
+                    disabled={isSubmitting}
+                  >
                     <span className="button__text">Log In Now</span>
                     <i className="button__icon fas fa-chevron-right"></i>
                   </button>
                   <div className="mt-5">
-                    <Link to='/signup' className='text-dark fw-bold'>Don't have an Account? Signup</Link>
+                    <Link to="/signup" className="text-dark fw-bold">
+                      Don't have an Account? Signup
+                    </Link>
                   </div>
                 </form>
               )}
             </Formik>
             <div className="social-login">
-              <h5 className='text-decoration-underline'>Sign In With</h5>
+              <h5 className="text-decoration-underline">Sign In With</h5>
               <div className="social-icons">
                 <span className="social-login__icon ">
-                  <img src="./pngwing.com.png" alt="gmail" onClick={signInWithGoogle} />
+                  <img
+                    src="./pngwing.com.png"
+                    alt="gmail"
+                    onClick={signInWithGoogle}
+                  />
                 </span>
                 <a className="social-login__icon">
                   <img src="./pngwing.com (1).png" alt="Facebook" />

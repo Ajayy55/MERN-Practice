@@ -25,48 +25,43 @@ export const genToken = async () => {
    console.log(token);
   localStorage.setItem('PushToken',token)
   return token;
-    // .then(res=>{
-    //   console.log(res);
-    //   localStorage.setItem('PushToken',res)
-    // })
-
-    // console.log('Token:', token);
   } else {
     console.log('Permission denied');
   }
 };
 
 // Function to listen for messages
-const setupMessageListener = () => {
-  onMessage(messaging, (payload) => {
-    console.log('Message received: ', payload);
-    // Customize how to show notifications here
-    const notification = new Notification(payload.notification.title, {
-      body: payload.notification.body,
-      icon: payload.notification.icon || 'default_icon.png', // Optional icon
-    });
-  });
-};
+// const setupMessageListener = () => {
+//   onMessage(messaging, (payload) => {
+//     console.log('Message received: ', payload);
+//     // Customize how to show notifications here
+//     const notification = new Notification(payload.notification.title, {
+//       body: payload.notification.body,
+//       icon: payload.notification.icon || 'default_icon.png', // Optional icon
+//     });
+//   });
+// };
 // Call the message listener setup once
 // setupMessageListener();
 
-export async function deleteFCMToken() {
-  const messaging = getMessaging();
+// export async function deleteFCMToken() {
+//   const messaging = getMessaging();
 
-  try {
-      // Get the current token
-      const currentToken = await getToken(messaging);
+//   try {
+//       // Get the current token
+//       const currentToken = await getToken(messaging);
       
-      if (currentToken) {
-          // Delete the current token
-          await deleteToken(messaging);
-          console.log('Token deleted successfully.');
-      } else {
-          console.log('No valid token found to delete.');
-      }
-  } catch (error) {
-      console.error('Error deleting token:', error);
-  }
-}
+//       if (currentToken) {
+//           // Delete the current token
+//           console.log('ssdsdsdsd',currentToken)
+//           await deleteToken(messaging);
+//           console.log('Token deleted successfully.');
+//       } else {
+//           console.log('No valid token found to delete.');
+//       }
+//   } catch (error) {
+//       console.error('Error deleting token:', error);
+//   }
+// }
 
 
