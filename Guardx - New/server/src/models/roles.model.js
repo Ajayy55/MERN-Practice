@@ -1,5 +1,8 @@
 import mongoose from "mongoose";
-
+const PermissionSchema = new mongoose.Schema({
+    moduleName: { type: String, required: true },
+    actions: { type: [String], required: true }
+});
 const roleSchema=new mongoose.Schema({
     title:{
         type:String,
@@ -19,6 +22,10 @@ const roleSchema=new mongoose.Schema({
     roleType:{
         type:String,
         enum:["saas","society","societyLevel","guardAccess"]
+    },
+    permissions:{
+        type: [PermissionSchema],
+        required:true,
     }
 
 

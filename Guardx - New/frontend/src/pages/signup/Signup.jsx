@@ -1,7 +1,70 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { PORT } from "../../port/Port";
+import axios from 'axios'
+import Swal from 'sweetalert2'
 
 function Signup() {
+  const navigate=useNavigate();
+  // Form validation schema
+  const validationSchema = Yup.object({
+    username: Yup.string().required("Username is required").min(4,"Username must have atleast 4 char"),
+    email: Yup.string().email("Invalid email format").required("Email is required"),
+    mobile: Yup.string()
+      .matches(/^[0-9]{10}$/, "Mobile number must be 10 digits")
+      .required("Mobile number is required"),
+    password: Yup.string()
+      .min(6, "Password must be at least 6 characters")
+      .required("Password is required"),
+  });
+
+  // Formik setup
+  const formik = useFormik({
+    initialValues: {
+      username: "",
+      email: "",
+      mobile: "",
+      password: "",
+    },
+    validationSchema,
+    onSubmit: async (values) => {
+      const url = `${PORT}registerHouse`;
+  
+      try {
+          const response = await axios.post(url, values);
+          console.log(response);
+  
+          if (response.status === 201) {
+              Swal.fire({
+                  position: "center",
+                  icon: "success",
+                  title: "You have been Registered Successfully",
+                  showConfirmButton: false,
+                  timer: 1500
+              });
+              setTimeout(()=>{
+                navigate('/login')
+              },1000)
+              
+          }
+      } catch (error) {
+          console.error("Error during registration:", error);
+          
+          // Show error alert with error message, if available
+          Swal.fire({
+              position: "center",
+              icon: "error",
+              title: "Registration failed",
+              text: error.response?.data?.message || "An unexpected error occurred. Please try again.",
+              showConfirmButton: true
+          });
+      }
+  },
+  
+  });
+
   return (
     <>
       <div className="container-scroller">
@@ -11,37 +74,73 @@ function Signup() {
               <div className="card col-lg-4 mx-auto">
                 <div className="card-body px-5 py-5">
                   <h3 className="card-title text-start mb-3">Register</h3>
-                  <form>
+                  <form onSubmit={formik.handleSubmit}>
                     <div className="form-group">
                       <label>Username</label>
-                      <input type="text" className="form-control p_input" />
+                      <input
+                        type="text"
+                        name="username"
+                        className="form-control p_input"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.username}
+                        required
+                        maxLength={50}
+                      />
+                      {formik.touched.username && formik.errors.username ? (
+                        <div className="text-danger">{formik.errors.username}</div>
+                      ) : null}
                     </div>
 
                     <div className="form-group">
                       <label>Email</label>
-                      <input type="email" className="form-control p_input" />
+                      <input
+                        type="email"
+                        name="email"
+                        className="form-control p_input"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.email}
+                        required
+                        maxLength={50}
+                      />
+                      {formik.touched.email && formik.errors.email ? (
+                        <div className="text-danger">{formik.errors.email}</div>
+                      ) : null}
                     </div>
 
                     <div className="form-group">
                       <label>Mobile</label>
-                      <input type="Number" className="form-control p_input" />
+                      <input
+                        type="number"
+                        name="mobile"
+                        className="form-control p_input"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.mobile}
+                      />
+                      {formik.touched.mobile && formik.errors.mobile ? (
+                        <div className="text-danger">{formik.errors.mobile}</div>
+                      ) : null}
                     </div>
 
                     <div className="form-group">
                       <label>Password</label>
-                      <input type="password" className="form-control p_input" />
+                      <input
+                        type="password"
+                        name="password"
+                        className="form-control p_input"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.password}
+                        required
+                        maxLength={50}
+                      />
+                      {formik.touched.password && formik.errors.password ? (
+                        <div className="text-danger">{formik.errors.password}</div>
+                      ) : null}
                     </div>
 
-                    <div className="form-group d-flex align-items-center justify-content-between">
-                      <div className="form-check">
-                        <label className="form-check-label">
-                          {/* <input type="checkbox" className="form-check-input" />{" "} */}{" "}
-                        </label>
-                      </div>
-                      <a href="#" className="forgot-pass">
-                        Forgot password
-                      </a>
-                    </div>
                     <div className="text-center d-grid gap-2">
                       <button
                         type="submit"
@@ -66,16 +165,12 @@ function Signup() {
                       By creating an account you are accepting our
                       <a href="#"> Terms &amp; Conditions</a>
                     </p>
-
                   </form>
                 </div>
               </div>
             </div>
-            {/* content-wrapper ends */}
           </div>
-          {/* row ends */}
         </div>
-        {/* page-body-wrapper ends */}
       </div>
     </>
   );

@@ -6,6 +6,8 @@ import Dashboard from './pages/dashboard/Dashboard';
 import Signup from './pages/signup/Signup';
 import Login from './pages/login/Login';
 import Error404 from './pages/errors/Error404';
+import ProtectedRoutes from './components/ProtectedRoutes/ProtectedRoutes';
+import LoginProtectedRoutes from './components/ProtectedRoutes/LoginProtectedRoutes';
 
 function App() {
   return (
@@ -13,13 +15,17 @@ function App() {
      <BrowserRouter>
       <Routes>
 
+      <Route element={<LoginProtectedRoutes/>}>
       <Route path="/signup" element={<Signup/>}/>
       <Route path="/login" element={<Login/>}/>
+      </Route>
 
 
         {/* <Route path="/" element={<Layout/>}/> */}
+        <Route element={<ProtectedRoutes/>}>
         <Route path="/" element={<Dashboard/>}/>
 
+        </Route>
         <Route path="*" element={<Error404/>}/> 
 
       </Routes>

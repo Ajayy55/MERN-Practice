@@ -41,12 +41,17 @@ const userSchema=new mongoose.Schema({
     rwaImage:{
         type:String,
     },
-    rwqDocument:{
+    rwaDocument:{
         type:Object,
     },
     role:{
         type:String,
-        enum:["superAdmin", "admin" , "societyAdmin","societySubAdmin","guardLevel"]
+        enum:["superAdmin", "admin" , "societyAdmin","societySubAdmin","guardLevel"],
+        required:true,
+    },
+    permissionLevel:{
+        type:Number,
+        default:2
     }
 
 },{timestamps:true});
@@ -58,7 +63,7 @@ userSchema.pre("save",async function(next){
     next();
 })
 
-userSchema.method.isPasswordMatched=async function(password){
+userSchema.methods.isPasswordMatched=async function(password){
     return await bcrypt.compare(password,this.password);
 }
 
