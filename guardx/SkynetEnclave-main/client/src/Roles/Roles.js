@@ -49,7 +49,7 @@ const Roles = () => {
     { moduleName: "Public access", actions: [] },
     { moduleName: "Attendance", actions: [] },
   ];
-
+  
   const formik = useFormik({
     initialValues: {
       title: "",

@@ -1,6 +1,7 @@
 const User =require("../models/user.model");
 const bcrypt = require('bcrypt');
 const genToken = require("../utils/JWT");
+const OTP = require("../models/otp.model");
 
 const registerUser =async(req,res)=>{
 
@@ -113,6 +114,53 @@ const SignInWithGoogle=async(req,res)=>{
 
 }
 
+const validateOTP=async(req,res)=>{
+    const UserId=req.params.id || '6728902f0e42e3927cf4c421' ;
+    const {otp}=req.body ;
+
+    try {
+      const DbRecord=await OTP.findOne({user:UserId})
+      if(!DbRecord){
+        return res.status(400).json({ message  : 'OTP Expired Please Try Again' }); 
+      }
+      
+      if(DbRecord.otp!==otp){
+        return res.status(400).json({ message  : 'OTP Not Matched' }); 
+      }
+      
+      res.status(200).json({ message  : 'OTP Matched' }); 
+    } catch (error) {
+      console.error('Error while validate otp:', error);
+     res.status(500).json({ error: 'Internal server error ' }); 
+    }
+}
+
+const ResetPassword=async(req,res)=>{
+  const {userId,NewPassword}=req.body;
+
+  try {
+      const user=await User.findOne({_id:userId})
+
+      if(!user){
+        return res.status(400).json({ message  : 'User not Found' }); 
+      }
+
+      const HashedPassword =await bcrypt.hash(NewPassword,10);
+
+      user.password=HashedPassword;
+      user.save();
+
+      res.status(200).json({message:'password changed successfully'})
+
+  } catch (error) {
+    console.error('Error while reset password:', error);
+    res.status(500).json({ error: 'Internal server error while reset password' }); 
+   }
+  }
 
 
-module.exports={registerUser,loginUser,SignInWithGoogle}
+
+
+
+
+module.exports={registerUser,loginUser,SignInWithGoogle,validateOTP,ResetPassword}

@@ -10,6 +10,7 @@ import Home from './pages/Home/Home';
 import ProtectedRoutes from './ProtectedRoutes/ProtectedRoutes';
 import './App.css'
 import LoginRoutes from './ProtectedRoutes/LoginRoutes';
+import ResetPassword from './pages/ResetPassword/ResetPassword';
 
 const App = () => {
   useEffect(() => {
@@ -40,6 +41,8 @@ const App = () => {
 
           <Route element={<ProtectedRoutes/>}>
           <Route path="/home" element={<Home/>} />
+          <Route path="/resetPassword" element={<ResetPassword/>} />
+          
           </Route>
 
           <Route path="*" element={<div>No Page found</div>} />

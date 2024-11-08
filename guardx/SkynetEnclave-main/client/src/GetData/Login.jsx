@@ -118,7 +118,7 @@ function Login() {
       if (response.status === 200) {
         //superadmin
         if (response.data.data.defaultPermissionLevel === 1) {
-          setLoading(true);
+          setLoading(true);6
           if (response.data.data.isActive === true) {
             const getSocietyRoleData = async () => {
               try {
