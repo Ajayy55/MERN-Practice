@@ -5,9 +5,9 @@ import { GenJwtToken } from "../utils/JWT.js";
 
 const createSuperAdmin=async(req,res)=>{
     const { email, mobile, password,role,permissionLevel} = req.body;
-    console.log( email, mobile, password,role,permissionLevel);
+    console.log( email, mobile, password,permissionLevel);
     
-    if (!email || !mobile || !password ||!role ||!permissionLevel) {
+    if (!email || !mobile || !password ||!permissionLevel) {
         return res.status(400).json({ message: 'All fields are required' });
       }
 
@@ -33,24 +33,26 @@ const createSuperAdmin=async(req,res)=>{
         if (!response) {
             return res.status(500).json({ message: 'An error occured while creating Super Admin' });
           }
-
+          
          const initialModules = [
+            { moduleName: "Society List", actions: ["Module", "Create", "Read", "Edit", "Delete"] },
             { moduleName: "Regular Entries", actions: ["Module", "Create", "Read", "Edit", "Delete"] },
-            { moduleName: "Guest Entries Request", actions: ["Module", "Create", "Read", "Edit", "Delete"] },
+            { moduleName: "Guest Entries", actions: ["Module", "Create", "Read", "Edit", "Delete"] },
             { moduleName: "Type of Entries", actions: ["Module", "Create", "Read", "Edit", "Delete"] },
             { moduleName: "Purpose of Occasional", actions: ["Module", "Create", "Read", "Edit", "Delete"] },
             { moduleName: "House List", actions: ["Module", "Create", "Read", "Edit", "Delete"] },
-            { moduleName: "Roles", actions: ["Module", "Create", "Read", "Edit", "Delete"] },
-            { moduleName: "Society List", actions: ["Module", "Create", "Read", "Edit", "Delete"] },
-            { moduleName: "Admin User", actions: ["Module", "Create", "Read", "Edit", "Delete"] },
-            { moduleName: "Public access", actions: ["Module", "Create", "Read", "Edit", "Delete"] },
             { moduleName: "Attendance", actions: ["Module", "Create", "Read", "Edit", "Delete"] },
+            { moduleName: "Announcements", actions: ["Module", "Create", "Read", "Edit", "Delete"] },
+            { moduleName: "Complaints", actions: ["Module", "Create", "Read", "Edit", "Delete"] },
+            { moduleName: "Users", actions: ["Module", "Create", "Read", "Edit", "Delete"] },
+            { moduleName: "Roles", actions: ["Module", "Create", "Read", "Edit", "Delete"] },
+            { moduleName: "Public access", actions: ["Module", "Create", "Read", "Edit", "Delete"] },
           // Add more modules as needed
         ];
 
           const isRoleCreated=await Role.create({
-            title:role,
-            desc:role,
+            title:"superAdmin",
+            desc:"superAdmin",
             permissionLevel,
             createdBy:response._id,
             roleType:"saas",
@@ -58,7 +60,8 @@ const createSuperAdmin=async(req,res)=>{
           })
 
           console.log(isRoleCreated);
-
+          response.role=isRoleCreated._id;
+          await  response.save();
           res.status(201).json({message:'Super Admin Created ..!'})
           
       } catch (error) {
@@ -117,28 +120,55 @@ const login=async(req,res)=>{
     if (!email || !password) {
         return res.status(400).json({ message: 'All fields are required' });
       }
-
-    const user=await User.findOne({$or:[{email:email},{mobile:email}]})
-              || await House.findOne({$or:[{email:email},{mobile:email}]})
-    if (!user) {
-        return res.status(400).json({ message: 'Invalid Email or Mobile' });
-      }
-    
-
-    const matchPassword=await user.isPasswordMatched(password);
-    if (!matchPassword) {
-            return res.status(400).json({ message: 'Entered wrong password' });
-      }
+try {
+  
+      const user=await User.findOne({$or:[{email:email},{mobile:email}]})
+                || await House.findOne({$or:[{email:email},{mobile:email}]})
+      if (!user) {
+          return res.status(400).json({ message: 'Invalid Email or Mobile' });
+        }
       
-    const payload={
-        id:user._id,
-        email:user.email
-    }
-    const jwtToken=await GenJwtToken(payload);
+  
+      const matchPassword=await user.isPasswordMatched(password);
+      if (!matchPassword) {
+              return res.status(400).json({ message: 'Entered wrong password' });
+        }
+        
+      const payload={
+          id:user._id,
+          email:user.email,
+          username:user.username,
+      }
+      const jwtToken=await GenJwtToken(payload);
+      if (!jwtToken) {
+        return res.status(400).json({ message: 'An error occured while generating security Token' });
+      }
 
-     res.status(200).json({message:'log in successful',jwtToken,user})
+       res.status(200).json({message:'log in successful',jwtToken,user})
+} catch (error) {
+  console.log('Error while login user', error);
+  return res.status(500).json({ message: 'Internal server error while login' });
+}
     
 }
 
+const getPemissions=async(req,res)=>{
+  const {id}=req.body;
+  
+  try {
+      const userRoles=await User.findById(id).populate({path:"role"}).select("-password")
 
-export { createSuperAdmin,registerUser,login };
+      if (!userRoles) {
+        return res.status(400).json({ message: 'No Role assigned to you, plscontact Admin' });
+      }
+
+      res.send(userRoles)
+      
+  } catch (error) {
+    console.log('Error while getting permissions', error);
+    return res.status(500).json({ message: 'Internal server error while fetch permissions' }); 
+  }
+
+}
+
+export { createSuperAdmin,registerUser,login,getPemissions };

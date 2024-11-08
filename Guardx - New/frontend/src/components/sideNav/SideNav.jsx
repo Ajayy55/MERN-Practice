@@ -1,6 +1,81 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { PORT } from '../../port/Port';
+import axios from 'axios';
+import { jwtDecode } from "jwt-decode";
+import { useNavigate } from 'react-router-dom';
+import Swal from "sweetalert2/dist/sweetalert2.js";
+
 
 function SideNav() {
+const [permissions,Setpermissions]=useState([])
+const [permissionLevel,SetpermissionLevel]=useState(null)
+const [TokenExp, SetTokenExp] = useState(false);
+const [token, setToken] = useState(null);
+const [user,setUser]=useState({name:'',role:''})
+let userID;
+
+const navigate =useNavigate()
+
+  useEffect(() => {
+    setToken(localStorage.getItem("token") || sessionStorage.getItem("token"));
+    checkTokenExpiry();
+    getPermissions();
+  }, [TokenExp,token]);
+
+
+  const checkTokenExpiry = () => {
+    if (token) {
+      setToken(token);
+      const decode = jwtDecode(token);
+      
+      userID=decode.id;
+      // console.log('decode',userID);
+      const stopCheck = setInterval(() => {
+        if (decode.exp < Math.round(Date.now() / 1000)) {
+          // console.log("expired");
+          setToken(false);
+          myStopFunction(stopCheck);
+        }
+      }, 5000); //check every 5 sec
+    } 
+  };
+
+  function myStopFunction(stopCheck) {
+    Swal.fire({
+      position: "center",
+      icon: "error",
+      title: 'Session Expired',
+      showConfirmButton: false,
+      timer: 1500
+      });
+    clearInterval(stopCheck);
+    navigate("/login");
+    localStorage.clear();
+    sessionStorage.clear();
+  }
+
+  const getPermissions=async()=>{
+    try {
+      if(userID){
+        const url=`${PORT}getPemissions`
+        const response=await axios.post(url,{id:userID})  //super
+        console.log('permssions',response);
+        setUser({name:response?.data?.username,role:response?.data?.role?.title})
+        Setpermissions(response?.data.role?.permissions)
+        SetpermissionLevel(response?.data?.permissionLevel)
+      }
+    } catch (error) {
+     console.log('At fetching permissions',error);
+    }
+  }
+
+
+  const hasPermission = (moduleName, action) =>
+    permissions?.find(
+      (perm) => perm.moduleName === moduleName && perm.actions.includes(action)
+    );
+// console.log('pp',permissions,permissionLevel);
+
   return (
     <>
     
@@ -8,6 +83,7 @@ function SideNav() {
   <div className="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
     <a className="sidebar-brand brand-logo" href="index.html">
       <img src="assets/images/logo.svg" alt="logo" />
+      {/* <img src="./guardxlogo.webp" alt="logo" /> */}
     </a>
     <a className="sidebar-brand brand-logo-mini" href="index.html">
       <img src="assets/images/logo-mini.svg" alt="logo" />
@@ -26,11 +102,12 @@ function SideNav() {
             <span className="count bg-success" />
           </div>
           <div className="profile-name">
-            <h5 className="mb-0 font-weight-normal">GuardX</h5>
-            <span>Gold Member</span>
+            <h5 className="mb-0 font-weight-normal">{user.name}</h5>
+            <span>{user?.role}</span>
           </div>
         </div>
-        <a href="#" id="profile-dropdown" data-bs-toggle="dropdown">
+        <hr />
+        {/* <a href="#" id="profile-dropdown" data-bs-toggle="dropdown">
           <i className="mdi mdi-dots-vertical" />
         </a>
         <div
@@ -75,14 +152,20 @@ function SideNav() {
               </p>
             </div>
           </a>
-        </div>
+        </div> */}
       </div>
     </li>
 
     <li className="nav-item nav-category">
-      <span className="nav-link">Navigation</span>
+        <div className="" style={{  height: '0',
+    margin: '0',
+    overflow: 'hidden',
+    borderTop: '1px solid grey',
+    opacity: '1',}}/>
     </li>
-
+ 
+{/* Dashboard */}
+    {permissionLevel && permissionLevel <= 4 ?<>
     <li className="nav-item menu-items">
       <a className="nav-link" href="index.html">
         <span className="menu-icon">
@@ -90,87 +173,196 @@ function SideNav() {
         </span>
         <span className="menu-title">Dashboard</span>
       </a>
-    </li>
+    </li></> :null
+    }
 
-    <li className="nav-item menu-items">
-      <a
-        className="nav-link"
-        data-bs-toggle="collapse"
-        href="#ui-basic"
-        aria-expanded="false"
-        aria-controls="ui-basic"
-      >
-        <span className="menu-icon">
-          <i className="mdi mdi-laptop" />
-        </span>
-        <span className="menu-title">Basic UI Elements</span>
-        <i className="menu-arrow" />
-      </a>
-      <div className="collapse" id="ui-basic">
-        <ul className="nav flex-column sub-menu">
-          <li className="nav-item">
-            {" "}
-            <a className="nav-link" href="pages/ui-features/buttons.html">
-              Buttons
-            </a>
-          </li>
-          <li className="nav-item">
-            {" "}
-            <a className="nav-link" href="pages/ui-features/dropdowns.html">
-              Dropdowns
-            </a>
-          </li>
-          <li className="nav-item">
-            {" "}
-            <a className="nav-link" href="pages/ui-features/typography.html">
-              Typography
-            </a>
-          </li>
-        </ul>
-      </div>
-    </li>
+    {/* Society */}
+    {hasPermission('Society List', 'Module') && (
+            <li className="nav-item menu-items">
+              <a className="nav-link" href="pages/tables/basic-table.html">
+                <span className="menu-icon">
+                  <i className="mdi mdi-table-large" />
+                </span>
+                <span className="menu-title">Society</span>
+                <i className="menu-arrow" />
+              </a>
+            </li>
+          )}
 
-    <li className="nav-item menu-items">
-      <a className="nav-link" href="pages/forms/basic_elements.html">
-        <span className="menu-icon">
-          <i className="mdi mdi-playlist-play" />
-        </span>
-        <span className="menu-title">Form Elements</span>
-        <i className="menu-arrow" />
-      </a>
-    </li>
+    {/* Regular Entries */}
+    {hasPermission('Regular Entries', 'Module') && (
+            <li className="nav-item menu-items">
+              <a
+                className="nav-link"
+                data-bs-toggle="collapse"
+                href="#ui-basic"
+                aria-expanded="false"
+                aria-controls="ui-basic"
+              >
+                <span className="menu-icon">
+                  <i className="mdi mdi-laptop" />
+                </span>
+                <span className="menu-title">Regular Entries</span>
+                <i className="menu-arrow" />
+              </a>
+              <div className="collapse" id="ui-basic">
+                <ul className="nav flex-column sub-menu">
+                  <li className="nav-item">
+                    <a className="nav-link" href="pages/ui-features/buttons.html">
+                      Buttons
+                    </a>
+                  </li>
+                  <li className="nav-item">
+                    <a className="nav-link" href="pages/ui-features/dropdowns.html">
+                      Dropdowns
+                    </a>
+                  </li>
+                  <li className="nav-item">
+                    <a className="nav-link" href="pages/ui-features/typography.html">
+                      Typography
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          )}
 
-    <li className="nav-item menu-items">
-      <a className="nav-link" href="pages/tables/basic-table.html">
-        <span className="menu-icon">
-          <i className="mdi mdi-table-large" />
-        </span>
-        <span className="menu-title">Tables</span>
-        <i className="menu-arrow" />
-      </a>
-    </li>
+{/* Guest List */}
+{hasPermission('Guest Entries', 'Module') && (
+            <li className="nav-item menu-items">
+              <a className="nav-link" href="pages/forms/basic_elements.html">
+                <span className="menu-icon">
+                  <i className="mdi mdi-contacts" />
+                </span>
+                <span className="menu-title">Guest Entries</span>
+                <i className="menu-arrow" />
+              </a>
+            </li>
+          )}
 
+{/* Types of entires */}
+{hasPermission('Type of Entries', 'Module') && (
+            <li className="nav-item menu-items">
+              <a className="nav-link" href="pages/tables/basic-table.html">
+                <span className="menu-icon">
+                  <i className="mdi mdi-table-large" />
+                </span>
+                <span className="menu-title">Type of Entries</span>
+                <i className="menu-arrow" />
+              </a>
+            </li>
+          )}
+
+{/* Occasional purpose */}
+{hasPermission('Purpose of Occasional', 'Module') && (
     <li className="nav-item menu-items">
       <a className="nav-link" href="pages/charts/chartjs.html">
         <span className="menu-icon">
           <i className="mdi mdi-chart-bar" />
         </span>
-        <span className="menu-title">Charts</span>
+        <span className="menu-title"> Occasional Purposes</span>
         <i className="menu-arrow" />
       </a>
-    </li>
+    </li>)
+     }
 
+{/* House List */}
+{hasPermission('House List', 'Module') && (
+           <li className="nav-item menu-items">
+           <a className="nav-link" href="pages/charts/chartjs.html">
+             <span className="menu-icon">
+               <i className="mdi mdi-home" />
+             </span>
+             <span className="menu-title">House List</span>
+             <i className="menu-arrow" />
+           </a>
+         </li>
+          )}
+
+
+
+{/* Attendance*/}
+{hasPermission('Attendance', 'Module') && (
+    <li className="nav-item menu-items">
+      <a className="nav-link" href="pages/charts/chartjs.html">
+        <span className="menu-icon">
+          <i className="mdi mdi-fingerprint" />
+        </span>
+        <span className="menu-title">Attendance</span>
+        <i className="menu-arrow" />
+      </a>
+    </li>)
+     }
+
+    {/* Annoucmnets */}
+    {hasPermission('Announcements', 'Module') && (
+    <li className="nav-item menu-items">
+      <a className="nav-link" href="pages/charts/chartjs.html">
+        <span className="menu-icon">
+          <i className="mdi mdi-newspaper" />
+        </span>
+        <span className="menu-title">Announcements</span>
+        <i className="menu-arrow" />
+      </a>
+    </li>)
+     }
+
+     {/* Complaints */}
+     {hasPermission('Complaints', 'Module') && (
     <li className="nav-item menu-items">
       <a className="nav-link" href="pages/icons/font-awesome.html">
         <span className="menu-icon">
-          <i className="mdi mdi-contacts" />
+          <i className="mdi mdi-clipboard-text" />
         </span>
-        <span className="menu-title">Icons</span>
+        <span className="menu-title">Complaints</span>
         <i className="menu-arrow" />
       </a>
-    </li>
+    </li>)
+     }
 
+{/* Users */}
+{hasPermission('Users', 'Module') && (
     <li className="nav-item menu-items">
+      <a className="nav-link" href="pages/icons/font-awesome.html">
+        <span className="menu-icon">
+          <i className="mdi mdi-account" />
+        </span>
+        <span className="menu-title">Users</span>
+        <i className="menu-arrow" />
+      </a>
+    </li>)
+     }
+
+{/* Admin */}
+{hasPermission('Admin', 'Module') && (
+    <li className="nav-item menu-items">
+      <a className="nav-link" href="pages/icons/font-awesome.html">
+        <span className="menu-icon">
+          <i className="mdi mdi-security" />
+        </span>
+        <span className="menu-title">Admin</span>
+        <i className="menu-arrow" />
+      </a>
+    </li>)
+     }
+
+
+   
+    
+  
+  </ul>
+</nav>
+
+
+    </>
+  )
+}
+
+export default SideNav
+
+
+
+ {/* <li className="nav-item menu-items">
       <a
         className="nav-link"
         data-bs-toggle="collapse"
@@ -223,15 +415,4 @@ function SideNav() {
           </li>
         </ul>
       </div>
-    </li>
-    
-  
-  </ul>
-</nav>
-
-
-    </>
-  )
-}
-
-export default SideNav
+    </li> */}

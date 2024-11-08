@@ -1,6 +1,23 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2/dist/sweetalert2.js";
+import { jwtDecode } from "jwt-decode";
+
+
+
 
 function Navbar() {
+  const navigate =useNavigate();
+  const token=localStorage.getItem('token')
+  if(token){
+  const decode = jwtDecode(token);
+  console.log(decode);
+  }
+  const handleLogout = ()=>{
+    localStorage.clear();
+    navigate('/login')
+  }
+
   return (
     <>
       <nav className="navbar p-0 fixed-top d-flex flex-row">
@@ -10,14 +27,14 @@ function Navbar() {
           </a>
         </div>
         <div className="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
-          <button
+          {/* <button
             className="navbar-toggler navbar-toggler align-self-center"
             type="button"
             data-toggle="minimize"
           >
             <span className="mdi mdi-menu" />
-          </button>
-          <ul className="navbar-nav w-100">
+          </button> */}
+          {/* <ul className="navbar-nav w-100">
             <li className="nav-item w-100">
               <form className="nav-link mt-2 mt-md-0 d-none d-lg-flex search">
                 <input
@@ -27,9 +44,9 @@ function Navbar() {
                 />
               </form>
             </li>
-          </ul>
+          </ul> */}
           <ul className="navbar-nav navbar-nav-right">
-            <li className="nav-item dropdown d-none d-lg-block">
+            {/* <li className="nav-item dropdown d-none d-lg-block">
               <a
                 className="nav-link btn btn-success create-new-button"
                 id="createbuttonDropdown"
@@ -91,7 +108,7 @@ function Navbar() {
               <a className="nav-link" href="#">
                 <i className="mdi mdi-view-grid" />
               </a>
-            </li>
+            </li> */}
             <li className="nav-item dropdown border-left">
               <a
                 className="nav-link count-indicator dropdown-toggle"
@@ -235,7 +252,7 @@ function Navbar() {
                     alt=""
                   />
                   <p className="mb-0 d-none d-sm-block navbar-profile-name">
-                    Henry Klein
+                    {/* {decode?.username} */}
                   </p>
                   <i className="mdi mdi-menu-down d-none d-sm-block" />
                 </div>
@@ -249,26 +266,26 @@ function Navbar() {
                 <a className="dropdown-item preview-item">
                   <div className="preview-thumbnail">
                     <div className="preview-icon bg-dark rounded-circle">
-                      <i className="mdi mdi-cog text-success" />
+                      <i className="mdi mdi-fingerprint text-success" />
                     </div>
                   </div>
                   <div className="preview-item-content">
-                    <p className="preview-subject mb-1">Settings</p>
+                    <p className="preview-subject mb-1">Attendance</p>
                   </div>
                 </a>
                 <div className="dropdown-divider" />
-                <a className="dropdown-item preview-item">
+                <a className="dropdown-item preview-item" onClick={handleLogout}>
                   <div className="preview-thumbnail">
                     <div className="preview-icon bg-dark rounded-circle">
                       <i className="mdi mdi-logout text-danger" />
                     </div>
                   </div>
                   <div className="preview-item-content">
-                    <p className="preview-subject mb-1">Log out</p>
+                    <p className="preview-subject mb-1" >Log out</p>
                   </div>
                 </a>
-                <div className="dropdown-divider" />
-                <p className="p-3 mb-0 text-center">Advanced settings</p>
+                {/* <div className="dropdown-divider" />
+                <p className="p-3 mb-0 text-center">Advanced settings</p> */}
               </div>
             </li>
           </ul>

@@ -10,7 +10,6 @@ const userSchema=new mongoose.Schema({
     mobile:{
         type:String,
         required:true,
-        
     },
     username:{
         type:String,
@@ -35,9 +34,6 @@ const userSchema=new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:"User" || "Society" 
     },
-    societyId:{
-        type:String,
-    },
     rwaImage:{
         type:String,
     },
@@ -45,14 +41,20 @@ const userSchema=new mongoose.Schema({
         type:Object,
     },
     role:{
-        type:String,
-        enum:["superAdmin", "admin" , "societyAdmin","societySubAdmin","guardLevel"],
-        required:true,
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Role"
     },
     permissionLevel:{
         type:Number,
         default:2
-    }
+    },
+    society: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Society", // Only applicable if the user belongs to a specific society
+        required: function () {
+          return ["Society Admin", "Society Sub Admin", "Society Guard"].includes(this.role);
+        }
+      }
 
 },{timestamps:true});
 

@@ -1,5 +1,5 @@
 import {Router} from 'express'
-import { createSuperAdmin,registerUser,login } from '../controllers/user.controller.js';
+import { createSuperAdmin,registerUser,login,getPemissions } from '../controllers/user.controller.js';
 import { upload } from '../utils/Multer.js';
 
 const router= Router();
@@ -10,6 +10,7 @@ router.post('/register', upload.fields([
     { name: 'rwaDocument', maxCount: 1 }]),registerUser);
 
 router.post('/login',login)
+router.post('/getPemissions',getPemissions)
 
 
 
