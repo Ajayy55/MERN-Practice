@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { PORT } from '../../port/Port';
 import axios from 'axios';
 import { jwtDecode } from "jwt-decode";
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import Swal from "sweetalert2/dist/sweetalert2.js";
 
 
@@ -59,7 +59,7 @@ const navigate =useNavigate()
       if(userID){
         const url=`${PORT}getPemissions`
         const response=await axios.post(url,{id:userID})  //super
-        console.log('permssions',response);
+        // console.log('permssions',response);
         setUser({name:response?.data?.username,role:response?.data?.role?.title})
         Setpermissions(response?.data.role?.permissions)
         SetpermissionLevel(response?.data?.permissionLevel)
@@ -167,25 +167,25 @@ const navigate =useNavigate()
 {/* Dashboard */}
     {permissionLevel && permissionLevel <= 4 ?<>
     <li className="nav-item menu-items">
-      <a className="nav-link" href="index.html">
+    <NavLink to='/' className="nav-link">
         <span className="menu-icon">
           <i className="mdi mdi-speedometer" />
         </span>
         <span className="menu-title">Dashboard</span>
-      </a>
+      </NavLink>
     </li></> :null
     }
 
     {/* Society */}
     {hasPermission('Society List', 'Module') && (
             <li className="nav-item menu-items">
-              <a className="nav-link" href="pages/tables/basic-table.html">
+              <NavLink to='/society' className="nav-link" >
                 <span className="menu-icon">
                   <i className="mdi mdi-table-large" />
                 </span>
                 <span className="menu-title">Society</span>
                 <i className="menu-arrow" />
-              </a>
+              </NavLink>
             </li>
           )}
 

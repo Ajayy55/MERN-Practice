@@ -11,7 +11,7 @@ function Navbar() {
   const token=localStorage.getItem('token')
   if(token){
   const decode = jwtDecode(token);
-  console.log(decode);
+  // console.log(decode);
   }
   const handleLogout = ()=>{
     localStorage.clear();

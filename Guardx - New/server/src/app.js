@@ -20,10 +20,11 @@ app.use(userRouter)
 
 //house routes
 import houseRouter from './routes/house.routes.js'
-import { upload } from './utils/Multer.js'
 app.use(houseRouter)
 
-
+//society routes
+import societyRoutes from './routes/society.routes.js'
+app.use(societyRoutes)
 
 
 export {app}

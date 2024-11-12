@@ -63,7 +63,7 @@ unHashPassword('Agj2aay4sBogo5da');
         if (response.status === 200) {
             const Responsedata=response?.data.user;
           
-            // console.log('k',Responsedata);
+            console.log('k',Responsedata);
             if(Responsedata.isActive===true)
             {
               if(values.rememberMe==true){
@@ -74,7 +74,7 @@ unHashPassword('Agj2aay4sBogo5da');
                }
 
               localStorage.setItem('token',response.data.jwtToken)
-            
+               localStorage.setItem('user',Responsedata._id)
                 if(Responsedata?.permissionLevel===1)
                 {
                       Swal.fire({

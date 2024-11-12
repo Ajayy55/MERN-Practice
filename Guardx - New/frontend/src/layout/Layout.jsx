@@ -1,6 +1,7 @@
 import React, { Children } from 'react'
 import SideNav from '../components/sideNav/SideNav'
 import Navbar from '../components/navbar/Navbar'
+import Footer from '../components/footer/Footer'
 
 function Layout({children}) {
   return (
@@ -13,7 +14,7 @@ function Layout({children}) {
     {children}
     </div>
    </div>
-   
+   <Footer/>
    
    </>
   )

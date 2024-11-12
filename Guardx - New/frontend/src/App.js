@@ -8,6 +8,10 @@ import Login from './pages/login/Login';
 import Error404 from './pages/errors/Error404';
 import ProtectedRoutes from './components/ProtectedRoutes/ProtectedRoutes';
 import LoginProtectedRoutes from './components/ProtectedRoutes/LoginProtectedRoutes';
+import SocietyList from './pages/society/SocietyList';
+import EditSociety from './pages/society/EditSociety';
+import UploadModal from './pages/utils/UploadModal';
+import AddSociety from './pages/society/AddSociety';
 
 function App() {
   return (
@@ -24,6 +28,11 @@ function App() {
         {/* <Route path="/" element={<Layout/>}/> */}
         <Route element={<ProtectedRoutes/>}>
         <Route path="/" element={<Dashboard/>}/>
+          <Route path="/society" element={<SocietyList/>}/>
+          <Route path="/addsociety" element={<AddSociety/>}/>
+          <Route path="/editSociety" element={<EditSociety/>}/>
+          <Route path="/upload" element={<UploadModal/>}/>
+          
 
         </Route>
         <Route path="*" element={<Error404/>}/> 
