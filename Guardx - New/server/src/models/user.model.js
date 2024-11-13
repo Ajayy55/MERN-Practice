@@ -32,7 +32,7 @@ const userSchema=new mongoose.Schema({
     },
     createdBy :{
         type:mongoose.Schema.Types.ObjectId,
-        ref:"User" || "Society" 
+        ref:"User",
     },
     rwaImage:{
         type:String,

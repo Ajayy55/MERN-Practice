@@ -1,5 +1,5 @@
 import {Router} from 'express'
-import { createSuperAdmin,registerUser,login,getPemissions } from '../controllers/user.controller.js';
+import { createSuperAdmin,registerUser,login,getPemissions,getUsersByCreatedBy,removeUser,getUserRoles} from '../controllers/user.controller.js';
 import { upload } from '../utils/Multer.js';
 
 const router= Router();
@@ -11,6 +11,9 @@ router.post('/register', upload.fields([
 
 router.post('/login',login)
 router.post('/getPemissions',getPemissions)
+router.get('/getUsersByCreatedBy/:id',getUsersByCreatedBy)
+router.delete('/removeUser/:id',removeUser);
+router.get('/getUserRoles/:id',getUserRoles)
 
 
 

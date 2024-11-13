@@ -187,7 +187,7 @@ useEffect(()=>{
     <Layout>
       <div className="content-wrapper">
         <div className="col-lg-12 grid-margin stretch-card">
-          <div className="container mt-5">
+          <div className="container mt-0">
             <div className="card p-4">
               <h3 className="card-title text-center">Add Society Details</h3>
               <form onSubmit={formik.handleSubmit}>

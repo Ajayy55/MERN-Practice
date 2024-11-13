@@ -1,44 +1,35 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { PORT } from "../../port/Port";
-import axios from 'axios'
-import Swal from 'sweetalert2'
-
+import axios from 'axios';
+import Swal from 'sweetalert2';
+import { hashPassword, unHashPassword } from "../utils/PasswordHashing";
+// import Loader from "../../components/loaderSpinner/Loader";
 function Login() {
+  // const [loading, setLoading] = useState(true); 
+  const hashedEmail = localStorage.getItem('username');
+  const hashedPass = localStorage.getItem('pass');
+  const navigate = useNavigate();
 
-const key = '!23Big45Basket#Hasing@666#!';
-const keyPair = ['5','1','9','6','3','5','7','9','0'];
+  // if (loading) return <Loader loading={loading} />; // Display loader when loading
 
-const hashPassword = (password) => {
-    let result = '';
-    for (let i = 0; i < password.length; i++) {
-        // Add the password character and corresponding key character
-        result += password[i] + key[keyPair[i % keyPair.length]];
+
+  useEffect(() => {
+    if (hashedEmail && hashedPass) {
+      const email = unHashPassword(hashedEmail);
+      const pass = unHashPassword(hashedPass);
+      // console.log(email,pass);
+      
+      formik.setValues({
+        email: email,
+        password: pass,
+      });
     }
-    console.log("Hashed password:", result);
-    return result;
-}
+  }, [hashedEmail, hashedPass]);
 
-// Example usage
-// const hashedPassword = hashPassword();
 
-// Unhash password by reversing the pattern
-const unHashPassword = (hashedPassword) => {
-    let result = '';
-    for (let i = 0; i < hashedPassword.length; i += 2) {
-        // Take every second character (the original password character)
-        result += hashedPassword[i];
-    }
-    console.log("Unhashed password:", result);
-    return result;
-}
-
-// Example unhashing
-unHashPassword('Agj2aay4sBogo5da');
-  // Formik configuration 
-  const navigate=useNavigate();
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -52,7 +43,6 @@ unHashPassword('Agj2aay4sBogo5da');
         .required("Password is required"),
     }),
     onSubmit: async (values) => {
-      // Handle form submission logic here
       // console.log("Form values:", values);
       try {
         
@@ -63,7 +53,7 @@ unHashPassword('Agj2aay4sBogo5da');
         if (response.status === 200) {
             const Responsedata=response?.data.user;
           
-            console.log('k',Responsedata);
+            // console.log('k',Responsedata);
             if(Responsedata.isActive===true)
             {
               if(values.rememberMe==true){

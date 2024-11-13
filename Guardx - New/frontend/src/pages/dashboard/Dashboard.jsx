@@ -1,7 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Layout from '../../layout/Layout'
+import { usePermissions ,refreshPermissions} from '../../context/PermissionsContext'
 
 function Dashboard() {
+  const { getPermissions,permissions} = usePermissions();
+  const user=localStorage.getItem('user');
+
+  useEffect(() => {
+    getPermissions(user);
+    // console.log('permissions called' ,permissions);
+  }, [user]);
+
   return (
     <>
     <Layout>

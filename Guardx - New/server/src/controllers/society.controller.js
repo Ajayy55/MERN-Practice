@@ -4,8 +4,8 @@ import fs from 'fs'
 const addSociety=async(req,res)=>{
     const {name,address,city,state,contact,createdBy,houseCount} =req.body;
     const files = req.files;
-    console.log(req.body);
-    console.log(req.files);
+    // console.log(req.body);
+    // console.log(req.files);
     
     if(!name|| !address|| !city|| !state|| !contact||  !createdBy|| !houseCount){
         return res.status(400).json({message:'Pls fill all required fields'})
@@ -82,8 +82,8 @@ const editSociety=async(req,res)=>{
     const files = req.files;
     const id=req.params.id;
 
-    console.log('body',req.body);
-    console.log('file',req.file);
+    // console.log('body',req.body);
+    // console.log('file',req.file);
     
     if(!name|| !address|| !city|| !state|| !contact|| !createdBy|| !houseCount){
         return res.status(400).json({message:'Pls fill all required fields'})
@@ -92,7 +92,7 @@ const editSociety=async(req,res)=>{
 try {
         const updateSociety =await Society.findByIdAndUpdate(id,{...req.body},{new:true})
 
-       console.log(updateSociety.societyLogo);
+    //    console.log(updateSociety.societyLogo);
        
         
         if(files){

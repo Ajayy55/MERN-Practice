@@ -8,7 +8,7 @@ function Layout({children}) {
    <>
    <div className="container-scroller">
    <SideNav/>
-   <div class="main-panel">
+   <div className="main-panel">
     <Navbar/>
     
     {children}

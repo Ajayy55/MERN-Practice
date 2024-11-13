@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react';
 import { PORT } from '../../port/Port';
 import axios from 'axios';
 import { jwtDecode } from "jwt-decode";
@@ -12,47 +12,39 @@ const [permissionLevel,SetpermissionLevel]=useState(null)
 const [TokenExp, SetTokenExp] = useState(false);
 const [token, setToken] = useState(null);
 const [user,setUser]=useState({name:'',role:''})
+const intervalRef = useRef(null); // Ref to store the interval ID
+
 let userID;
 
 const navigate =useNavigate()
-
   useEffect(() => {
-    setToken(localStorage.getItem("token") || sessionStorage.getItem("token"));
-    checkTokenExpiry();
+    const storedToken = localStorage.getItem("token") || sessionStorage.getItem("token");
+    setToken(storedToken);
+
+    if (storedToken) {
+      const decode = jwtDecode(storedToken);
+      userID = decode.id;
+
+      // Check if the token has expired initially
+      if (decode.exp < Math.round(Date.now() / 1000)) {
+        handleSessionExpired();
+      } else {
+        // Set up the interval only once
+        intervalRef.current = setInterval(() => {
+          if (decode.exp < Math.round(Date.now() / 1000)) {
+            handleSessionExpired();
+          }
+        }, 5000); // Check every 5 seconds
+      }
+    }
+
     getPermissions();
-  }, [TokenExp,token]);
 
-
-  const checkTokenExpiry = () => {
-    if (token) {
-      setToken(token);
-      const decode = jwtDecode(token);
-      
-      userID=decode.id;
-      // console.log('decode',userID);
-      const stopCheck = setInterval(() => {
-        if (decode.exp < Math.round(Date.now() / 1000)) {
-          // console.log("expired");
-          setToken(false);
-          myStopFunction(stopCheck);
-        }
-      }, 5000); //check every 5 sec
-    } 
-  };
-
-  function myStopFunction(stopCheck) {
-    Swal.fire({
-      position: "center",
-      icon: "error",
-      title: 'Session Expired',
-      showConfirmButton: false,
-      timer: 1500
-      });
-    clearInterval(stopCheck);
-    navigate("/login");
-    localStorage.clear();
-    sessionStorage.clear();
-  }
+    return () => {
+      // Clear the interval when component unmounts
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, [token]);
 
   const getPermissions=async()=>{
     try {
@@ -60,6 +52,7 @@ const navigate =useNavigate()
         const url=`${PORT}getPemissions`
         const response=await axios.post(url,{id:userID})  //super
         // console.log('permssions',response);
+        
         setUser({name:response?.data?.username,role:response?.data?.role?.title})
         Setpermissions(response?.data.role?.permissions)
         SetpermissionLevel(response?.data?.permissionLevel)
@@ -68,6 +61,21 @@ const navigate =useNavigate()
      console.log('At fetching permissions',error);
     }
   }
+  const handleSessionExpired = () => {
+    if (intervalRef.current) clearInterval(intervalRef.current);
+
+    Swal.fire({
+      position: "center",
+      icon: "error",
+      title: 'Session Expired',
+      showConfirmButton: false,
+      timer: 1500
+    });
+    navigate("/login");
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    sessionStorage.clear();
+  };
 
 
   const hasPermission = (moduleName, action) =>
@@ -323,33 +331,28 @@ const navigate =useNavigate()
 {/* Users */}
 {hasPermission('Users', 'Module') && (
     <li className="nav-item menu-items">
-      <a className="nav-link" href="pages/icons/font-awesome.html">
+        <NavLink to='/users'className="nav-link" href="pages/icons/font-awesome.html">
         <span className="menu-icon">
           <i className="mdi mdi-account" />
         </span>
         <span className="menu-title">Users</span>
         <i className="menu-arrow" />
-      </a>
+      </NavLink>
     </li>)
      }
 
 {/* Admin */}
-{hasPermission('Admin', 'Module') && (
+{hasPermission('Roles', 'Module') && (
     <li className="nav-item menu-items">
-      <a className="nav-link" href="pages/icons/font-awesome.html">
+       <NavLink to='/roles' className="nav-link" href="pages/icons/font-awesome.html">
         <span className="menu-icon">
           <i className="mdi mdi-security" />
         </span>
-        <span className="menu-title">Admin</span>
+        <span className="menu-title">Roles</span>
         <i className="menu-arrow" />
-      </a>
+      </NavLink>
     </li>)
      }
-
-
-   
-    
-  
   </ul>
 </nav>
 

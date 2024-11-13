@@ -5,7 +5,7 @@ import { GenJwtToken } from "../utils/JWT.js";
 
 const createSuperAdmin=async(req,res)=>{
     const { email, mobile, password,role,permissionLevel} = req.body;
-    console.log( email, mobile, password,permissionLevel);
+    // console.log( email, mobile, password,permissionLevel);
     
     if (!email || !mobile || !password ||!permissionLevel) {
         return res.status(400).json({ message: 'All fields are required' });
@@ -59,7 +59,7 @@ const createSuperAdmin=async(req,res)=>{
             permissions:initialModules
           })
 
-          console.log(isRoleCreated);
+          // console.log(isRoleCreated);
           response.role=isRoleCreated._id;
           await  response.save();
           res.status(201).json({message:'Super Admin Created ..!'})
@@ -154,6 +154,7 @@ try {
 
 const getPemissions=async(req,res)=>{
   const {id}=req.body;
+  // console.log('post ',id);
   
   try {
       const userRoles=await User.findById(id).populate({path:"role"}).select("-password")
@@ -171,4 +172,60 @@ const getPemissions=async(req,res)=>{
 
 }
 
-export { createSuperAdmin,registerUser,login,getPemissions };
+
+const getUsersByCreatedBy=async(req,res)=>{
+    const id=req.params.id
+    // console.log(id);
+    
+    try {
+      const response=await User.find({createdBy:'672dbb46afa68099ad9c55ff'}).populate({path:"role"}).select("-password -permissions")
+      // console.log(response);
+      
+      if (!response) {
+        return res.status(400).json({ message: 'No User records Found' });
+      }
+
+      res.status(200).json({message:'records found',response})
+    
+    } catch (error) {
+      console.log('Error while getting users by createdby', error);
+      return res.status(500).json({ message: 'Internal server error while getting users by createdby' }); 
+    }
+}
+
+const removeUser=async(req,res)=>{
+  const id=req.params.id;
+    try {
+        const response=await User.findByIdAndDelete(id);
+        if (!response) {
+          return res.status(500).json({ message: 'Something went wrong while deleteing user' });
+        }
+  
+        res.status(200).json({message:'User removed successfully'})
+    } catch (error) {
+      console.log('Error while getting removing user', error);
+      return res.status(500).json({ message: 'Internal server error while getting removing user' });
+    }
+}
+
+const getUserRoles=async(req,res)=>{
+  const id=req.params.id;
+
+  try {
+    const response = await Role.find({
+      permissionLevel: { $ne: 1 },
+      createdBy: id
+    });
+    if(!response) {
+      return res.status(500).json({ message: 'Something went wrong while deleteing user' });
+    }
+    res.status(200).json({message:'user Roles',response})
+
+  } catch (error) {
+      console.log('Error while getting user roles', error);
+      return res.status(500).json({ message: 'Internal server error while getting user roles' });
+  }
+
+}
+
+export { createSuperAdmin,registerUser,login,getPemissions,getUsersByCreatedBy,removeUser,getUserRoles};
