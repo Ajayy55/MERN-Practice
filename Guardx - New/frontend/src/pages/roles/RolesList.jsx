@@ -42,7 +42,7 @@ function RolesList() {
     const { hasPermission } = usePermissions();
   
     const handleEdit = (id) => {
-      // navigate(`/editSociety`, { state: id });
+      navigate(`/editRoles`, { state: id });
     };
   
     const handleDelete = async (id) => {
@@ -62,7 +62,7 @@ function RolesList() {
           //     icon: "success"
           //   });
             try {
-              const response = axios.delete(`${PORT}removeUser/${id}`)
+              const response = axios.delete(`${PORT}removeUserRole/${id}`)
               .then((response)=>{
                   if (response.status == 200) {
                       Swal.fire({

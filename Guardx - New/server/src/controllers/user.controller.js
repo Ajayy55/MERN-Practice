@@ -228,4 +228,96 @@ const getUserRoles=async(req,res)=>{
 
 }
 
-export { createSuperAdmin,registerUser,login,getPemissions,getUsersByCreatedBy,removeUser,getUserRoles};
+const addUserRoles=async(req,res)=>{
+    const {createdBy,permissionLevel,permissions,roleDesc,roleTitle,roleType} =req.body;
+    const perm=Object.values(permissions)
+    // console.log(perm);
+    if(!createdBy|| !permissionLevel|| !permissions||!roleDesc|| !roleTitle|| !roleType){
+      return res.status(400).json({ message: 'All fields required' });
+    }
+
+    if( !roleDesc=='societyAdmin' || !roleTitle=='Admin' || !roleType=='societyAdmin' ){
+      return res.status(400).json({ message: 'please choose other title name than default titles' });
+    }
+    
+    try {
+      const newRole=new Role({
+        title:roleTitle,
+        desc:roleDesc,
+        permissionLevel:permissionLevel+1,
+        roleType,
+        createdBy,
+        permissions:perm
+      })
+      const response = await newRole.save();
+      if(!response){
+        return res.status(400).json({message:'Something went wrong while Adding role'})
+      }
+     
+      res.status(201).json({message:'Role Created successfully ',response})
+      
+    } catch (error) {
+      console.log('Error while adding roles', error);
+      return res.status(500).json({ message: 'Internal server error while adding roles' });
+    }
+
+}
+
+const removeUserRole=async(req,res)=>{
+  const id=req.params.id;
+  
+  try {
+      const response=await Role.findByIdAndDelete(id)
+      if(!response){
+          return res.status(400).json({message:'Something went wrong while deleting Role'})
+      }
+
+      res.status(200).json({message:'Role removed succesfully '})
+
+  } catch (error) {
+      console.log('Error while deleting Role data', error);
+      return res.status(500).json({ message: 'Internal server error while deleting Role '}); 
+  }
+
+}
+
+
+const EditUserRoles=async(req,res)=>{
+  const {roleId,createdBy,permissionLevel,permissions,roleDesc,roleTitle,roleType} =req.body;
+  const perm=Object.values(permissions)
+  console.log(perm);
+  if(!roleId ||!createdBy|| !permissionLevel|| !permissions||!roleDesc|| !roleTitle|| !roleType){
+    return res.status(400).json({ message: 'All fields required' });
+  }
+
+  if( !roleTitle=='societyAdmin' || !roleTitle=='Admin' || !roleType=='superAdmin' ){
+    return res.status(400).json({ message: 'please choose other title name than default titles' });
+  }
+  
+  try {
+    
+    const response =await Role.findByIdAndUpdate(roleId,{
+      title:roleTitle,
+      desc:roleDesc,
+      permissionLevel:permissionLevel+1,
+      roleType,
+      createdBy,
+      permissions:perm
+    },{new:true})
+ 
+    // const response = await newRole.save();
+    if(!response){
+      return res.status(400).json({message:'Something went wrong while Adding role'})
+    }
+   
+    res.status(200).json({message:'Role Edited successfully ',response})
+    
+  } catch (error) {
+    console.log('Error while adding roles', error);
+    return res.status(500).json({ message: 'Internal server error while adding roles' });
+  }
+
+}
+
+
+export { createSuperAdmin,registerUser,login,getPemissions,getUsersByCreatedBy,removeUser,getUserRoles,addUserRoles,removeUserRole,EditUserRoles};

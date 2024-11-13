@@ -177,6 +177,13 @@ useEffect(()=>{
         }
       } catch (error) {
         console.log(error);
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: error?.response?.data.message,
+          showConfirmButton: false,
+          timer: 1500,
+        });
       }
     },
   });

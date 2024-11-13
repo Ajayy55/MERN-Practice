@@ -3,10 +3,17 @@ import Layout from "../../layout/Layout";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { usePermissions } from "../../context/PermissionsContext";
+import axios from "axios";
+import { PORT } from "../../port/Port";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+
 
 function AddRoles() {
   const { hasPermission, userRole } = usePermissions();
   const Actions = ["All", "Module", "Create", "Read", "Edit", "Delete"];
+  const navigate=useNavigate();
+  // console.log(userRole.permissionLevel);
   
   const saasModules = [
     { moduleName: 'Society List', actions: Actions },
@@ -29,7 +36,7 @@ function AddRoles() {
     { moduleName: 'Roles', actions: Actions },
   ];
   
-  const guardModules = [{ moduleName: 'Public access', actions: ['Module', 'Read', 'Create'] }];
+  const guardModules = [{ moduleName: 'Public access', actions: ['All','Module', 'Read', 'Create'] }];
 
   const [roleType, setRoleType] = useState(null);
 
@@ -59,19 +66,47 @@ function AddRoles() {
       roleType: Yup.string().required("Role Type is required"),
     }),
     onSubmit: async (values) => {
+      let perm;
       const payload = {
+        createdBy:localStorage.getItem('user'),
+        permissionLevel:userRole.permissionLevel,
         ...values,
         permissions: getModules().reduce((acc, module) => {
+          // acc[module.moduleName] = formik.values.permissions[module.moduleName] || [];
            acc[module.moduleName] = {moduleName:module.moduleName,actions:formik.values.permissions[module.moduleName] || []};
+          // acc = [{moduleName:module.moduleName,actions:formik.values.permissions[module.moduleName] || []}];
           return acc;
         }, {})
       };
       console.log("Submitting data:", payload);
-      await fetch('/api/saveRole', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
+      try {
+        const url=`${PORT}addUserRoles`;
+        const response=await axios.post(url,payload)
+        console.log(response);
+        
+        if (response.status == 201) {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: response?.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          setTimeout(() => {
+            navigate("/roles");
+          }, 1000);
+        }
+      } catch (error) {
+        console.log(error);
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: error?.response?.data.message,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        
+      }
     },
   });
 

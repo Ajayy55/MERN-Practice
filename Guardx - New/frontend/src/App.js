@@ -17,6 +17,7 @@ import { PermissionsProvider, usePermissions } from './context/PermissionsContex
 import RolesList from './pages/roles/RolesList';
 import AddRoles from './pages/roles/AddRoles';
 import { useEffect } from 'react';
+import EditRoles from './pages/roles/EditRoles';
 
 function App() {
 
@@ -48,6 +49,7 @@ function App() {
           {/* Roles */}
           <Route path="/roles" element={<RolesList/>}/>
           <Route path="/addRoles" element={<AddRoles/>}/>
+          <Route path="/editRoles" element={<EditRoles/>}/>
 
 
         </Route>
