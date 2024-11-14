@@ -46,12 +46,24 @@ function AddRoles() {
         return saasModules;
       case 'society':
         return societyModules;
+      case 'subSociety':
+        return societyModules;
       case 'guardAccess':
         return guardModules;
       default:
         return [];
     }
   };
+    console.log('ss',roleType);
+  
+  const setPermissionLevel=()=>{
+    switch(roleType){
+      case 'saas': return 2;
+      case 'society': return 3;
+      case 'subSociety': return 4;
+      case 'guardAccess': return 5;
+    }
+  }
 
   const formik = useFormik({
     initialValues: {
@@ -69,7 +81,7 @@ function AddRoles() {
       let perm;
       const payload = {
         createdBy:localStorage.getItem('user'),
-        permissionLevel:userRole.permissionLevel,
+        permissionLevel:setPermissionLevel(),
         ...values,
         permissions: getModules().reduce((acc, module) => {
           // acc[module.moduleName] = formik.values.permissions[module.moduleName] || [];
@@ -130,6 +142,7 @@ function AddRoles() {
 
     formik.setFieldValue(`permissions.${moduleName}`, updatedPermissions);
   };
+  console.log(formik.values.permissions)
 
   return (
     <Layout>
@@ -203,11 +216,11 @@ function AddRoles() {
                             id="society"
                             name="roleType"
                             onClick={() => {
-                              setRoleType('society');
-                              formik.setFieldValue("roleType", "society");
+                              setRoleType('subSociety');
+                              formik.setFieldValue("roleType", "subSociety");
                             }}
                           />
-                          <label htmlFor="society" className="pe-4">Society Level</label>
+                          <label htmlFor="society" className="pe-4">Sub Society Level</label>
                           <input
                             type="radio"
                             id="guard"
@@ -258,6 +271,7 @@ function AddRoles() {
                                         }
                                       }}
                                     />
+                                    
                                     <label style={{ display: "contents" }}>{action}</label>
                                   </span>
                                 ))}

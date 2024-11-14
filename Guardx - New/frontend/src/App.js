@@ -18,6 +18,8 @@ import RolesList from './pages/roles/RolesList';
 import AddRoles from './pages/roles/AddRoles';
 import { useEffect } from 'react';
 import EditRoles from './pages/roles/EditRoles';
+import AddUser from './pages/users/AddUser';
+import GuardAccess from './pages/guardAccess/GuardAccess';
 
 function App() {
 
@@ -45,13 +47,15 @@ function App() {
 
           {/* users */}
           <Route path="/users" element={<UsersList/>}/>
+          <Route path="/addUser" element={<AddUser/>}/>
 
           {/* Roles */}
           <Route path="/roles" element={<RolesList/>}/>
           <Route path="/addRoles" element={<AddRoles/>}/>
           <Route path="/editRoles" element={<EditRoles/>}/>
 
-
+        {/* Guard */}
+        <Route path="/GuardAccess" element={<GuardAccess/>}/>
         </Route>
         <Route path="*" element={<Error404/>}/> 
 

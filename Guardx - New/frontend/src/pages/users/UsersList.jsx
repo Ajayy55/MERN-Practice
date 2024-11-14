@@ -28,7 +28,7 @@ const [usersData,setUsersData]=useState([])
             const url=`${PORT}getUsersByCreatedBy/${admin}`
             const response=await axios.get(url)
             if(response.status==200){
-                setUsersData(response.data.response)
+                setUsersData(response.data.response)  
             }
             // console.log('users list ',response.data.response);
             
@@ -89,7 +89,7 @@ const [usersData,setUsersData]=useState([])
   return (
     <>
       <Layout>
-        <div class="content-wrapper">
+        <div className="content-wrapper">
           <div className="col-lg-12 grid-margin stretch-card">
             <div className="card">
             {hasPermission("Users", "Read") ? (
@@ -142,7 +142,7 @@ const [usersData,setUsersData]=useState([])
                               {/* Email */}
                               <td> {user.email} </td>
                               {/* contact */}
-                              <td >{user.isActive ?<div class="badge badge-outline-success">Active</div> :<div class="badge badge-outline-danger"> Block </div>}</td>
+                              <td >{user.isActive ?<div class="badge badge-outline-success">Active</div> :<div class="badge badge-outline-danger"> In Active </div>}</td>
                               {/* Date */}
                               <td className="text-capitalize">
                                {user?.role?.desc}

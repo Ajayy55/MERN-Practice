@@ -370,6 +370,8 @@ function EditRoles() {
         return saasModules;
       case "society":
         return societyModules;
+      case "subSociety":
+        return societyModules;
       case "guardAccess":
         return guardModules;
       default:
@@ -409,12 +411,28 @@ function EditRoles() {
     }
   }, [rolesData]);
 
+  const Sendpermissions = async (permissions) => {
+    const roleTypee = getModules();
+    console.log("before permissions : ", permissions, roleTypee);
+    const newPermissions = permissions.filter((permission) =>
+      roleTypee.some(
+        (selectedModule) => selectedModule.moduleName === permission.moduleName
+      )
+    );
+    //   const newPermissions = roleTypee.filter((permission) =>
+    //     roleTypee.some((selectedModule) => selectedModule.moduleName === permission.moduleName)
+    // );
+    console.log("new permissions : ", newPermissions);
+
+    return newPermissions;
+  };
+
   const formik = useFormik({
     initialValues: {
       roleTitle: "",
       roleDesc: "",
       roleType: "",
-      permissions: {},
+      permissions: [],
     },
     validationSchema: Yup.object({
       roleTitle: Yup.string().required("Role Title is required"),
@@ -425,20 +443,18 @@ function EditRoles() {
       const payload = {
         createdBy: localStorage.getItem("user"),
         permissionLevel: userRole.permissionLevel,
+        roleId: id,
         ...values,
-        permissions: getModules().reduce((acc, module) => {
-          acc[module.moduleName] = {
-            moduleName: module.moduleName,
-            actions: formik.values.permissions[module.moduleName] || [],
-          };
-          return acc;
-        }, {}),
+        permissions: formik.values.permissions,
+        // permissions:await Sendpermissions(formik.values.permissions),
+   
       };
+      // console.log("payload", payload);
 
       try {
-        const url = `${PORT}addUserRoles`;
-        const response = await axios.post(url, payload);
-        if (response.status === 201) {
+        const url = `${PORT}EditUserRoles`;
+        const response = await axios.put(url, payload);
+        if (response.status === 200) {
           Swal.fire({
             position: "center",
             icon: "success",
@@ -463,38 +479,85 @@ function EditRoles() {
     },
   });
 
-  const handleAllToggle = (index,moduleName, checked) => {
-//   console.log(moduleName,checked);
-  
-    const newPermissions = { ...formik.values.permissions };
-    newPermissions[index].actions = checked ? [...Actions] : [];
-    // console.log(newPermissions[index]);
+  const handleAllToggle = (moduleName, checked) => {
+    const newPermissions = formik.values.permissions.map((permission) => {
+      if (permission.moduleName === moduleName) {
+        return {
+          ...permission,
+          actions: checked ? [...Actions] : [],
+        };
+      }
+      return permission;
+    });
     formik.setFieldValue("permissions", newPermissions);
-
-  };    
-
-  const handlePermissionChange = (index,moduleName, action, checked) => {
-    const modulePermissions = formik.values.permissions|| [];
-    console.log('mp',modulePermissions,action);
-    
-    let updatedPermissions;
-
-    if (checked) {
-      updatedPermissions =
-        action === "All"    
-          ? modulePermissions[index].actions=[...Actions]
-          : modulePermissions[index].actions=[...new Set([...modulePermissions[index].actions, action])];
-    } else {
-      updatedPermissions = modulePermissions[index].filter(
-        (item) => item !== action && item !== "All"
-      );
-    }
-
-    formik.setFieldValue(`permissions.${moduleName}`, updatedPermissions);
   };
- 
-  console.log('sss',formik.values.permissions);
-  
+
+  const handlePermissionChange = (moduleName, action, checked) => {
+    const newPermissions = formik.values.permissions.map((permission) => {
+      if (permission.moduleName === moduleName) {
+        const updatedActions = checked
+          ? [...new Set([...permission.actions, action])]
+          : permission.actions.filter(
+              (item) => item !== action && item !== "All"
+            );
+
+        return {
+          ...permission,
+          actions: action === "All" && checked ? [...Actions] : updatedActions,
+        };
+      }
+      return permission;
+    });
+    formik.setFieldValue("permissions", newPermissions);
+  };
+
+  // const handleAllToggle = (index,moduleName, checked) => {
+  // console.log(moduleName,getModules());
+
+  //   const newPermissions = [...formik.values.permissions ];
+  //   newPermissions[index].actions = checked ? [...Actions] : [];
+  //   console.log(newPermissions);
+  //   formik.setFieldValue("permissions", newPermissions);
+
+  // };
+
+  // const handlePermissionChange = (index,moduleName, action, checked) => {
+  //   const modulePermissions = formik.values.permissions|| [];
+  //   console.log('mp',modulePermissions,action);
+
+  //   let updatedPermissions;
+
+  //   if (checked) {
+  //     console.log('if');
+
+  //     updatedPermissions =
+  //       action === "All"
+  //         ? modulePermissions[index].actions=[...Actions]
+  //         : modulePermissions[index].actions=[...new Set([...modulePermissions[index].actions, action])];
+  //   } else {
+  //     console.log('else');
+
+  //     updatedPermissions = modulePermissions[index].action.filter(
+  //       (item) => item !== action && item !== "All"
+
+  //     );
+  //     console.log('updatedPermissions',updatedPermissions);
+  //   }
+
+  //   formik.setFieldValue(`permissions.${moduleName}`, updatedPermissions);
+  // };
+
+  // console.log("sss", formik.values.permissions);
+  useEffect(() => {
+    formik.setFieldValue(
+      "permissions",
+      getModules().map((module) => ({
+        moduleName: module.moduleName,
+        actions: [],
+      }))
+    );
+  }, [roleType]);
+
   return (
     <Layout>
       <div className="content-wrapper">
@@ -552,7 +615,6 @@ function EditRoles() {
                             type="radio"
                             id="saas"
                             name="roleType"
-                            disabled
                             checked={formik.values.roleType === "saas"}
                             onClick={() => {
                               setRoleType("saas");
@@ -566,7 +628,6 @@ function EditRoles() {
                             type="radio"
                             id="society"
                             name="roleType"
-                            disabled
                             checked={formik.values.roleType === "society"}
                             onClick={() => {
                               setRoleType("society");
@@ -581,11 +642,10 @@ function EditRoles() {
                             type="radio"
                             id="society"
                             name="roleType"
-                            disabled
-                            checked={formik.values.roleType === "society"}
+                            checked={formik.values.roleType === "subSociety"}
                             onClick={() => {
                               setRoleType("society");
-                              formik.setFieldValue("roleType", "society");
+                              formik.setFieldValue("roleType", "subSociety");
                             }}
                           />
                           <label htmlFor="society" className="pe-4">
@@ -595,7 +655,6 @@ function EditRoles() {
                             type="radio"
                             id="guard"
                             name="roleType"
-                            disabled
                             checked={formik.values.roleType === "guardAccess"}
                             onClick={() => {
                               setRoleType("guardAccess");
@@ -631,7 +690,7 @@ function EditRoles() {
                             <tr key={index}>
                               <td>{module.moduleName}</td>
                               <td className="d-flex justify-content-between">
-                                {module.actions.map((action) => (
+                                {/* {module.actions.map((action) => (
                                   <span key={action}>
                                     <input
                                       type="checkbox"
@@ -646,6 +705,40 @@ function EditRoles() {
                                           );
                                         } else {
                                           handlePermissionChange(index,
+                                            module.moduleName,
+                                            action,
+                                            e.target.checked
+                                          );
+                                        }
+                                      }}
+                                    />
+                                    <label style={{ display: "contents" }}>
+                                      {action}
+                                    </label>
+                                  </span>
+                                ))} */}
+
+                                {module.actions.map((action) => (
+                                  <span key={action}>
+                                    <input
+                                      type="checkbox"
+                                      checked={
+                                        formik.values.permissions
+                                          .find(
+                                            (permission) =>
+                                              permission.moduleName ===
+                                              module.moduleName
+                                          )
+                                          ?.actions.includes(action) || false
+                                      }
+                                      onChange={(e) => {
+                                        if (action === "All") {
+                                          handleAllToggle(
+                                            module.moduleName,
+                                            e.target.checked
+                                          );
+                                        } else {
+                                          handlePermissionChange(
                                             module.moduleName,
                                             action,
                                             e.target.checked

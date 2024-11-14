@@ -6,8 +6,11 @@ import { PORT } from "../../port/Port";
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { hashPassword, unHashPassword } from "../utils/PasswordHashing";
+import { successAlert, useAlert } from "../utils/Alert";
 // import Loader from "../../components/loaderSpinner/Loader";
 function Login() {
+  const { successAlert, errorAlert } = useAlert();
+
   // const [loading, setLoading] = useState(true); 
   const hashedEmail = localStorage.getItem('username');
   const hashedPass = localStorage.getItem('pass');
@@ -53,7 +56,7 @@ function Login() {
         if (response.status === 200) {
             const Responsedata=response?.data.user;
           
-            // console.log('k',Responsedata);
+            console.log('k',response?.data);
             if(Responsedata.isActive===true)
             {
               if(values.rememberMe==true){
@@ -67,51 +70,41 @@ function Login() {
                localStorage.setItem('user',Responsedata._id)
                 if(Responsedata?.permissionLevel===1)
                 {
-                      Swal.fire({
-                    position: "center",
-                    icon: "success",
-                    title: "welcome Super Admin",
-                    showConfirmButton: false,
-                    timer: 1500
-                      });
-                      setTimeout(()=>{
-                      navigate('/')
-                      },1000)
+                    successAlert("welcome Super Admin")
                 }
                 else if(Responsedata?.permissionLevel===2){
-                  Swal.fire({
-                    position: "center",
-                    icon: "success",
-                    title: "Welcome SAAS Admin",
-                    showConfirmButton: false,
-                    timer: 1500
-                      });
-                      setTimeout(()=>{
-                      navigate('/')
-                      },1000)
+    
+                      successAlert("Welcome SAAS Admin")
+                }else if(Responsedata?.permissionLevel===3){
+                      
+                      successAlert("Welcome Society Admin")
+                }else if(Responsedata?.permissionLevel===4){
+                      
+                  successAlert("Welcome Society Sub Admin")
                 }else{
                   Swal.fire({
                     position: "center",
                     icon: "success",
-                    title: "Welcome User",
+                    title: 'Welcome Guard',
                     showConfirmButton: false,
-                    timer: 1500
-                      });
-                      setTimeout(()=>{
-                      navigate('/')
-                      },1000)
+                    timer: 1500,
+                  });
+                  setTimeout(() => {
+                    navigate("/GuardAccess");
+                  }, 1000);
+                  
                 }
-
-
+    
             }else{
               console.error("InActive User");
-              Swal.fire({
-                position: "center",
-                icon: "error",
-                title: "Registration failed",
-                text: "You Account has been inActive pls contact Admin",
-                showConfirmButton: true
-            });
+            //   Swal.fire({
+            //     position: "center",
+            //     icon: "error",
+            //     title: "Registration failed",
+            //     text: "You Account has been inActive pls contact Admin",
+            //     showConfirmButton: true
+            // });
+            errorAlert("You Account has been inActive pls contact Admin")
             }
             
         }
