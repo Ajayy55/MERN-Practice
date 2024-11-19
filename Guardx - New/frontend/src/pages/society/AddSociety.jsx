@@ -16,6 +16,7 @@ import {
   Grid,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import BackButton from "../utils/BackButton";
 
 const style = {
   position: "absolute",
@@ -104,7 +105,8 @@ function AddSociety() {
     borderRadius: "5px",
     display: "inline-block",
     textAlign: "center",
-    width: "95%",
+    // width: "95%",
+    width: "100%",
   };
  const user= localStorage.getItem('user')
 
@@ -195,6 +197,7 @@ useEffect(()=>{
       <div className="content-wrapper">
         <div className="col-lg-12 grid-margin stretch-card">
           <div className="container mt-0">
+          <div> <BackButton/></div>
             <div className="card p-4">
               <h3 className="card-title text-center">Add Society Details</h3>
               <form onSubmit={formik.handleSubmit}>
@@ -227,7 +230,7 @@ useEffect(()=>{
                       id="societyLogo"
                       className="form-control"
                       style={{ display: "none" }}
-                      accept="image/*,video/*"
+                      accept="image/*"
                       onChange={handleMediaChange}
                       //   onChange={(event) => {
                       //     formik.setFieldValue("societyLogo", event.currentTarget.files[0]);
@@ -237,7 +240,7 @@ useEffect(()=>{
                       <label htmlFor="societyLogo" style={customButtonStyle}>
                         Choose File
                       </label>
-                      <i className="mdi mdi-eye" onClick={handleOpen} />
+                      {/* <i className="mdi mdi-eye" onClick={handleOpen} /> */}
                     </div>
                     <Modal open={open} onClose={handleClose}>
                       <Box sx={style}>
@@ -339,7 +342,7 @@ useEffect(()=>{
                       Contact No. <span className="text-danger">*</span>
                     </label>
                     <input
-                      type="text"
+                      type="number"
                       className="form-control"
                       id="contact"
                       placeholder="Enter contact number"

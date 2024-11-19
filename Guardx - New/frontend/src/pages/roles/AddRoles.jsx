@@ -7,10 +7,12 @@ import axios from "axios";
 import { PORT } from "../../port/Port";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import BackButton from "../utils/BackButton";
 
 
 function AddRoles() {
   const { hasPermission, userRole } = usePermissions();
+  const [selectFlag,setSelectFlag]=useState([])
   const Actions = ["All", "Module", "Create", "Read", "Edit", "Delete"];
   const navigate=useNavigate();
   // console.log(userRole.permissionLevel);
@@ -127,7 +129,10 @@ function AddRoles() {
     const newPermissions = { ...formik.values.permissions };
     newPermissions[moduleName] = checked ? [...Actions] : [];
     formik.setFieldValue("permissions", newPermissions);
+    setSelectFlag([formik.values.permissions]);
   };
+
+
 
   // Handle individual checkbox changes
   const handlePermissionChange = (moduleName, action, checked) => {
@@ -141,14 +146,17 @@ function AddRoles() {
     }
 
     formik.setFieldValue(`permissions.${moduleName}`, updatedPermissions);
+    setSelectFlag([formik.values.permissions]);
   };
-  console.log(formik.values.permissions)
+
+  console.log(selectFlag)
 
   return (
     <Layout>
       <div className="content-wrapper">
         <div className="col-lg-12 grid-margin stretch-card">
           <div className="container mt-0">
+          <div> <BackButton/></div>
             {hasPermission("Roles", "Create") && (
               <form onSubmit={formik.handleSubmit}>
                 <div className="card p-4">

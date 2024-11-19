@@ -81,6 +81,9 @@ const storage = multer.diskStorage({
       case 'SocietyDocuments':
         dir = './public/society/documents';
         break;
+      case 'entryIcon':
+        dir = './public/icons';
+        break;
       default:
         dir = './public/others'; // Default directory for other files
         break;

@@ -1,0 +1,15 @@
+.card-selected {
+    background-color: #4CAF50; 
+    /* background-color: #0090E7;  */
+    color: white; /* Text color for better contrast */
+    border-color: #0056b3; /* Darker primary color for border */
+  }
+  
+  .card-selected .card-text {
+    color: white; /* Ensure card text is visible */
+  }
+  
+  .card-selected img {
+    filter: brightness(0.9); /* Slightly darken the image for visual harmony */
+  }
+  

@@ -56,58 +56,62 @@ function Login() {
         if (response.status === 200) {
             const Responsedata=response?.data.user;
           
-            console.log('k',response?.data);
-            if(Responsedata.isActive===true)
-            {
-              if(values.rememberMe==true){
-                const hashEmail= hashPassword(values.email)
-                const hashPass= hashPassword(values.password)
-                localStorage.setItem('username',hashEmail)
-                localStorage.setItem('pass',hashPass)
-               }
+            // console.log('k',response?.data);
+            if(Responsedata.role !=null){
+                  if(Responsedata.isActive===true)
+                  {
+                    if(values.rememberMe==true){
+                      const hashEmail= hashPassword(values.email)
+                      const hashPass= hashPassword(values.password)
+                      localStorage.setItem('username',hashEmail)
+                      localStorage.setItem('pass',hashPass)
+                    }
 
-              localStorage.setItem('token',response.data.jwtToken)
-               localStorage.setItem('user',Responsedata._id)
-                if(Responsedata?.permissionLevel===1)
-                {
-                    successAlert("welcome Super Admin")
-                }
-                else if(Responsedata?.permissionLevel===2){
-    
-                      successAlert("Welcome SAAS Admin")
-                }else if(Responsedata?.permissionLevel===3){
-                      
-                      successAlert("Welcome Society Admin")
-                }else if(Responsedata?.permissionLevel===4){
-                      
-                  successAlert("Welcome Society Sub Admin")
+                    localStorage.setItem('token',response.data.jwtToken)
+                    localStorage.setItem('user',Responsedata._id)
+                      if(Responsedata?.permissionLevel===1)
+                      {
+                          successAlert("welcome Super Admin")
+                      }
+                      else if(Responsedata?.permissionLevel===2){
+          
+                            successAlert("Welcome SAAS Admin")
+                      }else if(Responsedata?.permissionLevel===3){
+                            
+                            successAlert("Welcome Society Admin")
+                      }else if(Responsedata?.permissionLevel===4){
+                            
+                        successAlert("Welcome Society Sub Admin")
+                      }else{
+                        Swal.fire({
+                          position: "center",
+                          icon: "success",
+                          title: 'Welcome Guard',
+                          showConfirmButton: false,
+                          timer: 1500,
+                        });
+                        setTimeout(() => {
+                          navigate("/GuardAccess");
+                        }, 1000);
+                        
+                      }
+          
+                  }else{
+                    console.error("InActive User");
+                  //   Swal.fire({
+                  //     position: "center",
+                  //     icon: "error",
+                  //     title: "Registration failed",
+                  //     text: "You Account has been inActive pls contact Admin",
+                  //     showConfirmButton: true
+                  // });
+                  errorAlert("You Account has been inActive pls contact Admin")
+                  }
                 }else{
-                  Swal.fire({
-                    position: "center",
-                    icon: "success",
-                    title: 'Welcome Guard',
-                    showConfirmButton: false,
-                    timer: 1500,
-                  });
-                  setTimeout(() => {
-                    navigate("/GuardAccess");
-                  }, 1000);
-                  
+                  errorAlert("You Don't have a valid Role")
                 }
-    
-            }else{
-              console.error("InActive User");
-            //   Swal.fire({
-            //     position: "center",
-            //     icon: "error",
-            //     title: "Registration failed",
-            //     text: "You Account has been inActive pls contact Admin",
-            //     showConfirmButton: true
-            // });
-            errorAlert("You Account has been inActive pls contact Admin")
-            }
-            
-        }
+                  
+          }
         
       } catch (error) {
         console.error("Login failed:", error);
@@ -174,9 +178,9 @@ function Login() {
                           Remember me
                         </label>
                       </div>
-                      <a href="#" className="forgot-pass">
+                      {/* <a href="#" className="forgot-pass">
                         Forgot password
-                      </a>
+                      </a> */}
                     </div>
                     <div className="text-center d-grid gap-2">
                       <button
@@ -187,7 +191,7 @@ function Login() {
                       </button>
                     </div>
 
-                    <div className="d-flex">
+                    {/* <div className="d-flex">
                       <button type="button" className="btn btn-facebook me-2 col">
                         <i className="mdi mdi-facebook" /> Facebook
                       </button>
@@ -197,7 +201,7 @@ function Login() {
                     </div>
                     <p className="sign-up">
                       Don't have an Account?<Link to='/signup'> Sign Up</Link>
-                    </p>
+                    </p> */}
                   </form>
                 </div>
               </div>

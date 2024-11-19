@@ -20,6 +20,10 @@ import { useEffect } from 'react';
 import EditRoles from './pages/roles/EditRoles';
 import AddUser from './pages/users/AddUser';
 import GuardAccess from './pages/guardAccess/GuardAccess';
+import AddSocietyUser from './pages/society/AddSocietyUser';
+import EntriesList from './pages/typeOfEntries/EntriesList';
+import AddTypesOfEntry from './pages/typeOfEntries/AddTypesOfEntry';
+import EditTypesOfEntry from './pages/typeOfEntries/EditTypesOfEntry';
 
 function App() {
 
@@ -43,8 +47,9 @@ function App() {
           <Route path="/society" element={<SocietyList/>}/>
           <Route path="/addsociety" element={<AddSociety/>}/>
           <Route path="/editSociety" element={<EditSociety/>}/>
+          <Route path="/addSocietyUser" element={<AddSocietyUser/>}/>
           {/* <Route path="/upload" element={<UploadModal/>}/> */}
-
+    
           {/* users */}
           <Route path="/users" element={<UsersList/>}/>
           <Route path="/addUser" element={<AddUser/>}/>
@@ -53,6 +58,11 @@ function App() {
           <Route path="/roles" element={<RolesList/>}/>
           <Route path="/addRoles" element={<AddRoles/>}/>
           <Route path="/editRoles" element={<EditRoles/>}/>
+
+          {/* types entries */}
+          <Route path="/TypeOfEntries" element={<EntriesList/>}/>
+          <Route path="/addTypesOfEntry" element={<AddTypesOfEntry/>}/>
+          <Route path="/editTypesOfEntry" element={<EditTypesOfEntry/>}/>
 
         {/* Guard */}
         <Route path="/GuardAccess" element={<GuardAccess/>}/>

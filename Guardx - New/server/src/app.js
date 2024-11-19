@@ -26,5 +26,9 @@ app.use(houseRouter)
 import societyRoutes from './routes/society.routes.js'
 app.use(societyRoutes)
 
+//entries routes
+import entriesRoute from './routes/entries.routes.js'
+app.use(entriesRoute);
+
 
 export {app}

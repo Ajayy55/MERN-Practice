@@ -326,6 +326,7 @@ import axios from "axios";
 import { PORT } from "../../port/Port";
 import Swal from "sweetalert2";
 import { useLocation, useNavigate } from "react-router-dom";
+import BackButton from "../utils/BackButton";
 
 function EditRoles() {
   const location = useLocation();
@@ -563,6 +564,7 @@ function EditRoles() {
       <div className="content-wrapper">
         <div className="col-lg-12 grid-margin stretch-card">
           <div className="container mt-0">
+          <div> <BackButton/></div>
             {hasPermission("Roles", "Create") && (
               <form onSubmit={formik.handleSubmit}>
                 <div className="card p-4">

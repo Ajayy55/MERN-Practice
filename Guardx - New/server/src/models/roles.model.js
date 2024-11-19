@@ -21,7 +21,7 @@ const roleSchema=new mongoose.Schema({
     },
     roleType:{
         type:String,
-        enum:["saas","society","societyLevel","guardAccess"]
+        enum:["saas","society","subSociety","guardAccess"]
     },
     permissions:{
         type: [PermissionSchema],

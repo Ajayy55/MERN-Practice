@@ -53,7 +53,7 @@ const navigate =useNavigate()
         const response=await axios.post(url,{id:userID})  //super
         // console.log('permssions',response);
         
-        setUser({name:response?.data?.username,role:response?.data?.role?.title})
+        setUser({name:response?.data?.name,role:response?.data?.role?.title})
         Setpermissions(response?.data.role?.permissions)
         SetpermissionLevel(response?.data?.permissionLevel)
       }
@@ -89,10 +89,11 @@ const navigate =useNavigate()
     
     <nav className="sidebar sidebar-offcanvas" id="sidebar">
   <div className="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
-    <a className="sidebar-brand brand-logo" href="index.html">
-      <img src="assets/images/logo.svg" alt="logo" />
-      {/* <img src="./guardxlogo.webp" alt="logo" /> */}
-    </a>
+    <NavLink to='/' className="sidebar-brand brand-logo" >
+      {/* <img src="assets/images/logo.svg" alt="logo" /> */}
+      <img src="./guardx.png" alt="logo" />
+      {/* <img src="./guardxlogo.webp" alt="logo" style={{width:'120px', height:'80px',borderRadius:'90%'}}/> */}
+    </NavLink>
     <a className="sidebar-brand brand-logo-mini" href="index.html">
       <img src="assets/images/logo-mini.svg" alt="logo" />
     </a>
@@ -251,13 +252,13 @@ const navigate =useNavigate()
 {/* Types of entires */}
 {hasPermission('Type of Entries', 'Module') && (
             <li className="nav-item menu-items">
-              <a className="nav-link" href="pages/tables/basic-table.html">
+              <NavLink to='/TypeOfEntries' className="nav-link" href="pages/tables/basic-table.html">
                 <span className="menu-icon">
                   <i className="mdi mdi-table-large" />
                 </span>
                 <span className="menu-title">Type of Entries</span>
                 <i className="menu-arrow" />
-              </a>
+              </NavLink>
             </li>
           )}
 

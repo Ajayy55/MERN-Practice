@@ -17,6 +17,7 @@ import {
   Grid,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import BackButton from "../utils/BackButton";
 
 const style = {
   position: "absolute",
@@ -208,7 +209,8 @@ console.log('logo',logo);
     <Layout>
       <div className="content-wrapper">
         <div className="col-lg-12 grid-margin stretch-card">
-          <div className="container mt-5">
+          <div className="container mt-0">
+          <div> <BackButton/></div>
             <div className="card p-4">
               <h3 className="card-title text-center">Edit Society Details</h3>
               <form onSubmit={formik.handleSubmit}>

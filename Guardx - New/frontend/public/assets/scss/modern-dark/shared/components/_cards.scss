@@ -94,3 +94,19 @@
     @include card-inverse-variant(rgba($value, .2), theme-color-level($color, 1), theme-color-level($color, 3));
   }
 }
+/* Selected Card Styling */
+.card-selected {
+  background-color: lighten($primary, 30%);
+  color: white;
+
+  .card-title,
+  .card-subtitle,
+  .card-description {
+    color: white !important;
+  }
+
+  .card-body {
+    color: white;
+  }
+}
+

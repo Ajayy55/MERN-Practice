@@ -48,7 +48,13 @@ const societySchema =new mongoose.Schema({
     houseCount:{
         type:Number,
         required:true,
-    } 
+    } ,
+    typeOfEntries:{
+        type:[{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "EntryList",
+          },],
+    }
 
 },{timestamps:true});
 

@@ -109,7 +109,7 @@ function RolesList() {
 
                 <div>
                   {" "}
-                  <input type="text" placeholder="Search ..." />
+                  {/* <input type="text" placeholder="Search ..." /> */}
                 </div>
               </div>
               {/* </p> */}

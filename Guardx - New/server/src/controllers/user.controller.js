@@ -122,7 +122,7 @@ const login=async(req,res)=>{
       }
 try {
   
-      const user=await User.findOne({$or:[{email:email},{mobile:email}]})
+      const user=await User.findOne({$or:[{email:email},{mobile:email}]}).populate({path:"role"})
                 || await House.findOne({$or:[{email:email},{mobile:email}]})
       if (!user) {
           return res.status(400).json({ message: 'Invalid Email or Mobile' });
@@ -138,6 +138,7 @@ try {
           id:user._id,
           email:user.email,
           username:user.username,
+          society:user.society || null
       }
       const jwtToken=await GenJwtToken(payload);
       if (!jwtToken) {
@@ -178,7 +179,7 @@ const getUsersByCreatedBy=async(req,res)=>{
     // console.log(id);
     
     try {
-      const response=await User.find({createdBy:'672dbb46afa68099ad9c55ff'}).populate({path:"role"}).select("-password -permissions")
+      const response=await User.find({createdBy:id}).populate({path:"role"}).select("-password -permissions")
       // console.log(response);
       
       if (!response) {
@@ -190,6 +191,26 @@ const getUsersByCreatedBy=async(req,res)=>{
     } catch (error) {
       console.log('Error while getting users by createdby', error);
       return res.status(500).json({ message: 'Internal server error while getting users by createdby' }); 
+    }
+}
+
+const getUsersBySocietyId=async(req,res)=>{
+    const id=req.params.id
+    console.log(id);
+    
+    try {
+      const response=await User.find({society:id}).populate("role").populate("society").select("-password -permissions")
+      // console.log(response);
+      
+      if (!response) {
+        return res.status(400).json({ message: 'No User records Found' });
+      }
+
+      res.status(200).json({message:'records found',response})
+    
+    } catch (error) {
+      console.log('Error while getting users by societyID', error);
+      return res.status(500).json({ message: 'Internal server error while getting users by societyID' }); 
     }
 }
 
@@ -244,7 +265,7 @@ const addUserRoles=async(req,res)=>{
       const newRole=new Role({
         title:roleTitle,
         desc:roleDesc,
-        permissionLevel:permissionLevel+1,
+        permissionLevel,
         roleType,
         createdBy,
         permissions:perm
@@ -285,7 +306,7 @@ const removeUserRole=async(req,res)=>{
 const EditUserRoles=async(req,res)=>{
   const {roleId,createdBy,permissionLevel,permissions,roleDesc,roleTitle,roleType} =req.body;
   const perm=Object.values(permissions)
-  console.log(perm);
+  // console.log(perm);
   if(!roleId ||!createdBy|| !permissionLevel|| !permissions||!roleDesc|| !roleTitle|| !roleType){
     return res.status(400).json({ message: 'All fields required' });
   }
@@ -299,7 +320,7 @@ const EditUserRoles=async(req,res)=>{
     const response =await Role.findByIdAndUpdate(roleId,{
       title:roleTitle,
       desc:roleDesc,
-      permissionLevel:permissionLevel+1,
+      permissionLevel,
       roleType,
       createdBy,
       permissions:perm
@@ -320,4 +341,4 @@ const EditUserRoles=async(req,res)=>{
 }
 
 
-export { createSuperAdmin,registerUser,login,getPemissions,getUsersByCreatedBy,removeUser,getUserRoles,addUserRoles,removeUserRole,EditUserRoles};
+export { createSuperAdmin,registerUser,login,getPemissions,getUsersByCreatedBy,removeUser,getUserRoles,addUserRoles,removeUserRole,EditUserRoles,getUsersBySocietyId};

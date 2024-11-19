@@ -8,6 +8,7 @@ import { PORT } from "../../port/Port";
 import Swal from "sweetalert2";
 import { Switch, FormControlLabel } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import BackButton from "../utils/BackButton";
 
 function AddUser() {
   const { hasPermission, userRole } = usePermissions();
@@ -97,6 +98,7 @@ function AddUser() {
       <div className="content-wrapper">
         <div className="col-lg-12 grid-margin stretch-card">
           <div className="container mt-0">
+          <div> <BackButton/></div>
             {hasPermission("Roles", "Create") && (
               <form onSubmit={formik.handleSubmit}>
                 <div className="card p-4">
