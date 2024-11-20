@@ -252,6 +252,18 @@ const TypesOfEntriesModal = ({ show, onClose, entries, id }) => {
                       >
                         {entry.title}
                       </p>
+                      <p
+                        className="card-text"
+                        style={{
+                          fontSize: "12px",
+                          margin: "0",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                          overflow: "hidden",
+                        }}
+                      >
+                        ({entry.entryType})
+                      </p>
                     </div>
                   </div>
                 ))

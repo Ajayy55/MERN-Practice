@@ -1,7 +1,7 @@
 import { EntryList } from "../models/entriesList.model.js";
 import { Society } from "../models/society.model.js";
 import mongoose from 'mongoose'
-
+import fs from 'fs';
 const addTypeOfEntry =async(req,res)=>{
     const {title,entryType,createdBy}=req.body;
     const icon=req.files;
@@ -126,7 +126,16 @@ const editTypeOfEntry=async(req,res)=>{
 
      if(icon){
         if(icon.entryIcon[0])
-        {
+        {            
+            fs.unlink(entry.icon, (err) => {
+                if (err) {
+                  console.error("Failed to delete the old icon: ", err);
+                } else {
+                  console.log("Old icon deleted successfully");
+                }
+              });
+            
+
            response.icon=icon.entryIcon[0]?.path 
           await response.save();
         }else{
@@ -138,8 +147,8 @@ const editTypeOfEntry=async(req,res)=>{
      
    } catch (error) {
     
-    console.log('Internal server error while removing Type of Entry : ',error);
-    res.status(500).json({message:'Internal server error while removing type of entry'})
+    console.log('Internal server error while updating Type of Entry : ',error);
+    res.status(500).json({message:'Internal server error while updating type of entry'})
    }
 
 }
@@ -148,7 +157,6 @@ const addTypesOfEntriesToSociety=async(req,res)=>{
     const id=req.params.id;
     console.log(req.body,id);
     
-
     try {
         const society=await Society.findById(id)
         console.log(society);

@@ -67,7 +67,7 @@ function AddTypesOfEntry() {
 
       try {
         // Assuming you're sending the data to an endpoint for submission
-        const response = await axios.post(`${PORT}addTypeOfEntry`, formData, {
+        const response = await axios.post(`${PORT}addTypeOfEntrys`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -95,10 +95,10 @@ function AddTypesOfEntry() {
             {hasPermission("Type of Entries", "Create") && (
               <form onSubmit={formik.handleSubmit} encType="multipart/form-data">
                 <div className="card p-5" >
-                  <h3 className="card-title mb-5">Add Types of Entries</h3>
+                  <h3 className="card-title mb-3">Add Types of Entries</h3>
                   <div className="row ">
                     {/* Entry Title */}
-                    <div className="col-md-8 mb-8" >
+                    <div className="col-md-5 mb-2" >
                       <label htmlFor="name" className="form-label">
                         Add Entry Title<span className="text-danger">*</span>
                       </label>
@@ -120,7 +120,7 @@ function AddTypesOfEntry() {
                   <br />
                   <div className="row">
                     {/* Icon Selection */}
-                    <div className="col-md-8 mb-8">
+                    <div className="col-md-5 mb-2">
                       <label htmlFor="entryIcon" className="form-label">
                         Select Icon
                       </label>
@@ -190,7 +190,7 @@ function AddTypesOfEntry() {
                     className="btn btn-primary mt-3"
                     // style={{ width: "50%", margin: "0 auto", display: "block" }}
                   >
-                    Add Society User
+                    Add Entry
                   </button>
                   </div>
                   </div>

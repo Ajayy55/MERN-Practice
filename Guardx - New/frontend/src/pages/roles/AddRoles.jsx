@@ -56,7 +56,7 @@ function AddRoles() {
         return [];
     }
   };
-    console.log('ss',roleType);
+  
   
   const setPermissionLevel=()=>{
     switch(roleType){
@@ -129,7 +129,7 @@ function AddRoles() {
     const newPermissions = { ...formik.values.permissions };
     newPermissions[moduleName] = checked ? [...Actions] : [];
     formik.setFieldValue("permissions", newPermissions);
-    setSelectFlag([formik.values.permissions]);
+ 
   };
 
 
@@ -146,11 +146,11 @@ function AddRoles() {
     }
 
     formik.setFieldValue(`permissions.${moduleName}`, updatedPermissions);
-    setSelectFlag([formik.values.permissions]);
+   
   };
 
-  console.log(selectFlag)
 
+  
   return (
     <Layout>
       <div className="content-wrapper">

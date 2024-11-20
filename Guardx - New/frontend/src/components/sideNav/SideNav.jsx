@@ -265,13 +265,13 @@ const navigate =useNavigate()
 {/* Occasional purpose */}
 {hasPermission('Purpose of Occasional', 'Module') && (
     <li className="nav-item menu-items">
-      <a className="nav-link" href="pages/charts/chartjs.html">
+      <NavLink to='/purposeOfOccasional' className="nav-link" href="pages/charts/chartjs.html">
         <span className="menu-icon">
           <i className="mdi mdi-chart-bar" />
         </span>
         <span className="menu-title"> Occasional Purposes</span>
         <i className="menu-arrow" />
-      </a>
+      </NavLink>
     </li>)
      }
 

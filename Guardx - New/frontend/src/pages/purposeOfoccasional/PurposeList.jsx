@@ -6,8 +6,7 @@ import { jwtDecode } from "jwt-decode";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { usePermissions } from "../../context/PermissionsContext";
-import TypesOfEntriesModal from "./TypesOfEntriesModal";
-import { getSocietyBySocietyID } from "../../lib/society/society";
+// import TypesOfEntriesModal from "./TypesOfEntriesModal";
 import BackButton from "../utils/BackButton";
 
 
@@ -21,11 +20,11 @@ const customButtonStyle = {
   textAlign: "center",
 };
 
-function EntriesList() {
+function PurposeList() {
   const { hasPermission ,userRole} = usePermissions();
   const [showModal, setShowModal] = useState(false);
-  const [entriesData, setEntriesData] = useState([]);
-  const [SocietyEntriesData, setSocietyEntriesData] = useState([]);
+  const [purposeData, setPurpose] = useState([]);
+  const [societyPurposes, setSocietyPurpose] = useState([]);
   const [searchQuery, setSearchQuery] = useState(""); // State for search query
   const token = localStorage.getItem("token");
   const decode = jwtDecode(token);
@@ -36,27 +35,28 @@ function EntriesList() {
   const fetchSocietyTypeOfEntries=async()=>{
     try {
         // const id='6731880e33cc6e06c07b10eb'
-        const response=await axios.get(`${PORT}getTypesOfEntriesOfSociety/${decode.society}`)
+        const response=await axios.get(`${PORT}getPurposeListOfSociety/${decode.society}`)
         const societyEntries = response?.data?.response.typeOfEntries ||null;
-        setSocietyEntriesData(societyEntries);
+        setSocietyPurpose(societyEntries);
     } catch (error) {
       console.log(error);
     }
   }
-// console.log(SocietyEntriesData);
-// console.log('sss',society);
+// console.log(societyPurposes);
 
   const fetchTypesOfEntries = async () => {
     try {
       
       const user=localStorage.getItem('user')
-      const url = `${PORT}getTypeOfEntriesByCreatedBy`;
+      const url = `${PORT}getAllPurposes`;
       const response = await axios.get(url);
+    //   console.log(decode.id);
       
-      if (response) {
-        const entries = response?.data?.response;
-        setEntriesData(entries);
-        
+      const filterData=response?.data?.response.filter((purpose)=>purpose.createdBy===decode.id);
+    //   console.log('p',filterData);
+      
+      if (filterData) {
+        setPurpose(filterData);
       }
     } catch (error) {
       console.log(error);
@@ -64,6 +64,7 @@ function EntriesList() {
   };
 
   useEffect(() => {
+
     fetchTypesOfEntries();
     if(decode.society){
       fetchSocietyTypeOfEntries();
@@ -71,8 +72,8 @@ function EntriesList() {
     
   }, [showModal]);
 
-  const handleEdit = (id) => {
-    navigate(`/editTypesOfEntry`, { state: id });
+  const handleEdit = (data) => {
+    navigate(`/editPurposeOfOccasional`, { state: data });
   };
 
   const handleDeleteFromSociety=async(RemoveId)=>{
@@ -137,16 +138,16 @@ function EntriesList() {
       }
     });
   };
-// console.log(entriesData);
+// console.log(purposeData);
 
   // Filter society data based on search query
   const filteredEntries = 
     userRole?.permissionLevel<=2? 
-      entriesData.filter((entry) =>
-      entry.title?.toLowerCase().includes(searchQuery?.toLowerCase()) || entry.entryType?.toLowerCase().includes(searchQuery?.toLowerCase()))
+      purposeData.filter((entry) =>
+      entry.purpose?.toLowerCase().includes(searchQuery?.toLowerCase()) || entry.purposeType?.toLowerCase().includes(searchQuery?.toLowerCase()))
     :
-    SocietyEntriesData.filter((entry) =>
-      entry.title?.toLowerCase().includes(searchQuery?.toLowerCase()) || entry.entryType?.toLowerCase().includes(searchQuery?.toLowerCase()))
+    societyPurposes.filter((entry) =>
+      entry.purpose?.toLowerCase().includes(searchQuery?.toLowerCase()) || entry.purposeType?.toLowerCase().includes(searchQuery?.toLowerCase()))
     
 
   const paginatedEntries = filteredEntries.slice(
@@ -165,26 +166,26 @@ function EntriesList() {
               <div className="card-body">
                 <div className="card-title d-flex justify-content-between">
                
-                  {hasPermission("Type of Entries", "Create") ? (
+                  {hasPermission("Purpose of Occasional", "Create") ? (
                        
                         userRole.permissionLevel<=2 ?   //if role <2 Add new roles else add roles prevoius added by admin
                           ( <Link
-                          to="/addTypesOfEntry"
+                          to="/AddPurposeOfOccasional"
                           className="btn"
                           style={customButtonStyle}
                         >
-                          <i className="mdi mdi-plus-box" /> Add Entry
+                          <i className="mdi mdi-plus-box" /> Add Purpose
                         </Link>) : (   <div>            
                                   <button className="btn btn-primary" onClick={() => setShowModal(true)} style={{background:'#4CAF50'}}>
                                     Add Types of Entries
                                   </button>
 
-                                  <TypesOfEntriesModal
+                                  {/* <TypesOfEntriesModal
                                     show={showModal}
                                     onClose={() => setShowModal(false)}
-                                    entries={entriesData}
+                                    entries={purposeData}
                                     id={decode.society}
-                                  />
+                                  /> */}
                                 </div>)
                         
                   ) : (
@@ -205,8 +206,8 @@ function EntriesList() {
                     <thead>
                       <tr>
                         <th> Logo</th>
-                        <th> Title </th>
-                        <th> Type </th>
+                        <th> Purpose </th>
+                        <th> Purpose Type </th>
                         <th> Date </th>
                         <th> Actions </th>
                       </tr>
@@ -217,32 +218,32 @@ function EntriesList() {
                           <tr key={single._id}>
                             <td className="py-1 ">
                               <img
-                                src={`${PORT}${single.icon.split('public')[1]}`||"../../assets/images/faces-clipart/pic-1.png"}
+                                src={`${PORT}${single.purposeIcon.split('public')[1]}`||"../../assets/images/faces-clipart/pic-1.png"}
                                 alt="image"
                                 className="me-2"
                               />{" "}
                               {/* {single.title} */}
                             </td>
-                            <td className="text-capitalize"> {single.title} </td>
-                            <td className="text-capitalize">{single.entryType}</td>
+                            <td className="text-capitalize"> {single.purpose} </td>
+                            <td className="text-capitalize">{single.purposeType}</td>
                             <td>
                               {new Date(single.createdAt).toLocaleDateString(
                                 "en-IN",
-                                { timeZone: "Asia/Kolkata" }
+                                { timeZone: "Asia/Kolkata",year:"numeric",month: "short", day:"numeric"}
                               )}
                             </td>
                             <td>
                               <div>
                            
-                                {hasPermission("Type of Entries", "Edit") && userRole.permissionLevel<=2 &&(
+                                {hasPermission("Purpose of Occasional", "Edit") && userRole.permissionLevel<=2 &&(
                                   <i
                                     className="mdi mdi-lead-pencil me-4"
                                     data-bs-toggle="tooltip"
                                     title="Edit"
-                                    onClick={() => handleEdit(single._id)}
+                                    onClick={() => handleEdit(single)}
                                   ></i>
                                 )}
-                                {hasPermission("Type of Entries", "Delete") && (
+                                {hasPermission("Purpose of Occasional", "Delete") && (
                                   <i
                                     className="mdi mdi-delete"
                                     data-bs-toggle="tooltip"
@@ -304,6 +305,8 @@ function EntriesList() {
   );
 }
 
-export default EntriesList;
 
 
+
+
+export default PurposeList

@@ -24,6 +24,10 @@ import AddSocietyUser from './pages/society/AddSocietyUser';
 import EntriesList from './pages/typeOfEntries/EntriesList';
 import AddTypesOfEntry from './pages/typeOfEntries/AddTypesOfEntry';
 import EditTypesOfEntry from './pages/typeOfEntries/EditTypesOfEntry';
+import PurposeList from './pages/purposeOfoccasional/PurposeList';
+import AddPurpose from './pages/purposeOfoccasional/AddPurpose';
+import EditPurpose from './pages/purposeOfoccasional/EditPurpose';
+import Gift from './pages/utils/Gift';
 
 function App() {
 
@@ -64,10 +68,17 @@ function App() {
           <Route path="/addTypesOfEntry" element={<AddTypesOfEntry/>}/>
           <Route path="/editTypesOfEntry" element={<EditTypesOfEntry/>}/>
 
+        {/* purpose of occasional */}
+        <Route path="/purposeOfOccasional" element={<PurposeList/>}/>
+        <Route path="/AddPurposeOfOccasional" element={<AddPurpose/>}/>
+        <Route path="/editPurposeOfOccasional" element={<EditPurpose/>}/>
+
+
         {/* Guard */}
         <Route path="/GuardAccess" element={<GuardAccess/>}/>
         </Route>
         <Route path="*" element={<Error404/>}/> 
+        <Route path="/gift" element={<Gift/>}/> 
 
       </Routes>
     </BrowserRouter>

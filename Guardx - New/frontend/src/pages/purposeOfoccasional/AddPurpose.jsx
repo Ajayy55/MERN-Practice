@@ -10,13 +10,13 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useAlert } from "../utils/Alert";
 import BackButton from "../utils/BackButton";
 
-function EditTypesOfEntry() {
+function AddPurpose() {
   const { errorAlert } = useAlert();
   const { hasPermission } = usePermissions();
   const location = useLocation();
   const id = location.state;
   const navigate = useNavigate();
-  const [entryData, setEntriesData] = useState();
+  const [occasionalEntries, setOccasionalEntries] = useState([]);
   const [selectedFileName, setSelectedFileName] = useState("");
 
   const customButtonStyle = {
@@ -30,38 +30,12 @@ function EditTypesOfEntry() {
     width: "100%",
   };
 
-const fetchEntry=async()=>{
-    try {
-        // Assuming you're sending the data to an endpoint for submission
-        const response = await axios.get(`${PORT}getTypeOfEntryById/${id}`);
-        
-        if (response.status === 200) {
-            formik.setValues({
-                name: response?.data?.response.title || "",
-                entryIcon: response?.data?.response.entryIcon, 
-                entryType: response?.data?.response.entryType|| "",
-              });
-        } else {
-          Swal.fire("Error", "There was an issue adding the entry.", "error");
-        }
-      } catch (error) {
-        console.error("Error submitting form:", error);
-        Swal.fire("Error", "An error occurred while fetching data.", "error");
-      }
-}
-
-  useEffect(()=>{
-    fetchEntry();
-  },[])
-  
- 
-  
   // Formik validation schema with Yup
   const validationSchema = Yup.object({
     name: Yup.string()
       .required("Entry Title is required")
       .min(3, "Entry Title must be at least 3 characters"),
-    entryIcon: Yup.mixed()
+    purposeIcon: Yup.mixed()
       .required("Icon is required")
       .test("fileSize", "File size is too large", (value) => {
         return value && value.size <= 2000000; // 2MB max file size
@@ -69,15 +43,16 @@ const fetchEntry=async()=>{
       .test("fileType", "Only image files are allowed", (value) => {
         return value && ["image/jpeg", "image/png", "image/gif"].includes(value.type);
       }),
-    entryType: Yup.string().required("Please select an entry type"),
+    PurposeType: Yup.string().required("Please select purpose type"),
   });
 
+ 
 
   const formik = useFormik({
     initialValues: {
       name: "",
-      entryIcon: null,
-      entryType: "", // Initialize entryType as empty string
+      purposeIcon: null,
+      PurposeType: "", // Initialize PurposeType as empty string
     },
     validationSchema, // Pass the validation schema
     onSubmit: async (values) => {
@@ -85,27 +60,22 @@ const fetchEntry=async()=>{
       console.log(values);
       
       const formData = new FormData();
-
-      formData.append("title", values.name);
-      formData.append("id", id);
+      formData.append("purpose", values.name);
       formData.append("createdBy", localStorage.getItem('user'));
-      if(values.entryIcon){
-        formData.append("entryIcon", values.entryIcon);
-      }
-      
-      formData.append("entryType", values.entryType);
+      formData.append("purposeIcon", values.purposeIcon);
+      formData.append("purposeType", values.PurposeType);
 
       try {
         // Assuming you're sending the data to an endpoint for submission
-        const response = await axios.patch(`${PORT}editTypeOfEntry`, formData, {
+        const response = await axios.post(`${PORT}addPurpose`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
         });
         
-        if (response.status === 200) {
-          Swal.fire("Success", "Entry updated successfully!", "success");
-          navigate("/TypeOfEntries");  // Redirect after successful submission
+        if (response.status === 201) {
+          Swal.fire("Success", "Entry added successfully!", "success");
+          navigate("/purposeOfOccasional");  // Redirect after successful submission
         } else {
           Swal.fire("Error", "There was an issue adding the entry.", "error");
         }
@@ -116,21 +86,45 @@ const fetchEntry=async()=>{
     },
   });
 
+  const fetchTypesOfEntries = async () => {
+    try {
+      
+      const user=localStorage.getItem('user')
+      const url = `${PORT}getTypeOfEntriesByCreatedBy`;
+      const response = await axios.get(url);
+      
+      if (response) {
+        const entries = response?.data?.response;
+        const occasional=entries.filter((entry)=>entry.entryType==="occasional")
+        // console.log('emnt',occasional);
+        
+        setOccasionalEntries(occasional);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchTypesOfEntries()
+   }, []);
+
+
   return (
     <Layout>
       <div className="content-wrapper">
         <div className="col-lg-12 grid-margin stretch-card">
           <div className="container mt-0">
           <div> <BackButton/></div>
-            {hasPermission("Type of Entries", "Edit") && (
+            {hasPermission("Type of Entries", "Create") && (
               <form onSubmit={formik.handleSubmit} encType="multipart/form-data">
                 <div className="card p-5" >
-                  <h3 className="card-title mb-5">Edit Types of Entries</h3>
+                  <h3 className="card-title mb-3">Add Purpose of Occasional Visits</h3>
                   <div className="row ">
                     {/* Entry Title */}
-                    <div className="col-md-5 mb-8" >
+                    <div className="col-md-5 mb-2" >
                       <label htmlFor="name" className="form-label">
-                        Add Entry Title<span className="text-danger">*</span>
+                        Add Purpose Title<span className="text-danger">*</span>
                       </label>
                       <input
                         type="text"
@@ -150,79 +144,69 @@ const fetchEntry=async()=>{
                   <br />
                   <div className="row">
                     {/* Icon Selection */}
-                    <div className="col-md-5 mb-8">
-                      <label htmlFor="entryIcon" className="form-label">
-                        Select Icon
+                    <div className="col-md-5 mb-2">
+                      <label htmlFor="purposeIcon" className="form-label">
+                        Select Icon<span className="text-danger">*</span>
                       </label>
                       <input
                         type="file"
                         className="form-control"
-                        id="entryIcon"
-                        name="entryIcon"
+                        id="purposeIcon"
+                        name="purposeIcon"
                         accept="image/*"
                         style={{ display: "none" }}
                         onChange={(event) => {
                           const file = event.currentTarget.files[0];
-                          formik.setFieldValue("entryIcon", file);
+                          formik.setFieldValue("purposeIcon", file);
                           setSelectedFileName(file ? file.name : "");
                         }}
                       />
-                      <label htmlFor="entryIcon" style={customButtonStyle}>
+                      <label htmlFor="purposeIcon" style={customButtonStyle}>
                         Choose File
                       </label>
                       {selectedFileName && <p>{selectedFileName}</p>}
-                      {formik.touched.entryIcon && formik.errors.entryIcon && (
-                        <div className="text-danger">{formik.errors.entryIcon}</div>
+                      {formik.touched.purposeIcon && formik.errors.purposeIcon && (
+                        <div className="text-danger">{formik.errors.purposeIcon}</div>
                       )}
                     </div>
                   </div>
                   <br />
                   <div className="row">
                     {/* Entry Type */}
-                    <div className="col-md-4 mb-4">
-                      <label htmlFor="entryType" className="form-label">
-                        Select Type of Entry
+                    <div className="col-md-5 mb-4">
+                      <label htmlFor="PurposeType" className="form-label">
+                        Select Type of Purpose<span className="text-danger">*</span>
                       </label>
                       <div>
-                        <input
-                          type="radio"
+                        <select
+                          className="form-control"
                           id="regular"
-                          name="entryType"
-                          value="regular"
-                          checked={formik.values.entryType === "regular"}
+                          name="PurposeType"
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
-                        />
-                        <label htmlFor="regular" className="form-label me-3">
-                          Regular
-                        </label>
-
-                        <input
-                          type="radio"
-                          id="occasional"
-                          name="entryType"
-                          value="occasional"
-                          checked={formik.values.entryType === "occasional"}
-                          onChange={formik.handleChange}
-                          onBlur={formik.handleBlur}
-                        />
-                        <label htmlFor="occasional" className="form-label">
-                          Occasional<span className="text-danger">*</span>
-                        </label>
+                        >
+                            <option label="Choose Purpose Type"></option>
+                                {   
+                                    occasionalEntries?.map((entry)=>{
+                                       return <option key={entry._id} className="text-capitalize">{entry?.title}</option>
+                                    })
+                                } 
+                            </select>
+                       
                       </div>
-                      {formik.touched.entryType && formik.errors.entryType && (
-                        <div className="text-danger">{formik.errors.entryType}</div>
+                      {formik.touched.PurposeType && formik.errors.PurposeType && (
+                        <div className="text-danger">{formik.errors.PurposeType}</div>
                       )}
                     </div>
                   </div>
                   <div className="row">
-                    <div className="col-md-8 mb-8">
+                    <div className="col-md-5 mb-8">
                   <button
                     type="submit"
                     className="btn btn-primary mt-3"
                     // style={{ width: "50%", margin: "0 auto", display: "block" }}
                   >
-                    Add Society User
+                    Add Purpose
                   </button>
                   </div>
                   </div>
@@ -238,4 +222,4 @@ const fetchEntry=async()=>{
 
 
 
-export default EditTypesOfEntry
+export default AddPurpose

@@ -54,7 +54,13 @@ const societySchema =new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: "EntryList",
           },],
-    }
+    },
+    purposeList:{
+        type:[{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Purpose",
+          },],
+    },
 
 },{timestamps:true});
 

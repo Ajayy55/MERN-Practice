@@ -27,8 +27,11 @@ import societyRoutes from './routes/society.routes.js'
 app.use(societyRoutes)
 
 //entries routes
-import entriesRoute from './routes/entries.routes.js'
-app.use(entriesRoute);
+import entriesRoutes from './routes/entries.routes.js'
+app.use(entriesRoutes);
 
+//purpose routes
+import purposesRoutes from './routes/purposes.routes.js'
+app.use(purposesRoutes)
 
 export {app}
