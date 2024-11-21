@@ -145,7 +145,7 @@ function SocietyList() {
                             <td>
                               {new Date(single.createdAt).toLocaleString(
                                 "en-IN",
-                                { timeZone: "Asia/Kolkata" }
+                                { timeZone: "Asia/Kolkata" ,month:"short",year:"numeric",day:"numeric", hour:"numeric",minute:"numeric"}
                               )}
                             </td>
                             <td>

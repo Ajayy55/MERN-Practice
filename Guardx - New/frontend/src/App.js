@@ -28,6 +28,9 @@ import PurposeList from './pages/purposeOfoccasional/PurposeList';
 import AddPurpose from './pages/purposeOfoccasional/AddPurpose';
 import EditPurpose from './pages/purposeOfoccasional/EditPurpose';
 import Gift from './pages/utils/Gift';
+import EditUser from './pages/users/EditUser';
+import SimpleTabs from './pages/utils/SimpleTabs';
+
 
 function App() {
 
@@ -57,6 +60,7 @@ function App() {
           {/* users */}
           <Route path="/users" element={<UsersList/>}/>
           <Route path="/addUser" element={<AddUser/>}/>
+          <Route path="/editUser" element={<EditUser/>}/>
 
           {/* Roles */}
           <Route path="/roles" element={<RolesList/>}/>
@@ -78,7 +82,9 @@ function App() {
         <Route path="/GuardAccess" element={<GuardAccess/>}/>
         </Route>
         <Route path="*" element={<Error404/>}/> 
-        <Route path="/gift" element={<Gift/>}/> 
+       
+      
+
 
       </Routes>
     </BrowserRouter>

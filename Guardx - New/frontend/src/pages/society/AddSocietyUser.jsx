@@ -9,6 +9,7 @@ import Swal from "sweetalert2";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAlert } from "../utils/Alert";
 import BackButton from "../utils/BackButton";
+import SimpleTabs from "../utils/SimpleTabs";
 
 function AddSocietyUser() {
   
@@ -37,7 +38,7 @@ function AddSocietyUser() {
     try {
       const url=`${PORT}getUsersBySocietyId/${id}`;
       const response=await axios.get(url);
-      console.log(response);
+      // console.log(response);
       if(response.status==200){
         setUsersData(response?.data?.response);
       }
@@ -70,7 +71,7 @@ function AddSocietyUser() {
     fetchRolesList();
     fetchSocietyUser();
   }, []);
- console.log(usersData);
+//  console.log(usersData);
  
   const formik = useFormik({
     initialValues: {
@@ -186,7 +187,7 @@ function AddSocietyUser() {
             {hasPermission("Society List", "Create") && (
               <form onSubmit={formik.handleSubmit} encType="multipart/form-data">
                 <div className="card p-4">
-                  <h3 className="card-title text-center">Add Society Admin User</h3>
+                  <h3 className="card-title text-center">Add {usersData[0]?.society ? usersData[0]?.society?.name : ""} Admin User</h3>
                   <div className="row">
                     {/* Username */}
                     <div className="col-md-4 mb-4">
@@ -340,7 +341,7 @@ function AddSocietyUser() {
           <div className="table-responsive">
           <div className="d-flex justify-content-center">
           
-          <span className="text-center fs-4 fw-bold">Society User's List</span>
+          <span className="text-center fs-4 fw-bold text-capitalize">{usersData[0]?.society ? usersData[0]?.society?.name+'( '+usersData[0]?.society?.city +' )': 'Society'} User's List</span>
         </div>
                   <table className="table table-striped">
                     <thead>
@@ -405,7 +406,6 @@ function AddSocietyUser() {
                       )}
                     </tbody>
                   </table>
-                
                 </div>
             </div>
         </div>

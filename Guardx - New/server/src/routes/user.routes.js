@@ -1,5 +1,5 @@
 import {Router} from 'express'
-import { createSuperAdmin,registerUser,login,getPemissions,getUsersByCreatedBy,removeUser,getUserRoles,addUserRoles,removeUserRole,EditUserRoles,
+import { createSuperAdmin,registerUser,updateUser,login,getPemissions,getUsersByCreatedBy,removeUser,getUserRoles,addUserRoles,removeUserRole,EditUserRoles,
     getUsersBySocietyId
     
 } from '../controllers/user.controller.js';
@@ -11,6 +11,10 @@ router.post('/createSuperAdmin',createSuperAdmin);
 router.post('/register', upload.fields([
     { name: 'rwaImage', maxCount: 1 },
     { name: 'rwaDocument', maxCount: 1 }]),registerUser);
+    
+router.post('/updateUser', upload.fields([
+    { name: 'rwaImage', maxCount: 1 },
+    { name: 'rwaDocument', maxCount: 1 }]),updateUser);
 
 router.post('/login',login)
 router.post('/getPemissions',getPemissions)

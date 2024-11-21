@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import Layout from '../../layout/Layout'
 import { usePermissions ,refreshPermissions} from '../../context/PermissionsContext'
+import Swal from "sweetalert2";
 
 function Dashboard() {
   const { getPermissions,permissions} = usePermissions();
@@ -10,6 +11,16 @@ function Dashboard() {
     getPermissions(user);
     // console.log('permissions called' ,permissions);
   }, [user]);
+
+  useEffect(()=>{
+    Swal.fire({
+      position: "center",
+      icon: "info",
+      title:"Working Modules - Roles ,Users , Society , Types of Entry , Ocassional Purposes",
+      showConfirmButton: true,
+      // timer: 1500,
+    });
+  },[user])
 
   return (
     <>

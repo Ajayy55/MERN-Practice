@@ -15,9 +15,9 @@ function Footer() {
     <span className="text-muted float-none float-sm-end d-block mt-1 mt-sm-0 text-center">
       {" "}
       <span className="text-muted float-none float-sm-end d-block mt-1 mt-sm-0 text-center">
-        Hand-crafted &amp; made with <i className="mdi mdi-heart text-danger" />
+        {/* Hand-crafted &amp; made with <i className="mdi mdi-heart text-danger" /> */}
       </span>{" "}
-      <i className="mdi mdi-heart text-danger" />
+      {/* <i className="mdi mdi-heart text-danger" /> */}
     </span>
   </div>
 </footer>

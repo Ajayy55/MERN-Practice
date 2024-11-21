@@ -111,7 +111,7 @@ const navigate =useNavigate()
             <span className="count bg-success" />
           </div>
           <div className="profile-name">
-            <h5 className="mb-0 font-weight-normal">{user.name}</h5>
+            <h5 className="mb-0 font-weight-normal text-capitalize">{user.name}</h5>
             <span>{user?.role}</span>
           </div>
         </div>
@@ -254,7 +254,7 @@ const navigate =useNavigate()
             <li className="nav-item menu-items">
               <NavLink to='/TypeOfEntries' className="nav-link" href="pages/tables/basic-table.html">
                 <span className="menu-icon">
-                  <i className="mdi mdi-table-large" />
+                  <i className="mdi mdi-format-list-bulleted" />
                 </span>
                 <span className="menu-title">Type of Entries</span>
                 <i className="menu-arrow" />

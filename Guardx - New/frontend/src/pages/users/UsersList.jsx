@@ -32,6 +32,8 @@ function UsersList() {
       const admin = localStorage.getItem("user");
       const url = `${PORT}getUsersByCreatedBy/${admin}`;
       const response = await axios.get(url);
+      // console.log(response);
+      
       if (response.status === 200) {
         setUsersData(response.data.response);
         setFilteredData(response.data.response); // Initialize filtered data
@@ -97,8 +99,10 @@ function UsersList() {
   };
 
   // Handle edit action
-  const handleEdit = (id) => {
-    navigate(`/editUser`, { state: id });
+  const handleEdit = (user) => {
+    console.log(user);
+    
+    navigate(`/editUser`, { state: user });
   };
 
   return (
@@ -127,6 +131,7 @@ function UsersList() {
                     <thead>
                       <tr>
                         <th>User</th>
+                        <th>Society Name</th>
                         <th>Email</th>
                         <th>Status</th>
                         <th>Role</th>
@@ -144,6 +149,7 @@ function UsersList() {
                             />
                             {user.name}
                           </td>
+                          <td>{user?.society?.name}</td>
                           <td>{user.email}</td>
                           <td>
                             {user.isActive ? (
@@ -160,7 +166,7 @@ function UsersList() {
                                   className="mdi mdi-lead-pencil pe-3"
                                   data-bs-toggle="tooltip"
                                   title="Edit"
-                                  onClick={() => handleEdit(user._id)}
+                                  onClick={() => handleEdit(user)}
                                   style={{ cursor: "pointer" }}
                                 />
                               )}

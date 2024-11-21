@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import { jwtDecode } from "jwt-decode";
 
@@ -9,6 +9,17 @@ import { jwtDecode } from "jwt-decode";
 function Navbar() {
   const navigate =useNavigate();
   const token=localStorage.getItem('token')
+  const location = useLocation();
+
+  // Format the path for better display
+  const formatPath = (path) => {
+    const formatted = path
+      .replace("/", "") // Remove the leading slash
+      .split("/") // Split by slashes
+      .map((segment) => segment.charAt(0).toUpperCase() + segment.slice(1)) // Capitalize each segment
+      .join(" > "); // Join with an arrow for better visual hierarchy
+    return formatted || "Home"; // Default to 'Home' if the path is empty
+  };
   if(token){
   const decode = jwtDecode(token);
   // console.log(decode);
@@ -28,6 +39,7 @@ function Navbar() {
           </a>
         </div>
         <div className="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
+        {/* {formatPath(location.pathname)} */}
           {/* <button
             className="navbar-toggler navbar-toggler align-self-center"
             type="button"
@@ -110,7 +122,7 @@ function Navbar() {
                 <i className="mdi mdi-view-grid" />
               </a>
             </li> */}
-            <li className="nav-item dropdown border-left">
+            {/* <li className="nav-item dropdown border-left">
               <a
                 className="nav-link count-indicator dropdown-toggle"
                 id="messageDropdown"
@@ -238,7 +250,7 @@ function Navbar() {
                 <div className="dropdown-divider" />
                 <p className="p-3 mb-0 text-center">See all notifications</p>
               </div>
-            </li>
+            </li> */}
             <li className="nav-item dropdown">
               <a
                 className="nav-link"

@@ -21,6 +21,7 @@ function Gift() {
 
     const AddFriend=(e)=>{
         e.preventDefault();
+        
         setList((prev)=>[...prev,friend]
         )
     }

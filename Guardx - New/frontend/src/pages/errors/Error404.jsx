@@ -1,7 +1,8 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 function Error404() {
+  const navigate=useNavigate();
   return (
     <>
         <div className="container-scroller">
@@ -22,12 +23,12 @@ function Error404() {
           </div>
           <div className="row mt-5">
             <div className="col-12 text-center mt-xl-2">
-              <Link to="/"
-                className="text-white font-weight-medium"
+              {/* <Link to="/" 
+                className="text-white font-weight-medium"  >*/}
                
-              >
-                Back to home
-              </Link>
+             
+               <span onClick={()=>{navigate(-1)}}>Go Back </span> 
+              {/* </Link> */}
             </div>
           </div>
           <div className="row mt-5">

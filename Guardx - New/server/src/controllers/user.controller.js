@@ -2,6 +2,7 @@ import { House } from "../models/house.model.js";
 import { Role } from "../models/roles.model.js";
 import { User } from "../models/user.model.js";
 import { GenJwtToken } from "../utils/JWT.js";
+import bcrypt  from 'bcrypt'
 
 const createSuperAdmin=async(req,res)=>{
     const { email, mobile, password,role,permissionLevel} = req.body;
@@ -114,9 +115,61 @@ const registerUser = async (req, res) => {
   }
 };
 
+const updateUser = async (req, res) => {
+  const { email, mobile, name,userId,password } = req.body;
+  const files = req.files;
+  console.log(req.body);
+  
+  if (!email || !mobile || !name) {
+    return res.status(400).json({ message: 'All fields are required' });
+  }
+
+  try {
+    const newObj={}
+  for (let key in req.body) {
+  if(key=='password'){
+      continue;
+  }
+  newObj[key]=req.body[key]
+}
+    const isUserUpdated = await User.findByIdAndUpdate(userId,newObj,{new:true});
+    if (!isUserUpdated) {
+      return res.status(400).json({ message: 'User Updataion Failed' });
+    }
+  
+    if (password) {
+      console.log('inside',password,isUserUpdated);
+      isUserUpdated.password = password; // Assign new password
+      const ss=await isUserUpdated.save(); // Trigger the 'pre' save hook
+      console.log('after',ss);
+      
+    }
+
+    if (files) {
+      if (files.rwaImage && files.rwaImage[0]) {
+        isUserUpdated.rwaImage = files.rwaImage[0].path;  
+      }
+      if (files.rwaDocument && files.rwaDocument[0]) {
+        isUserUpdated.rwaDocument = files.rwaDocument[0].path;  
+      }
+      const response = await isUserUpdated.save();
+    }
+
+    // Save the new user document with file data
+   
+
+    res.status(200).json({message:"User Updated Successfull"});
+
+  } catch (error) {
+    console.log('Error while Updating user', error);
+    return res.status(500).json({ message: 'Internal server error while updating user' });
+  }
+};
+
 const login=async(req,res)=>{
     const {email,password}=req.body;
-
+  // console.log(req.body);
+  
     if (!email || !password) {
         return res.status(400).json({ message: 'All fields are required' });
       }
@@ -179,7 +232,7 @@ const getUsersByCreatedBy=async(req,res)=>{
     // console.log(id);
     
     try {
-      const response=await User.find({createdBy:id}).populate({path:"role"}).select("-password -permissions")
+      const response=await User.find({createdBy:id}).populate({path:"role"}).populate("society").select("-password -permissions")
       // console.log(response);
       
       if (!response) {
@@ -196,7 +249,7 @@ const getUsersByCreatedBy=async(req,res)=>{
 
 const getUsersBySocietyId=async(req,res)=>{
     const id=req.params.id
-    console.log(id);
+    // console.log(id);
     
     try {
       const response=await User.find({society:id}).populate("role").populate("society").select("-password -permissions")
@@ -247,7 +300,7 @@ const getUserRoles=async(req,res)=>{
       return res.status(500).json({ message: 'Internal server error while getting user roles' });
   }
 
-}
+} 
 
 const addUserRoles=async(req,res)=>{
     const {createdBy,permissionLevel,permissions,roleDesc,roleTitle,roleType} =req.body;
@@ -341,4 +394,4 @@ const EditUserRoles=async(req,res)=>{
 }
 
 
-export { createSuperAdmin,registerUser,login,getPemissions,getUsersByCreatedBy,removeUser,getUserRoles,addUserRoles,removeUserRole,EditUserRoles,getUsersBySocietyId};
+export { createSuperAdmin,registerUser,updateUser,login,getPemissions,getUsersByCreatedBy,removeUser,getUserRoles,addUserRoles,removeUserRole,EditUserRoles,getUsersBySocietyId};
