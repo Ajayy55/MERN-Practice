@@ -30,16 +30,22 @@ import EditPurpose from './pages/purposeOfoccasional/EditPurpose';
 import Gift from './pages/utils/Gift';
 import EditUser from './pages/users/EditUser';
 import SimpleTabs from './pages/utils/SimpleTabs';
+import NormalizeUrl from './pages/utils/NormalizeUrl';
+import HouseList from './pages/house list/HouseList';
+import UserForm from './pages/house list/AddHouse';
+import AddHouse from './pages/house list/AddHouse';
 
 
 function App() {
-
+  
 
   return (
  <>
+ 
      <BrowserRouter>
+     <NormalizeUrl/>
       <Routes>
-
+      
       <Route element={<LoginProtectedRoutes/>}>
       <Route path="/signup" element={<Signup/>}/>
       <Route path="/login" element={<Login/>}/>
@@ -76,6 +82,10 @@ function App() {
         <Route path="/purposeOfOccasional" element={<PurposeList/>}/>
         <Route path="/AddPurposeOfOccasional" element={<AddPurpose/>}/>
         <Route path="/editPurposeOfOccasional" element={<EditPurpose/>}/>
+
+        {/* HouseList */}
+        <Route path="/houseList" element={<HouseList/>}/>
+        <Route path="/addHouse" element={<AddHouse/>}/>
 
 
         {/* Guard */}

@@ -158,7 +158,7 @@ function EditSociety() {
             "Content-Type": "multipart/form-data", // Important for file uploads
           },
         });
-        console.log(response);
+        // console.log(response);
 
         if (response.status == 200) {
           Swal.fire({
@@ -177,7 +177,7 @@ function EditSociety() {
       }
     },
   });
-console.log('logo',logo);
+// console.log('logo',logo);
 
   useEffect(() => {
     if (id) {

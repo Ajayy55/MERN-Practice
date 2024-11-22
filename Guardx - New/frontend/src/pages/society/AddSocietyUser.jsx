@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../../layout/Layout";
-import { useFormik } from "formik";
+import { useFormik} from "formik";
 import * as Yup from "yup";
 import { usePermissions } from "../../context/PermissionsContext";
 import axios from "axios";
@@ -107,7 +107,7 @@ function AddSocietyUser() {
             (value && ["image/jpeg", "image/png", "image/jpg"].includes(value.type))
         ),
     }),
-    onSubmit: async (values) => {
+    onSubmit: async (values,{ resetForm }) => {
       const formData = new FormData();
       formData.append("createdBy", localStorage.getItem("user"));
       formData.append("society",id);
@@ -131,6 +131,7 @@ function AddSocietyUser() {
             showConfirmButton: false,
             timer: 1500,
           });
+          resetForm();
           fetchSocietyUser();
           // setTimeout(() => navigate("/society"), 1000);
         }

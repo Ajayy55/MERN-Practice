@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 import { usePermissions } from "../../context/PermissionsContext";
 // import TypesOfEntriesModal from "./TypesOfEntriesModal";
 import BackButton from "../utils/BackButton";
+import PurposeModal from "./PurposeModal";
 
 
 const customButtonStyle = {
@@ -32,11 +33,12 @@ function PurposeList() {
   const [currentPage, setCurrentPage] = useState(1); // Current page state
   const itemsPerPage = 10; // Items per page
 
-  const fetchSocietyTypeOfEntries=async()=>{
+  const fetchSocietyPurposeList=async()=>{
     try {
         // const id='6731880e33cc6e06c07b10eb'
         const response=await axios.get(`${PORT}getPurposeListOfSociety/${decode.society}`)
-        const societyEntries = response?.data?.response.typeOfEntries ||null;
+        const societyEntries = response?.data?.response.purposeList ||null;
+        
         setSocietyPurpose(societyEntries);
     } catch (error) {
       console.log(error);
@@ -44,20 +46,14 @@ function PurposeList() {
   }
 // console.log(societyPurposes);
 
-  const fetchTypesOfEntries = async () => {
+  const fetchPurpose = async () => {
     try {
       
       const user=localStorage.getItem('user')
       const url = `${PORT}getAllPurposes`;
       const response = await axios.get(url);
-    //   console.log(decode.id);
-      
-      const filterData=response?.data?.response.filter((purpose)=>purpose.createdBy===decode.id);
-    //   console.log('p',filterData);
-      
-      if (filterData) {
-        setPurpose(filterData);
-      }
+  
+        setPurpose(response?.data?.response);
     } catch (error) {
       console.log(error);
     }
@@ -65,9 +61,9 @@ function PurposeList() {
 
   useEffect(() => {
 
-    fetchTypesOfEntries();
+    fetchPurpose();
     if(decode.society){
-      fetchSocietyTypeOfEntries();
+      fetchSocietyPurposeList();
     }
     
   }, [showModal]);
@@ -88,16 +84,16 @@ function PurposeList() {
     }).then((result) => {
       if (result.isConfirmed) {
         try {
-          axios.patch(`${PORT}removeTypeOfEntryFromSociety/${decode.society}`,{RemoveId}).then((response) => {
+          axios.patch(`${PORT}removePurposeFromSociety/${decode.society}`,{RemoveId}).then((response) => {
             if (response.status === 200) {
               Swal.fire({
                 position: "center",
                 icon: "success",
-                title: "Entry Removed Successfully",
+                title: "Purpose Removed Successfully",
                 showConfirmButton: false,
                 timer: 1500,
               });
-              fetchSocietyTypeOfEntries();
+              fetchSocietyPurposeList();
             }
           });
         } catch (error) {
@@ -120,16 +116,16 @@ function PurposeList() {
     }).then((result) => {
       if (result.isConfirmed) {
         try {
-          axios.delete(`${PORT}removeTypeOfEntry/${id}`).then((response) => {
+          axios.delete(`${PORT}removePurpose/${id}`).then((response) => {
             if (response.status === 200) {
               Swal.fire({
                 position: "center",
                 icon: "success",
-                title: "Entry Removed Successfully",
+                title: "Purpose Removed Successfully",
                 showConfirmButton: false,
                 timer: 1500,
               });
-              fetchTypesOfEntries();
+              fetchPurpose();
             }
           });
         } catch (error) {
@@ -177,15 +173,15 @@ function PurposeList() {
                           <i className="mdi mdi-plus-box" /> Add Purpose
                         </Link>) : (   <div>            
                                   <button className="btn btn-primary" onClick={() => setShowModal(true)} style={{background:'#4CAF50'}}>
-                                    Add Types of Entries
+                                    Add  Purpose from List
                                   </button>
-
-                                  {/* <TypesOfEntriesModal
+                                  
+                                  <PurposeModal
                                     show={showModal}
                                     onClose={() => setShowModal(false)}
                                     entries={purposeData}
                                     id={decode.society}
-                                  /> */}
+                                  />
                                 </div>)
                         
                   ) : (

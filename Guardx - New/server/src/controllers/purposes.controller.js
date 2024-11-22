@@ -6,7 +6,7 @@ import mongoose from "mongoose";
 import { log } from "console";
 
 const addPurpose=async(req,res)=>{
-    console.log(req.body);
+    // console.log(req.body);
     
     const {purpose,purposeType,createdBy}=req.body;
     const icon=req.files;
@@ -88,7 +88,7 @@ const removePurpose=async(req,res)=>{
 const editPurpose=async(req,res)=>{
     const {purpose_id}=req.body;
     const icon=req.files;
-    console.log(req.body);
+    // console.log(req.body);
     
     const {purpose,purposeType,createdBy}=req.body;
  
@@ -168,9 +168,10 @@ const addPurposeToSociety=async(req,res)=>{
 
 const getPurposeListOfSociety=async(req,res)=>{
     const societyId=req.params.id;
-
+    // console.log(societyId);
+    
     try {
-        const response= await Society.findOne({_id:societyId}).populate("purposeList");console.log(response);
+        const response= await Society.findOne({_id:societyId}).populate("purposeList");
         
         if(!response){
             return res.status(500).json({message:`No Society Found !`})
@@ -188,17 +189,17 @@ const getPurposeListOfSociety=async(req,res)=>{
 const removePurposeFromSociety=async(req,res)=>{
     const id=req.params.id;
     const {RemoveId}=req.body
-    console.log(RemoveId,id);
+    // console.log(RemoveId,id);
         
 
     try {
         const society=await Society.findById(id)
-        console.log(society);
+        // console.log(society);
         
         const abc = society.purposeList.filter((entry) => 
             entry.toString() !== RemoveId
           );
-          console.log('abc', abc);
+        //   console.log('abc', abc);
           
          society.purposeList=abc;
           

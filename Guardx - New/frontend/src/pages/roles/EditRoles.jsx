@@ -361,7 +361,7 @@ function EditRoles() {
   const guardModules = [
     {
       moduleName: "Public access",
-      actions: ["All", "Module", "Read", "Create"],
+      actions: ['Public'],
     },
   ];
 

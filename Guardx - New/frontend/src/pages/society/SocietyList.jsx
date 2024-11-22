@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { usePermissions } from "../../context/PermissionsContext";
 import BackButton from "../utils/BackButton";
+import NormalizeUrl from "../utils/NormalizeUrl";
 
 const customButtonStyle = {
   backgroundColor: "#4CAF50",
@@ -19,6 +20,7 @@ const customButtonStyle = {
 };
 
 function SocietyList() {
+  
   const { hasPermission } = usePermissions();
 
   const [societyData, setSocietyData] = useState([]);
@@ -90,6 +92,7 @@ function SocietyList() {
 
   return (
     <Layout>
+    
       <div className="content-wrapper">
         <div className="col-lg-12 grid-margin stretch-card">
           <div className="card">
@@ -134,9 +137,10 @@ function SocietyList() {
                           <tr key={single._id}>
                             <td className="py-1">
                               <img
-                                src="../../assets/images/faces-clipart/pic-1.png"
+                                src={single.societyLogo ? `${PORT}${single.societyLogo?.split('public')[1]}`:"../../assets/images/faces-clipart/pic-1.png"}
                                 alt="image"
                                 className="me-2"
+                                // placeholder={single.name}
                               />{" "}
                               {single.name}
                             </td>

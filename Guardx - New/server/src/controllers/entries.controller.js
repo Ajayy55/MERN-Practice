@@ -156,11 +156,15 @@ const editTypeOfEntry=async(req,res)=>{
 const addTypesOfEntriesToSociety=async(req,res)=>{
     const id=req.params.id;
     console.log(req.body,id);
-    
+    if(id==='null'){
+        return res.status(404).json({message:'UnAuthorized Action Invalid Society '})
+    }
     try {
         const society=await Society.findById(id)
         console.log(society);
-        
+        if(!society){
+            return res.status(404).json({message:'UnAuthorized Action Society Admin can add Entries'})
+        }
         const abc = req.body.filter((entry) =>
             !society.typeOfEntries.some((data) => data.toString() === entry)
           );

@@ -38,7 +38,7 @@ function AddRoles() {
     { moduleName: 'Roles', actions: Actions },
   ];
   
-  const guardModules = [{ moduleName: 'Public access', actions: ['All','Module', 'Read', 'Create'] }];
+  const guardModules = [{ moduleName: 'Public access', actions: ['Public'] }];
 
   const [roleType, setRoleType] = useState(null);
 

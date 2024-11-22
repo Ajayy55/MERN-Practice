@@ -92,6 +92,7 @@ function AddPurpose() {
       const user=localStorage.getItem('user')
       const url = `${PORT}getTypeOfEntriesByCreatedBy`;
       const response = await axios.get(url);
+      // console.log('rr',response);
       
       if (response) {
         const entries = response?.data?.response;

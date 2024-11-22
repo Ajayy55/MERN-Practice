@@ -60,7 +60,7 @@ function EditPurpose() {
     
 
       formData.append("purposeType", values.PurposeType);
-        console.log(values);
+        // console.log(values);
         
       try {
         // Assuming you're sending the data to an endpoint for submission

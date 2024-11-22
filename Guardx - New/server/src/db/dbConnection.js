@@ -3,8 +3,8 @@ import mongoose from "mongoose";
 export const dbConnection=async()=>{
     try {
         
-        if( await mongoose.connect(`${process.env.URI}/NewGuardX`)){
-        // if (await mongoose.connect(`${process.env.URI}/Guardx`)){
+        if( await mongoose.connect(`${process.env.URI}/NewGuardX`)){   //local
+        // if (await mongoose.connect(`${process.env.URI}/Guardx`)){       //online
             console.log('Mongo DB connected ..!');
         }
         else{

@@ -138,8 +138,8 @@ useEffect(()=>{
         .matches(/^[0-9]+$/, "Must be only digits")
         .min(10, "Must be exactly 10 digits")
         .max(10, "Must be exactly 10 digits"),
-      //   registrationNumber: Yup.string().required("registrationNumber No. is required"),
-      //   societyLogo: Yup.mixed().required("Society Logo is required"),
+        houseCount: Yup.string().required("No. of House Count is required"),
+        // societyLogo: Yup.mixed().required("Society Logo is required"),
     }),
     onSubmit: async (values) => {
       console.log("Form values:", values);
@@ -232,16 +232,18 @@ useEffect(()=>{
                       style={{ display: "none" }}
                       accept="image/*"
                       onChange={handleMediaChange}
-                      //   onChange={(event) => {
-                      //     formik.setFieldValue("societyLogo", event.currentTarget.files[0]);
-                      //   }}
+                        // onChange={(event) => {
+                        //   formik.setFieldValue("societyLogo", event.currentTarget.files[0]);handleMediaChange()
+                        // }}
                     />
                     <div className="d-flex justify-content-between">
                       <label htmlFor="societyLogo" style={customButtonStyle}>
                         Choose File
                       </label>
+                      
                       {/* <i className="mdi mdi-eye" onClick={handleOpen} /> */}
                     </div>
+                    {logo && <p>{logo.name}</p>}
                     <Modal open={open} onClose={handleClose}>
                       <Box sx={style}>
                         <IconButton
@@ -283,7 +285,11 @@ useEffect(()=>{
                         </Grid>
                       </Box>
                     </Modal>
+                    {/* {formik.touched.societyLogo && formik.errors.societyLogo ? (
+                      <div className="text-danger">{formik.errors.societyLogo}</div>
+                    ) : null} */}
                   </div>
+              
 
                   {/* Address */}
                   <div className="col-md-6 mb-3">
@@ -299,6 +305,23 @@ useEffect(()=>{
                     />
                     {formik.touched.address && formik.errors.address ? (
                       <div className="text-danger">{formik.errors.address}</div>
+                    ) : null}
+                  </div>
+
+                    {/* City */}
+                    <div className="col-md-6 mb-3">
+                    <label htmlFor="city" className="form-label">
+                      City <span className="text-danger">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="city"
+                      placeholder="Enter city"
+                      {...formik.getFieldProps("city")}
+                    />
+                    {formik.touched.city && formik.errors.city ? (
+                      <div className="text-danger">{formik.errors.city}</div>
                     ) : null}
                   </div>
 
@@ -319,22 +342,7 @@ useEffect(()=>{
                     ) : null}
                   </div>
 
-                  {/* City */}
-                  <div className="col-md-6 mb-3">
-                    <label htmlFor="city" className="form-label">
-                      City <span className="text-danger">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="city"
-                      placeholder="Enter city"
-                      {...formik.getFieldProps("city")}
-                    />
-                    {formik.touched.city && formik.errors.city ? (
-                      <div className="text-danger">{formik.errors.city}</div>
-                    ) : null}
-                  </div>
+                
 
                   {/* Contact No. */}
                   <div className="col-md-6 mb-3">
@@ -365,6 +373,9 @@ useEffect(()=>{
                       placeholder="Enter number of houses"
                       {...formik.getFieldProps("houseCount")}
                     />
+                     {formik.touched.houseCount && formik.errors.houseCount ? (
+                      <div className="text-danger">{formik.errors.houseCount}</div>
+                    ) : null}
                   </div>
 
                   {/* Society registrationNumber No. */}

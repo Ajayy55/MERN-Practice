@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import Layout from "../../layout/Layout";
 import { PORT } from "../../port/Port";
@@ -5,6 +6,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { usePermissions } from "../../context/PermissionsContext";
+import { jwtDecode } from "jwt-decode";
 
 const customButtonStyle = {
   backgroundColor: "#4CAF50",
@@ -15,9 +17,10 @@ const customButtonStyle = {
   display: "inline-block",
   textAlign: "center",
 };
+const Token = localStorage.getItem("user");
 
-function UsersList() {
-  const [usersData, setUsersData] = useState([]);
+function HouseList() {
+  const [HouseList, setHouseList] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1); // Current page state
@@ -26,33 +29,43 @@ function UsersList() {
   const navigate = useNavigate();
   const { hasPermission } = usePermissions();
 
-  // Fetch user list
-  const fetchUsersList = async () => {
+  const fetchHouseList = async (id) => {
     try {
-      const admin = localStorage.getItem("user");
-      const url = `${PORT}getUsersByCreatedBy/${admin}`;
+      const url = `${PORT}getHouseListBySocietyId/${id}`;
       const response = await axios.get(url);
-      // console.log(response);
-      
+      console.log(response);
+
       if (response.status === 200) {
-        setUsersData(response.data.response);
+        setHouseList(response.data.response);
         setFilteredData(response.data.response); // Initialize filtered data
       }
     } catch (error) {
-      console.error("Error fetching user list:", error);
+      console.error("Error fetching house list:", error);
     }
   };
 
   useEffect(() => {
-    fetchUsersList();
-  }, []);
+    const Token = localStorage.getItem("token"); // Moved here to update dynamically
+    if (Token) {
+      try {
+        const decoded = jwtDecode(Token);
+        if (decoded?.society) {
+          fetchHouseList(decoded.society); // Pass the society ID
+        } else {
+          console.error("No society ID found in token.");
+        }
+      } catch (error) {
+        console.error("Invalid token:", error);
+      }
+    }
+  }, []); 
 
-  // Handle search input
+
   const handleSearchInput = (e) => {
     const query = e.target.value.toLowerCase();
     setSearchQuery(query);
 
-    const filtered = usersData.filter(
+    const filtered = HouseList.filter(
       (user) =>
         user.name?.toLowerCase().includes(query) ||
         user.email?.toLowerCase().includes(query)
@@ -88,7 +101,7 @@ function UsersList() {
                 showConfirmButton: false,
                 timer: 1500,
               });
-              fetchUsersList();
+              fetchHouseList();
             }
           });
         } catch (error) {
@@ -110,12 +123,12 @@ function UsersList() {
       <div className="content-wrapper">
         <div className="col-lg-12 grid-margin stretch-card">
           <div className="card">
-            {hasPermission("Users", "Read") ? (
+            {hasPermission("House List", "Read") ? (
               <div className="card-body">
                 <div className="card-title d-flex justify-content-between">
-                  {hasPermission("Users", "Create") && (
-                    <Link to="/addUser" className="btn" style={customButtonStyle}>
-                      <i className="mdi mdi-plus-box" /> Add User
+                  {hasPermission("House List", "Create") && (
+                    <Link to="/addHouse" className="btn" style={customButtonStyle}>
+                      <i className="mdi mdi-plus-box" /> Add House
                     </Link>
                   )}
                   <input
@@ -130,52 +143,54 @@ function UsersList() {
                   <table className="table table-striped">
                     <thead>
                       <tr>
-                        <th>User</th>
-                        <th>Society Name</th>
-                        <th>Email</th>
-                        <th>Status</th>
-                        <th>Role</th>
+                        <th>House No</th>
+                        <th>Block</th>
+                        <th>Owner</th>
+                        <th>contact</th>
+                        <th>Approval Status</th>
                         <th>Actions</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {paginatedEntries.length > 0 && paginatedEntries.map((user) => {
-                       return <tr key={user._id}>
+                      {paginatedEntries.length > 0 && paginatedEntries.map((house) => {
+                       return <tr key={house._id}>
                           <td className="py-1 text-capitalize">
-                            <img
+                            {/* <img
                               src="../../assets/images/faces-clipart/pic-1.png"
                               alt="user avatar"
                               className="me-2"
-                            />
-                            {user.name}
+                            /> */}
+                            {house.houseNo}
                           </td>
-                          <td>{user.society ? user?.society?.name :<span className="px-5" > -</span>}</td>
-                          <td>{user.email}</td>
+                          <td>{house.blockNo ? house?.blockNo:<span className="px-5" > -</span>}</td>
+                          <td>{house.ownerName ? house?.ownerName:<span className="px-3" > -</span>}</td>
+                          <td>{house.mobile ? house?.mobile:<span className="px-3" > -</span>}</td>
                           <td>
-                            {user.isActive ? (
-                              <div className="badge badge-outline-success">Active</div>
-                            ) : (
+                            {house?.approvalStatus=='Pending'&& <div className="badge badge-outline-warning">Pending</div> }
+                            {house?.approvalStatus=='Approved'&& <div className="badge badge-outline-success">Approved</div> }
+                            {house?.approvalStatus=='Rejected'&& <div className="badge badge-outline-danger">Rejected</div> }
+                              
+                            {/* : (
                               <div className="badge badge-outline-danger">Inactive</div>
-                            )}
+                            )} */}
                           </td>
-                          <td className="text-capitalize">{user.role?.title}</td>
                           <td>
                             <div>
-                              {hasPermission("Users", "Edit") && (
+                              {hasPermission("House List", "Edit") && (
                                 <i
                                   className="mdi mdi-lead-pencil pe-3"
                                   data-bs-toggle="tooltip"
                                   title="Edit"
-                                  onClick={() => handleEdit(user)}
+                                  onClick={() => handleEdit(house)}
                                   style={{ cursor: "pointer" }}
                                 />
                               )}
-                              {hasPermission("Users", "Delete") && (
+                              {hasPermission("House List", "Delete") && (
                                 <i
                                   className="mdi mdi-delete"
                                   data-bs-toggle="tooltip"
                                   title="Delete"
-                                  onClick={() => handleDelete(user._id)}
+                                  onClick={() => handleDelete(house._id)}
                                   style={{ cursor: "pointer" }}
                                 />
                               )}
@@ -183,7 +198,7 @@ function UsersList() {
                           </td>
                         </tr>
                       })}
-                      {paginatedEntries.length === 0 && usersData.length === 0 && (
+                      {paginatedEntries.length === 0 && HouseList.length === 0 && (
                         <tr>
                           <td colSpan="5" className="text-center">
                             No data available
@@ -231,4 +246,6 @@ function UsersList() {
   );
 }
 
-export default UsersList;
+
+
+export default HouseList

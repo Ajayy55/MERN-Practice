@@ -57,7 +57,7 @@ function AddTypesOfEntry() {
     validationSchema, // Pass the validation schema
     onSubmit: async (values) => {
       // Handle form submission
-      console.log(values);
+      // console.log(values);
       
       const formData = new FormData();
       formData.append("title", values.name);
@@ -67,11 +67,12 @@ function AddTypesOfEntry() {
 
       try {
         // Assuming you're sending the data to an endpoint for submission
-        const response = await axios.post(`${PORT}addTypeOfEntrys`, formData, {
+        const response = await axios.post(`${PORT}addTypeOfEntry`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
         });
+        // console.log('rr',response);
         
         if (response.status === 201) {
           Swal.fire("Success", "Entry added successfully!", "success");

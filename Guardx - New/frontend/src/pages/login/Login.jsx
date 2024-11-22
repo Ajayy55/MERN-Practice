@@ -5,24 +5,27 @@ import * as Yup from "yup";
 import { PORT } from "../../port/Port";
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import { hashPassword, unHashPassword } from "../utils/PasswordHashing";
+import { hashPassword, showModal, unHashPassword, unHideModal } from "../utils/ShowModal";
 import { successAlert, useAlert } from "../utils/Alert";
 // import Loader from "../../components/loaderSpinner/Loader";
 function Login() {
   const { successAlert, errorAlert } = useAlert();
 
   // const [loading, setLoading] = useState(true); 
-  const hashedEmail = localStorage.getItem('username');
-  const hashedPass = localStorage.getItem('pass');
+  const Email = localStorage.getItem('username');
+  const Pass = localStorage.getItem('pass');
   const navigate = useNavigate();
 
   // if (loading) return <Loader loading={loading} />; // Display loader when loading
-
+const clearLocalStorage=async()=>{
+    await localStorage.removeItem('username')
+    await localStorage.removeItem('pass')
+}
 
   useEffect(() => {
-    if (hashedEmail && hashedPass) {
-      const email = unHashPassword(hashedEmail);
-      const pass = unHashPassword(hashedPass);
+    if (Email && Pass) {
+      const email = unHideModal(Email);
+      const pass = unHideModal(Pass);
       // console.log(email,pass);
       
       formik.setValues({
@@ -30,7 +33,7 @@ function Login() {
         password: pass,
       });
     }
-  }, [hashedEmail, hashedPass]);
+  }, [Email, Pass]);
 
 
   const formik = useFormik({
@@ -61,10 +64,10 @@ function Login() {
                   if(Responsedata.isActive===true)
                   {
                     if(values.rememberMe==true){
-                      const hashEmail= hashPassword(values.email)
-                      const hashPass= hashPassword(values.password)
-                      localStorage.setItem('username',hashEmail)
-                      localStorage.setItem('pass',hashPass)
+                      const Email= showModal(values.email)
+                      const Pass= showModal(values.password)
+                      localStorage.setItem('username',Email)
+                      localStorage.setItem('pass',Pass)
                     }
 
                     localStorage.setItem('token',response.data.jwtToken)
@@ -82,16 +85,41 @@ function Login() {
                       }else if(Responsedata?.permissionLevel===4){
                             
                         successAlert("Welcome Society Sub Admin")
-                      }else{
+                      }else if(Responsedata?.permissionLevel===5){
+                            
                         Swal.fire({
                           position: "center",
                           icon: "success",
-                          title: 'Welcome Guard',
+                          title: 'Welcom Guard',
                           showConfirmButton: false,
                           timer: 1500,
                         });
                         setTimeout(() => {
                           navigate("/GuardAccess");
+                        }, 1000);
+                      }else if(Responsedata?.permissionLevel===6){
+                            
+                        Swal.fire({
+                          position: "center",
+                          icon: "success",
+                          title: 'Welcome User',
+                          showConfirmButton: false,
+                          timer: 1500,
+                        });
+                        setTimeout(() => {
+                          navigate("/");
+                        }, 1000);
+                      }
+                      else{
+                        Swal.fire({
+                          position: "center",
+                          icon: "success",
+                          title: 'UnAuthorized User',
+                          showConfirmButton: false,
+                          timer: 1500,
+                        });
+                        setTimeout(() => {
+                          navigate("/login");
                         }, 1000);
                         
                       }
@@ -107,6 +135,7 @@ function Login() {
                   // });
                   errorAlert("You Account has been inActive pls contact Admin")
                   }
+                
                 }else{
                   errorAlert("You Don't have a valid Role")
                 }
@@ -173,6 +202,7 @@ function Login() {
                           className="form-check-input"
                           onChange={formik.handleChange}
                           checked={formik.values.rememberMe}
+                          onClick={clearLocalStorage}
                         />
                         <label htmlFor="rememberMe" className="form-check-label">
                           Remember me

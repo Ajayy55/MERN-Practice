@@ -278,13 +278,13 @@ const navigate =useNavigate()
 {/* House List */}
 {hasPermission('House List', 'Module') && (
            <li className="nav-item menu-items">
-           <a className="nav-link" href="pages/charts/chartjs.html">
+           <NavLink to='/houseList' className="nav-link" href="pages/charts/chartjs.html">
              <span className="menu-icon">
                <i className="mdi mdi-home" />
              </span>
              <span className="menu-title">House List</span>
              <i className="menu-arrow" />
-           </a>
+           </NavLink>
          </li>
           )}
 
