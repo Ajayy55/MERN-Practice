@@ -87,6 +87,15 @@ const storage = multer.diskStorage({
       case 'purposeIcon':
         dir = './public/icons';
         break;
+      case 'ownerImage':
+        dir = './public/house/owner';
+        break;
+      case 'houseVehicleImage':
+        dir = './public/house/vehicle';
+        break;
+      case 'aadhaarImage':
+        dir = './public/house/aadhar';
+        break;
       default:
         dir = './public/others'; // Default directory for other files
         break;

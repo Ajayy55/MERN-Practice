@@ -17,7 +17,6 @@ const customButtonStyle = {
   display: "inline-block",
   textAlign: "center",
 };
-const Token = localStorage.getItem("user");
 
 function HouseList() {
   const [HouseList, setHouseList] = useState([]);
@@ -25,7 +24,7 @@ function HouseList() {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1); // Current page state
   const itemsPerPage = 10; // Items per page
-
+  const [flag,setFlag]=useState(false)
   const navigate = useNavigate();
   const { hasPermission } = usePermissions();
 
@@ -33,7 +32,7 @@ function HouseList() {
     try {
       const url = `${PORT}getHouseListBySocietyId/${id}`;
       const response = await axios.get(url);
-      console.log(response);
+      // console.log(response);
 
       if (response.status === 200) {
         setHouseList(response.data.response);
@@ -58,7 +57,7 @@ function HouseList() {
         console.error("Invalid token:", error);
       }
     }
-  }, []); 
+  }, [flag]); 
 
 
   const handleSearchInput = (e) => {
@@ -67,8 +66,9 @@ function HouseList() {
 
     const filtered = HouseList.filter(
       (user) =>
-        user.name?.toLowerCase().includes(query) ||
-        user.email?.toLowerCase().includes(query)
+        user.houseNo?.toLowerCase().includes(query) ||
+        user.ownerName?.toLowerCase().includes(query)||
+        user.approvalStatus?.toLowerCase().includes(query)
     );
     setFilteredData(filtered);
   };
@@ -92,31 +92,52 @@ function HouseList() {
     }).then((result) => {
       if (result.isConfirmed) {
         try {
-          axios.delete(`${PORT}removeUser/${id}`).then((response) => {
+          axios.delete(`${PORT}removeHouse/${id}`).then((response) => {
             if (response.status === 200) {
               Swal.fire({
                 position: "center",
                 icon: "success",
-                title: "User removed successfully",
+                title: response?.data?.message || "House removed successfully",
                 showConfirmButton: false,
                 timer: 1500,
               });
-              fetchHouseList();
+              setFlag(flag?false:true)
             }
           });
         } catch (error) {
           console.error("Error deleting user:", error);
+          Swal.fire("Error", "removing house Failed ..!!", "error");
+
         }
       }
     });
   };
 
   // Handle edit action
-  const handleEdit = (user) => {
-    console.log(user);
+  const handleEdit = (house) => {
+    console.log(house);
     
-    navigate(`/editUser`, { state: user });
+    navigate(`/viewHouse`, { state: house });
   };
+
+  const handleApprove=async(houseId,approvalStatus)=>{
+      try {
+        const url=`${PORT}handleApprovalStatus`
+        const response=await axios.patch(url,{houseId,approvalStatus});
+        console.log(response);
+        
+        if(response.status===200){
+          Swal.fire("Success", "Approval Status Updated successfully!", "success");
+          setFlag(flag?false:true)
+        }
+        
+      } catch (error) {
+        console.log("while updating status",error);
+        Swal.fire("Error", "Error Occured Updating Approval Status!", "error");
+
+      }
+  }
+
 
   return (
     <Layout>
@@ -166,9 +187,9 @@ function HouseList() {
                           <td>{house.ownerName ? house?.ownerName:<span className="px-3" > -</span>}</td>
                           <td>{house.mobile ? house?.mobile:<span className="px-3" > -</span>}</td>
                           <td>
-                            {house?.approvalStatus=='Pending'&& <div className="badge badge-outline-warning">Pending</div> }
-                            {house?.approvalStatus=='Approved'&& <div className="badge badge-outline-success">Approved</div> }
-                            {house?.approvalStatus=='Rejected'&& <div className="badge badge-outline-danger">Rejected</div> }
+                            {house?.approvalStatus==='Pending'&& <div className="badge badge-outline-warning">Pending</div> }
+                            {house?.approvalStatus==='Approved'&& <div className="badge badge-outline-success">Approved</div> }
+                            {house?.approvalStatus==='Rejected'&& <div className="badge badge-outline-danger">Rejected</div> }
                               
                             {/* : (
                               <div className="badge badge-outline-danger">Inactive</div>
@@ -176,6 +197,21 @@ function HouseList() {
                           </td>
                           <td>
                             <div>
+                            {house?.approvalStatus==='Pending'&&   <i
+                                  className="mdi mdi-account-check pe-3"
+                                  data-bs-toggle="tooltip"
+                                  title="Approve"
+                                  onClick={() => handleApprove(house._id,"Approved")}
+                                  style={{ cursor: "pointer" }}
+                                />}
+                            {house?.approvalStatus==='Pending'&& <i
+                                  className="mdi mdi-account-remove pe-3"
+                                  data-bs-toggle="tooltip"
+                                  title="Reject"
+                                  onClick={() => handleApprove(house._id,"Rejected")}
+                                  style={{ cursor: "pointer" }}
+                                /> }
+
                               {hasPermission("House List", "Edit") && (
                                 <i
                                   className="mdi mdi-lead-pencil pe-3"

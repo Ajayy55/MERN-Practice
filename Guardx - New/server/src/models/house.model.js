@@ -79,7 +79,7 @@ const houseSchema=new mongoose.Schema({
     },
     isRwaMember:{
         type:Boolean,
-        default:false,
+        default:false,  
     },
     role:{
         type:String,
@@ -88,6 +88,9 @@ const houseSchema=new mongoose.Schema({
     permissionLevel:{
         type:Number,
         default:6    
+    },updatedBy:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"User"
     }
     
 },{timestamps:true});

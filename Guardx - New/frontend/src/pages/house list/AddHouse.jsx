@@ -1,15 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import Layout from "../../layout/Layout";
 import BackButton from "../utils/BackButton";
+import axios from "axios";
+import { PORT } from "../../port/Port";
+import { jwtDecode } from "jwt-decode";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+
 
 const AddHouse = () => {
+  const Token=localStorage.getItem('token');
+  const navigate=useNavigate();
+
   // Formik with initial values and validation schema
   const formik = useFormik({
     initialValues: {
       houseNo: "",
       blockNo: "",
+      createdBy:"",
+      societyId:""
     },
     validationSchema: Yup.object({
       houseNo: Yup.string()
@@ -19,11 +30,66 @@ const AddHouse = () => {
         .required("Block Number is required")
         .matches(/^[A-Za-z0-9]+$/, "Invalid characters in Block Number"),
     }),
-    onSubmit: (values) => {
-      console.log("Form Submitted", values);
+    onSubmit: async(values) => {
+      // console.log("Form Submitted", values);
+      const url=`${PORT}addHouseByAdmin`
+    try {
+        const response=await axios.post(url,values)
+        // console.log('res' ,response);
+        if (response.status == 201) {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: response?.data.message || " House Added Succesfully",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          setTimeout(() => {
+            navigate("/houseList");
+          }, 1000);
+        }
+
+
+    } catch (error) {
+      console.log(error);
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: error?.response?.data.message || " An Error Occured while Adding House",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      
+    }
+      
       // Add your submission logic here
     },
   });
+
+  useEffect(()=>{
+    console.log('use');
+    if(Token){
+     
+      
+      try {
+        const decoded = jwtDecode(Token);
+        
+        if (decoded) {
+          formik.setValues({
+            createdBy:decoded.id || null,
+            societyId:decoded.society ||null,
+          })
+        
+          
+        } else {
+          console.error("No society ID found in token.");
+        }
+      } catch (error) {
+        console.error("Invalid token:", error);
+      }
+    }
+  },[])
+  // console.log('h',formik.values);
 
   return (
     <Layout>

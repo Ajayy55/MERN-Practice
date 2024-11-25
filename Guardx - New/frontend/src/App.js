@@ -34,6 +34,7 @@ import NormalizeUrl from './pages/utils/NormalizeUrl';
 import HouseList from './pages/house list/HouseList';
 import UserForm from './pages/house list/AddHouse';
 import AddHouse from './pages/house list/AddHouse';
+import ViewHouse from './pages/house list/ViewHouse';
 
 
 function App() {
@@ -86,7 +87,9 @@ function App() {
         {/* HouseList */}
         <Route path="/houseList" element={<HouseList/>}/>
         <Route path="/addHouse" element={<AddHouse/>}/>
+        <Route path="/viewHouse" element={<ViewHouse/>}/>
 
+        
 
         {/* Guard */}
         <Route path="/GuardAccess" element={<GuardAccess/>}/>
