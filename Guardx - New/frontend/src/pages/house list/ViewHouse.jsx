@@ -3,7 +3,7 @@ import Layout from "../../layout/Layout";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import Swal from "sweetalert2";
-
+import { Formik, Field, Form, ErrorMessage } from 'formik';
 import {
   Box,
   Button,
@@ -22,6 +22,7 @@ import BackButton from "../utils/BackButton";
 import ImagePreview from "../utils/ImagePreview";
 import { PORT } from "../../port/Port";
 import axios from "axios";
+import { usePermissions } from "../../context/PermissionsContext";
 
 const customButtonStyle = {
   backgroundColor: "#4CAF50",
@@ -96,7 +97,6 @@ function ViewHouse() {
   const navigate = useNavigate();
   const location = useLocation();
   const house = location.state;
-  console.log("house", house);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -125,7 +125,7 @@ function ViewHouse() {
                 </IconButton>
                 <GradientTabs value={value} onChange={handleChange}>
                   <Tab label="House Details" />
-                  <Tab label="Vehicle" />
+                  <Tab label="Vehicle Details" />
                   {/* <Tab label="Settings" /> */}
                 </GradientTabs>
 
@@ -141,11 +141,10 @@ function ViewHouse() {
                   </TabPanel>
                   <TabPanel value={value} index={1}>
                     <Typography variant="h4" color="#ff2e63" gutterBottom>
-                      Vehicles
+                      Vehicles Details
                     </Typography>
                     <Typography variant="body1">
-                      Add vehicle . Update your personal details and preferences
-                      here.
+                        <Vehicles house={house}/>
                     </Typography>
                   </TabPanel>
                   {/* <TabPanel value={value} index={2}>
@@ -184,7 +183,7 @@ function Profile({ house }) {
   const [selectedFileName, setSelectedFileName] = useState("");
   const [previewImage, setPreviewImage] = useState(null);
   const navigate=useNavigate();
-  const formattedAadhar = `${house.aadhaarNumber?.slice(0,4)}-${house.aadhaarNumber?.slice(4, 8)}-${house.aadhaarNumber?.slice(8-12)}`;
+  const formattedAadhar = house.aadhaarNumber?`${house.aadhaarNumber?.slice(0,4)}-${house.aadhaarNumber?.slice(4, 8)}-${house.aadhaarNumber?.slice(8-12)}`:null;
   // Validation Schema using Yup
   const validationSchema = Yup.object({
     ownerName: Yup.string()
@@ -219,7 +218,7 @@ function Profile({ house }) {
     },
     validationSchema,
     onSubmit: async(values) => {
-      console.log("Form Values:", values);
+      // console.log("Form Values:", values);
       values.aadhaarNumber=values.aadhaarNumber.replace(/-/g, "")
       const payload={
         ...values,
@@ -234,8 +233,8 @@ function Profile({ house }) {
             "Content-Type": "multipart/form-data",
           },
         })
-        console.log('inside if');
-        console.log(response);
+        // console.log('inside if');
+        // console.log(response);
         if(response.status===200){
           Swal.fire({
             position: "center",
@@ -251,12 +250,13 @@ function Profile({ house }) {
 
       } catch (error) {
        console.log(error);
-        
+       Swal.fire("Error",  error?.response?.data?.message || "Error Occured Updating House Owner!", "error");
       }
 
     },
   });
-  console.log("sss", formik.errors);
+
+  // console.log("sss", formik.errors);
 
   return (
     <>
@@ -269,7 +269,7 @@ function Profile({ house }) {
               {/* Profile picture image */}
               <img
                 className="img-account-profile rounded-circle mb-2"
-                src="http://bootdey.com/img/Content/avatar/avatar1.png"
+                src={house?.ownerImage ?`${PORT}${house?.ownerImage?.split("public")[1]}`:"http://bootdey.com/img/Content/avatar/avatar1.png"}
                 alt=""
                 style={{ height: "200px", width: "200px" }}
               />
@@ -284,8 +284,7 @@ function Profile({ house }) {
                 style={{ display: "none" }}
                 onChange={(event) => {
                   formik.setFieldValue("ownerImage", event.target.files[0]);
-                  const file = event.currentTarget.files[0];
-                  setSelectedFileName(file ? file.name : "");
+                 
                 }}
               />
               <label htmlFor="ownerImage" className="btn btn-primary">
@@ -522,3 +521,240 @@ function Profile({ house }) {
     </>
   );
 }
+
+
+///add vehicles
+function Vehicles({house}) {
+  const [selectedFileName, setSelectedFileName] = useState("");
+  const navigate = useNavigate();
+
+  const validationSchema = Yup.object({
+    vehicleType: Yup.string().required("Vehicle type is required"),
+    vehicleNumber: Yup.string().required("Vehicle number is required")
+    .matches(/^[A-Z]{2}\d{2}[A-Z]{2}\d{4}$/, "Must match the format AB12XY1234"),
+    vehicleImage: Yup.mixed().required("Vehicle image is required")
+  });
+
+  const handleSubmit = async(values) => {
+     // You can handle the form data here.
+     const payload = {
+        ...house, 
+       ...values, 
+      houseId: house._id,
+      updatedBy: localStorage.getItem('user'), // Current user
+    };
+    // console.log('payload',payload);
+    try {
+      const url=`${PORT}editHouse`;
+      const response=await axios.patch(url,payload,{
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      // console.log('inside if');
+      // console.log(response);
+      if(response.status===200){
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: response?.data.message || " House Updated Succesfully",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        setTimeout(() => {
+          navigate("/houseList");
+        }, 1000);
+      }
+
+    } catch (error) {
+     console.log(error);
+     Swal.fire("Error",  error?.response?.data?.message || "Error Occured Updating House Owner!", "error");
+    }
+  };
+  const handleDelete = async (houseId,vehicleId) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        try {
+          axios.patch(`${PORT}removeHouseVehicle/`,{houseId,vehicleId}).then((response) => {
+            if (response.status === 200) {
+              Swal.fire({
+                position: "center",
+                icon: "success",
+                title: response?.data?.message || "House removed successfully",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              setTimeout(() => {
+                navigate("/houseList");
+              }, 1000);  
+            } 
+          });
+        } catch (error) {
+          console.error("Error deleting user:", error);
+          Swal.fire("Error", "removing house Failed ..!!", "error");
+
+        }
+      }
+    });
+  }; 
+  const { hasPermission } = usePermissions();
+  // console.log("house", house);
+
+
+  return (
+    <>
+      <div className="row">
+        <div className="col-xl-12">
+          {/* Account details card */}
+          <div className="card mb-4 text-center">
+            <div className="card-header">Add Vehicle</div>
+            <div className="card-body">
+              <Formik
+                initialValues={{
+                  vehicleType: '',
+                  vehicleNumber: '',
+                  vehicleImage: null
+                }}
+                validationSchema={validationSchema}
+                onSubmit={handleSubmit}
+              >
+                {({ setFieldValue }) => (
+                  <Form>
+                    <div className="row gx-3 mb-3">
+                      {/* Owner name */}
+                      <div className="col-md-6">
+                        <label className="small mb-1 d-flex" htmlFor="vehicleType">
+                          Vehicle Type<span className="text-danger">*</span>
+                        </label>
+                        <Field as="select" name="vehicleType" className="form-control">
+                          <option label="Choose Vehicle Type" value=""></option>
+                          <option value="Two Wheeler">Two Wheeler</option>
+                          <option value="Four Wheeler">Four Wheeler</option>
+                        </Field>
+                        <ErrorMessage name="vehicleType" component="div" className="text-danger" />
+                      </div>
+
+                      {/* Vehicle Number */}
+                      <div className="col-md-6">
+                        <label className="small mb-1 d-flex" htmlFor="vehicleNumber">
+                          Vehicle Number <span className="text-danger">*</span>
+                        </label>
+                        <Field
+                          id="vehicleNumber"
+                          type="text"
+                          name="vehicleNumber"
+                          className="form-control"
+                        />
+                        <ErrorMessage name="vehicleNumber" component="div" className="text-danger" />
+                      </div>
+                    </div>
+
+                    <div className="col-md-6">
+                      <label className="small mb-1 d-flex" htmlFor="vehicleImage">
+                        Vehicle Image
+                      </label>
+                      <input
+                        type="file"
+                        id="vehicleImage"
+                        name="vehicleImage"
+                        style={{ display: "none" }}
+                        onChange={(event) => setFieldValue("vehicleImage", event.currentTarget.files[0])}
+                      />
+                      <label htmlFor="vehicleImage" className="mb-4" style={customButtonStyle}>
+                        Choose File
+                      </label>
+                      <ErrorMessage name="vehicleImage" component="div" className="text-danger" />
+                    </div>
+
+                    <button className="btn btn-primary d-flex " type="submit">
+                      Save Vehicle
+                    </button>
+                  </Form>
+                )}
+              </Formik>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="col-lg-12 grid-margin stretch-card">
+          <div className="container mt-0">
+            
+          <div className="table-responsive">
+          <div className="d-flex justify-content-center">
+          
+          <span className="text-center fs-4 fw-bold text-capitalize text-light"> vehicle's List</span>
+        </div>
+                  <table className="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>Vehicle</th>
+                        <th>Vehicle Number</th>
+                        <th>Vehicle Type</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {house?.vehicles.length> 0 && house?.vehicles.map((vehicle) => {
+                       return <tr key={vehicle._id}>
+                          <td className="py-1 text-capitalize">
+                            <img
+                              src="../../assets/images/faces-clipart/pic-1.png"
+                              alt="user avatar"
+                              className="me-2"
+                            />
+                       
+                          </td>
+                          <td>{vehicle.vehicleNumber}</td>
+                          <td>
+                            {vehicle.vehicleType }
+                          </td>
+                          <td>
+                            <div>
+                              {/* {hasPermission("Users", "Edit") && (
+                                <i
+                                  className="mdi mdi-lead-pencil pe-3"
+                                  data-bs-toggle="tooltip"
+                                  title="Edit"
+                                  onClick={() => handleEdit(user._id)}
+                                  style={{ cursor: "pointer" }}
+                                />
+                              )} */}
+                              {hasPermission("House List", "Delete") && (
+                                <i
+                                  className="mdi mdi-delete"
+                                  data-bs-toggle="tooltip"
+                                  title="Delete"
+                                  onClick={() => handleDelete(house._id,vehicle._id)}
+                                  style={{ cursor: "pointer" }}
+                                />
+                              )}
+                            </div>
+                          </td>
+                        </tr>
+                      })}
+                      {house?.vehicles.length > 0 &&  (
+                        <tr>
+                          <td colSpan="5" className="text-center">
+                            No data available
+                          </td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+            </div>
+        </div>  
+
+    </>
+  );
+}
+

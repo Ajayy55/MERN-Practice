@@ -211,7 +211,7 @@ const getPemissions=async(req,res)=>{
   // console.log('post ',id);
   
   try {
-      const userRoles=await User.findById(id).populate({path:"role"}).select("-password")
+      const userRoles=await User.findById(id).populate({path:"role"}).select("role permissionLevel")
 
       if (!userRoles) {
         return res.status(400).json({ message: 'No Role assigned to you, plscontact Admin' });

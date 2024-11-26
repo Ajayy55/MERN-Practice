@@ -16,7 +16,7 @@ const houseSchema=new mongoose.Schema({
     email:{
         type:String,
         // required:true,
-        lowercase:true
+        lowercase:true,
     },
     mobile:{
         type:String,
@@ -72,7 +72,7 @@ const houseSchema=new mongoose.Schema({
                 return /^[0-9]{12}$/.test(value); // Ensures it's exactly 12 digits
             },
             message: "Aadhaar Number must be exactly 12 digits long and contain only numbers."
-        }
+        },
     },
     aadhaarImage:{
         type:String,

@@ -72,9 +72,6 @@ const storage = multer.diskStorage({
       case 'rwaDocument':
         dir = './public/user/rwadocuments';
         break;
-      case 'vehicleImage':
-        dir = './public/vehicleimages';
-        break;
       case 'societyLogo':
         dir = './public/society/images';
         break;
@@ -90,7 +87,7 @@ const storage = multer.diskStorage({
       case 'ownerImage':
         dir = './public/house/owner';
         break;
-      case 'houseVehicleImage':
+      case 'vehicleImage':
         dir = './public/house/vehicle';
         break;
       case 'aadhaarImage':

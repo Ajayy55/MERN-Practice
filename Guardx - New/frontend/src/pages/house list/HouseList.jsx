@@ -115,7 +115,7 @@ function HouseList() {
 
   // Handle edit action
   const handleEdit = (house) => {
-    console.log(house);
+    // console.log(house);
     
     navigate(`/viewHouse`, { state: house });
   };
@@ -133,7 +133,7 @@ function HouseList() {
         
       } catch (error) {
         console.log("while updating status",error);
-        Swal.fire("Error", "Error Occured Updating Approval Status!", "error");
+        Swal.fire("Error",  error?.response?.data?.message || "Error Occured Updating Approval Status!", "error");
 
       }
   }
@@ -212,7 +212,7 @@ function HouseList() {
                                   style={{ cursor: "pointer" }}
                                 /> }
 
-                              {hasPermission("House List", "Edit") && (
+                              {hasPermission("House List", "Edit") && house?.approvalStatus!=='Rejected'&&(
                                 <i
                                   className="mdi mdi-lead-pencil pe-3"
                                   data-bs-toggle="tooltip"

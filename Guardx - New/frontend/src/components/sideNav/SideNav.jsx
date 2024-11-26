@@ -5,8 +5,8 @@ import { jwtDecode } from "jwt-decode";
 import { NavLink, useNavigate } from 'react-router-dom';
 import Swal from "sweetalert2/dist/sweetalert2.js";
 
-
-function SideNav() {
+function SideNav({ isOpen }) {
+// function SideNav() {
 const [permissions,Setpermissions]=useState([])
 const [permissionLevel,SetpermissionLevel]=useState(null)
 const [TokenExp, SetTokenExp] = useState(false);
@@ -87,14 +87,18 @@ const navigate =useNavigate()
   return (
     <>
     
-    <nav className="sidebar sidebar-offcanvas" id="sidebar">
+    {/* <nav className={`sidebar sidebar-offcanvas `} > */}
+    <nav className={`sidebar sidebar-offcanvas ${isOpen ? "" : ""}`} id="sidebar"  style={{
+        transform: isOpen ? "translateX(0)" : "translateX(-100%)", // Slide in/out
+        // transition: "transform 0.3s ease-in-out", // Smooth animation
+      }}>
   <div className="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
     <NavLink to='/' className="sidebar-brand brand-logo" >
       {/* <img src="assets/images/logo.svg" alt="logo" /> */}
       <img src="./guardx.png" alt="logo" />
       {/* <img src="./guardxlogo.webp" alt="logo" style={{width:'120px', height:'80px',borderRadius:'90%'}}/> */}
     </NavLink>
-    <a className="sidebar-brand brand-logo-mini" href="index.html">
+    <a className="sidebar-brand brand-logo-mini" href="">
       <img src="assets/images/logo-mini.svg" alt="logo" />
     </a>
   </div>

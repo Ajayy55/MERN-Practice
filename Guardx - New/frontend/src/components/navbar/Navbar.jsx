@@ -6,7 +6,8 @@ import { jwtDecode } from "jwt-decode";
 
 
 
-function Navbar() {
+function Navbar({ toggleSidenav }) {
+// function Navbar() {
   const navigate =useNavigate();
   const token=localStorage.getItem('token')
   const location = useLocation();
@@ -32,13 +33,14 @@ function Navbar() {
 
   return (
     <>
-      <nav className="navbar p-0 fixed-top d-flex flex-row">
+        <nav className="navbar p-0 fixed-top d-flex flex-row navbar-expand-lg">
         <div className="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
-          <a className="navbar-brand brand-logo-mini" href="index.html">
-            <img src="../../../assets/images/logo-mini.svg" alt="logo" />
+      {/* <nav className="navbar p-0 fixed-top d-flex flex-row"> */}
+          <a className="navbar-brand brand-logo-mini" href="">
+            {/* <img src="../../../assets/images/logo-mini.svg" alt="logo" /> */}G
           </a>
         </div>
-        <div className="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
+        <div className="navbar-menu-wrapper flex-grow d-flex align-items-stretch justify-content-end">
         {/* {formatPath(location.pathname)} */}
           {/* <button
             className="navbar-toggler navbar-toggler align-self-center"
@@ -306,6 +308,8 @@ function Navbar() {
             className="navbar-toggler navbar-toggler-right d-lg-none align-self-center"
             type="button"
             data-toggle="offcanvas"
+            // data-bs-toggle="offcanvas"
+            onClick={toggleSidenav}
           >
             <span className="mdi mdi-format-line-spacing" />
           </button>

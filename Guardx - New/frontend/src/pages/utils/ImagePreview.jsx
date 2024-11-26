@@ -80,7 +80,7 @@ function ImagePreview({ image }) {
           }}
         >
           {/* Close Button */}
-          {/* <IconButton
+          <IconButton
             onClick={handleClose}
             sx={{
               position: "absolute",
@@ -94,11 +94,11 @@ function ImagePreview({ image }) {
             }}
           >
             <CloseIcon />
-          </IconButton> */}
+          </IconButton>
 
           {/* Full-Size Image */}
           <img
-            src={`${PORT}${image.split("public")[1]}` || "https://via.placeholder.com/300"}
+            src={image? `${PORT}${image.split("public")[1]}` : "https://via.placeholder.com/300"}
             alt="Full Preview"
             style={{
               width: "100%",
