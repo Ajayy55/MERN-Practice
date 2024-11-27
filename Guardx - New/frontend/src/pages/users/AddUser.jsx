@@ -9,6 +9,10 @@ import Swal from "sweetalert2";
 import { Switch, FormControlLabel } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import BackButton from "../utils/BackButton";
+import { jwtDecode } from "jwt-decode";
+
+const token=localStorage.getItem("token")
+const decode=jwtDecode(token)
 
 function AddUser() {
   const { hasPermission, userRole } = usePermissions();
@@ -56,8 +60,11 @@ function AddUser() {
       isActive: Yup.boolean(),
     }),
     onSubmit: async (values) => {
+      console.log(decode);
+      
       const payload = {
-        createdBy: localStorage.getItem("user"),
+        createdBy:decode.id||null,
+        society:decode.society||null,
         permissionLevel: rolesData.find((role) => role._id === values.role)?.permissionLevel,
         ...values,
       };

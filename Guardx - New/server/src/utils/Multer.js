@@ -93,6 +93,12 @@ const storage = multer.diskStorage({
       case 'aadhaarImage':
         dir = './public/house/aadhar';
         break;
+      case 'regularProfileImage':
+        dir = './public/regularEntries/profile';
+        break;
+      case 'regularAadharImage':
+        dir = './public/regularEntries/aadhar';
+        break;
       default:
         dir = './public/others'; // Default directory for other files
         break;

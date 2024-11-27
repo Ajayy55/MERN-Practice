@@ -59,7 +59,7 @@ const clearLocalStorage=async()=>{
         if (response.status === 200) {
             const Responsedata=response?.data.user;
           
-            // console.log('k',response?.data);
+            console.log('k',response?.data);
             if(Responsedata.role !=null){
                   if(Responsedata.isActive===true)
                   {
@@ -80,11 +80,19 @@ const clearLocalStorage=async()=>{
           
                             successAlert("Welcome SAAS Admin")
                       }else if(Responsedata?.permissionLevel===3){
-                            
-                            successAlert("Welcome Society Admin")
+                           if(Responsedata?.society){
+                              successAlert("Welcome Society Admin")
+                            }else{
+                              errorAlert("Society Not Found")
+                            }
+                         
+
                       }else if(Responsedata?.permissionLevel===4){
-                            
+                        if(Responsedata?.society){
                         successAlert("Welcome Society Sub Admin")
+                        }else{
+                          errorAlert("Society Not Found")
+                        }
                       }else if(Responsedata?.permissionLevel===5){
                             
                         Swal.fire({

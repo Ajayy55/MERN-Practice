@@ -38,7 +38,7 @@ const registerHouse = async (req, res) => {
 };
 
 const addHouseByAdmin = async (req, res) => {
-  const { houseNo, blockNo, createdBy, societyId } = req.body;
+  const { houseNo, blockNo, createdBy, society } = req.body;
 
   if (!houseNo || !blockNo) {
     return res.status(400).json({ message: "All fields required" });
@@ -48,7 +48,7 @@ const addHouseByAdmin = async (req, res) => {
     const checkHouseExist = await House.findOne({
       houseNo,
       blockNo,
-      societyId,
+      society,
     });
 
     if (checkHouseExist) {
@@ -81,7 +81,7 @@ const getHouseListBySocietyId = async (req, res) => {
   const societyId = req.params.id;
 
   try {
-    const response = await House.find({ societyId });
+    const response = await House.find({society:societyId });
     if (!response) {
       return res.status(400).json({ message: "Empty Houslist" });
     }
@@ -102,7 +102,7 @@ const handleApprovalStatus = async (req, res) => {
     return res.status(400).json({ message: "All fields required" });
   }
   try {
-    const house = await House.findById(houseId).populate("societyId");
+    const house = await House.findById(houseId).populate("society");
     console.log('house',house);
     
     if (approvalStatus === "Approved") {
@@ -132,8 +132,8 @@ const handleApprovalStatus = async (req, res) => {
 
         const password = await generateRandomPassword();
         // console.log("pass", password);
-        const societyName = house.societyId.name.toUpperCase();
-        const societyCity = house.societyId.city.toUpperCase(); 
+        const societyName = house.society.name.toUpperCase();
+        const societyCity = house.society.city.toUpperCase(); 
         const emailText = ` <div class="container">
             <h1>Dear ${house.ownerName},</h1>
             <p>Thank you for choosing us!</p>

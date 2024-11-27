@@ -20,7 +20,7 @@ const AddHouse = () => {
       houseNo: "",
       blockNo: "",
       createdBy:"",
-      societyId:""
+      society:""
     },
     validationSchema: Yup.object({
       houseNo: Yup.string()
@@ -77,7 +77,7 @@ const AddHouse = () => {
         if (decoded) {
           formik.setValues({
             createdBy:decoded.id || null,
-            societyId:decoded.society ||null,
+            society:decoded.society ||null,
           })
         
           

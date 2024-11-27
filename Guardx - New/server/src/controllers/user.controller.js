@@ -175,8 +175,8 @@ const login=async(req,res)=>{
       }
 try {
   
-      const user=await User.findOne({$or:[{email:email},{mobile:email}]}).populate({path:"role"})
-                || await House.findOne({$or:[{email:email},{mobile:email}]})
+      const user=await User.findOne({$or:[{email:email},{mobile:email}]}).populate("role").populate("society")
+                || await House.findOne({$or:[{email:email},{mobile:email}]}).populate("society")
       if (!user) {
           return res.status(400).json({ message: 'Invalid Email or Mobile' });
         }
@@ -186,12 +186,17 @@ try {
       if (!matchPassword) {
               return res.status(400).json({ message: 'Entered wrong password' });
         }
+
+        if((user.permissionLevel===3 || user.permissionLevel===4 || user.permissionLevel===5 || user.permissionLevel===6 ) 
+          && (user.society===null || !user.society) ){
+          return res.status(400).json({ message: 'Society Not Found , Pls Contact Admin' });
+        }
         
       const payload={
           id:user._id,
           email:user.email,
           username:user.username,
-          society:user.society || null
+          society:user?.society?._id|| null
       }
       const jwtToken=await GenJwtToken(payload);
       if (!jwtToken) {

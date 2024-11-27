@@ -47,7 +47,7 @@ const houseSchema=new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:"User"
     },
-    societyId:{
+    society:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"Society"
     },

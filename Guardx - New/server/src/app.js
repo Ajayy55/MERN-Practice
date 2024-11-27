@@ -34,4 +34,8 @@ app.use(entriesRoutes);
 import purposesRoutes from './routes/purposes.routes.js'
 app.use(purposesRoutes)
 
+//regular entries
+import RegularEntriesRoutes from './routes/regularEntries.routes.js'
+app.use(RegularEntriesRoutes)
+
 export {app}

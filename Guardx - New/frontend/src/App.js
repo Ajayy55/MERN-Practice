@@ -35,6 +35,8 @@ import HouseList from './pages/house list/HouseList';
 import UserForm from './pages/house list/AddHouse';
 import AddHouse from './pages/house list/AddHouse';
 import ViewHouse from './pages/house list/ViewHouse';
+import RegularEntries from './pages/regular/RegularEntries';
+import AddRegularEntry from './pages/regular/AddRegularEntry';
 
 
 function App() {
@@ -53,7 +55,8 @@ function App() {
       </Route>
 
 
-        {/* <Route path="/" element={<Layout/>}/> */}
+        {/* <Route path="/" element={<Layout/>}> */}
+       
         <Route element={<ProtectedRoutes/>}>
         <Route path="/" element={<Dashboard/>}/>
 
@@ -89,14 +92,23 @@ function App() {
         <Route path="/addHouse" element={<AddHouse/>}/>
         <Route path="/viewHouse" element={<ViewHouse/>}/>
 
+
+        {/* Regular */}
+       
+      
+        <Route path="/regularEntries" element={<RegularEntries/>}/>
+        <Route path="/addRegularEntry" element={<AddRegularEntry/>}/>
+        {/* <Route path="/viewHouse" element={<ViewHouse/>}/> */}
+
+
+
         
 
         {/* Guard */}
         <Route path="/GuardAccess" element={<GuardAccess/>}/>
         </Route>
         <Route path="*" element={<Error404/>}/> 
-       
-      
+        {/* </Route> */}
 
 
       </Routes>

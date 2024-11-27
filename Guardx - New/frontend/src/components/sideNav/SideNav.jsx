@@ -5,7 +5,7 @@ import { jwtDecode } from "jwt-decode";
 import { NavLink, useNavigate } from 'react-router-dom';
 import Swal from "sweetalert2/dist/sweetalert2.js";
 
-function SideNav({ isOpen }) {
+function SideNav({ isOpen}) {
 // function SideNav() {
 const [permissions,Setpermissions]=useState([])
 const [permissionLevel,SetpermissionLevel]=useState(null)
@@ -13,18 +13,23 @@ const [TokenExp, SetTokenExp] = useState(false);
 const [token, setToken] = useState(null);
 const [user,setUser]=useState({name:'',role:''})
 const intervalRef = useRef(null); // Ref to store the interval ID
-
+const [SocietyEntriesData, setSocietyEntriesData] = useState([]);
+const tkn = localStorage.getItem("token");
+const decode = jwtDecode(tkn);
+// const storedToken = localStorage.getItem("token") || sessionStorage.getItem("token");
 let userID;
+let societyId;
 
 const navigate =useNavigate()
   useEffect(() => {
-    const storedToken = localStorage.getItem("token") || sessionStorage.getItem("token");
-    setToken(storedToken);
+    
 
-    if (storedToken) {
-      const decode = jwtDecode(storedToken);
+    if (tkn) {
+      // const decode = jwtDecode(storedToken);
+      setToken(tkn);
+      
       userID = decode.id;
-
+      
       // Check if the token has expired initially
       if (decode.exp < Math.round(Date.now() / 1000)) {
         handleSessionExpired();
@@ -61,7 +66,10 @@ const navigate =useNavigate()
      console.log('At fetching permissions',error);
     }
   }
-  const handleSessionExpired = () => {
+
+
+
+const handleSessionExpired = () => {
     if (intervalRef.current) clearInterval(intervalRef.current);
 
     Swal.fire({
@@ -82,7 +90,32 @@ const navigate =useNavigate()
     permissions?.find(
       (perm) => perm.moduleName === moduleName && perm.actions.includes(action)
     );
+
+
+    const fetchSocietyTypeOfEntries=async()=>{
+      try {
+          // const id='6731880e33cc6e06c07b10eb'
+          const response=await axios.get(`${PORT}getTypesOfEntriesOfSociety/${decode.society}`)
+          // console.log('res',response);
+          
+          const societyRegularEntries = response?.data?.response.typeOfEntries.filter((entry)=>entry.entryType==='regular') ||null;
+          setSocietyEntriesData(societyRegularEntries);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+ 
+  useEffect(()=>{
+    fetchSocietyTypeOfEntries();
+  },[])
+  // console.log('ss',SocietyEntriesData,decode);
 // console.log('pp',permissions,permissionLevel);
+
+const handleNavigate=(entry)=>{
+  navigate(`/regularEntries`, {state:{_id:entry._id,title:entry.title}});
+}
+
+
 
   return (
     <>
@@ -220,12 +253,20 @@ const navigate =useNavigate()
               </a>
               <div className="collapse" id="ui-basic">
                 <ul className="nav flex-column sub-menu">
-                  <li className="nav-item">
-                    <a className="nav-link" href="pages/ui-features/buttons.html">
-                      Buttons
-                    </a>
-                  </li>
-                  <li className="nav-item">
+                  
+                  {
+                    SocietyEntriesData.length>0 && SocietyEntriesData.map((entry)=>{
+                      return <li className="nav-item" key={entry._id}>
+                      <span className="nav-link text-capitalize" href="pages/ui-features/buttons.html" onClick={()=>{handleNavigate(entry)}} style={{cursor:'pointer'}}>
+                       {entry?.title}
+                      </span>
+                    </li> 
+
+                    })
+                 
+                  }
+
+                  {/* <li className="nav-item">
                     <a className="nav-link" href="pages/ui-features/dropdowns.html">
                       Dropdowns
                     </a>
@@ -234,7 +275,7 @@ const navigate =useNavigate()
                     <a className="nav-link" href="pages/ui-features/typography.html">
                       Typography
                     </a>
-                  </li>
+                  </li> */}
                 </ul>
               </div>
             </li>
