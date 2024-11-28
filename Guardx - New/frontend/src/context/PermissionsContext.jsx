@@ -91,7 +91,6 @@ export const PermissionsProvider = ({ children }) => {
     if(permissions.length<0){
        getPermissions(user);
        console.log('inside 0');
-       
     }
   },[])
 

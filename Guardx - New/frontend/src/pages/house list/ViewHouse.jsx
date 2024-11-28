@@ -32,7 +32,7 @@ const customButtonStyle = {
   borderRadius: "5px",
   display: "inline-block",
   textAlign: "center",
-  width: "100%",
+  width: "95%",
 };
 
 function TabPanel(props) {
@@ -136,7 +136,7 @@ function ViewHouse() {
                       Owner Details
                     </Typography>
                     <Typography variant="body1">
-                      <Profile house={house} />
+                      <Profile house={house} /> 
                     </Typography>
                   </TabPanel>
                   <TabPanel value={value} index={1}>
@@ -288,7 +288,7 @@ function Profile({ house }) {
                 }}
               />
               <label htmlFor="ownerImage" className="btn btn-primary">
-                Upload new image
+                Change Profile Picture
               </label>
               {/* </button> */}
             </div>
@@ -456,6 +456,26 @@ function Profile({ house }) {
                     <label htmlFor="aadhaarImage" style={customButtonStyle}>
                       Choose File
                     </label>
+                    <span
+                      style={{
+                        color: "blue",
+                        textDecoration: "underline",
+                        cursor: "pointer",
+                      }}
+                    >
+                       {!previewImage ?
+                      <i
+                        className="mdi mdi-eye"
+                        onClick={() => setPreviewImage(house.aadhaarImage)}
+                      />
+                    :
+                      <i
+                        className="mdi mdi-eye-off"
+                        onClick={() => setPreviewImage(null)}
+                      />
+                    }
+                      </span>
+
                     {selectedFileName && <p>{selectedFileName}</p>}
                     {formik.errors.aadhaarImage && (
                       <div className="text-danger">
@@ -480,40 +500,28 @@ function Profile({ house }) {
                     {...formik.getFieldProps("isRwaMember")}
                   
                   /></div>
-                        <span
-                      style={{
-                        color: "blue",
-                        textDecoration: "underline",
-                        cursor: "pointer",
-                      }}
-                    >
-                       {!previewImage ?
-                      <i
-                        className="mdi mdi-eye"
-                        onClick={() => setPreviewImage(house.aadhaarImage)}
-                      />
-                    :
-                      <i
-                        className="mdi mdi-eye-off"
-                        onClick={() => setPreviewImage(null)}
-                      />
-                    }
-                      </span>
-                  
-                 
                 </div>
                 </div>
-                <button className="btn btn-primary" type="submit">
-                  Save Changes
-                </button>
-              </form>
-              <div className="d-flex justify-content-end"> {previewImage && (
+
+                  <div className="col-md-12 d-flex justify-content-between">
+                    <div className="col-md-6">
+                  <button className="btn btn-primary " type="submit">
+                    Save Changes
+                  </button>
+                    </div>
+                  {previewImage && (
+                    <div className="">
                       <ImagePreview
                         image={previewImage}
                         onClose={() => setPreviewImage(null)} // Optional: Close logic
                       />
-                    )}
                     </div>
+                  )}
+                </div>
+
+
+              </form>
+              
             </div>
           </div>
         </div>
@@ -741,7 +749,7 @@ function Vehicles({house}) {
                           </td>
                         </tr>
                       })}
-                      {house?.vehicles.length > 0 &&  (
+                      {house?.vehicles.length <= 0 &&  (
                         <tr>
                           <td colSpan="5" className="text-center">
                             No data available

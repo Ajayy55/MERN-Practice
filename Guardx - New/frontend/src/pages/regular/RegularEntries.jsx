@@ -21,7 +21,7 @@ const customButtonStyle= {
 
 function RegularEntries() {
 
-  const [HouseList, setHouseList] = useState([]);
+  const [RegularEntryList, setRegularEntryList] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1); // Current page state
@@ -32,14 +32,14 @@ function RegularEntries() {
   const location=useLocation();
   const entry=location.state;
 
-  const fetchHouseList = async (id) => {
+  const fetchSocietyRegularEntryById = async (society,entry) => {
     try {
-      const url = `${PORT}getHouseListBySocietyId/${id}`;
-      const response = await axios.get(url);
+      const url = `${PORT}getSocietyRegularEntryById`;
+      const response = await axios.post(url,{society,entry});
       // console.log(response);
 
       if (response.status === 200) {
-        setHouseList(response.data.response);
+        setRegularEntryList(response.data.response);
         setFilteredData(response.data.response); // Initialize filtered data
       }
     } catch (error) {
@@ -53,7 +53,7 @@ function RegularEntries() {
       try {
         const decoded = jwtDecode(Token);
         if (decoded?.society) {
-          fetchHouseList(decoded.society); // Pass the society ID
+          fetchSocietyRegularEntryById(decoded.society,entry._id); // Pass the society ID
         } else {
           console.error("No society ID found in token.");
         }
@@ -61,18 +61,18 @@ function RegularEntries() {
         console.error("Invalid token:", error);
       }
     }
-  }, [flag]); 
+  }, [flag,entry]); 
 
 
   const handleSearchInput = (e) => {
     const query = e.target.value.toLowerCase();
     setSearchQuery(query);
 
-    const filtered = HouseList.filter(
+    const filtered = RegularEntryList.filter(
       (user) =>
-        user.houseNo?.toLowerCase().includes(query) ||
-        user.ownerName?.toLowerCase().includes(query)||
-        user.approvalStatus?.toLowerCase().includes(query)
+        user.name?.toLowerCase().includes(query) ||
+        user.aadhaarNumber?.toLowerCase().includes(query)||
+        user.mobile?.toLowerCase().includes(query)
     );
     setFilteredData(filtered);
   };
@@ -96,12 +96,12 @@ function RegularEntries() {
     }).then((result) => {
       if (result.isConfirmed) {
         try {
-          axios.delete(`${PORT}removeHouse/${id}`).then((response) => {
+          axios.delete(`${PORT}removeRegularEntry/${id}`).then((response) => {
             if (response.status === 200) {
               Swal.fire({
                 position: "center",
                 icon: "success",
-                title: response?.data?.message || "House removed successfully",
+                title: response?.data?.message || "Regular Entry Removed Successfully",
                 showConfirmButton: false,
                 timer: 1500,
               });
@@ -118,10 +118,10 @@ function RegularEntries() {
   };
 
   // Handle edit action
-  const handleEdit = (house) => {
+  const handleEdit = (entry) => {
     // console.log(house);
     
-    navigate(`/viewHouse`, { state: house });
+    navigate(`/viewRegularEntry`, { state: entry });
   };
   const handleApprove=()=>{
   }
@@ -168,43 +168,37 @@ function RegularEntries() {
                       </tr>
                     </thead>
                     <tbody>
-                      {paginatedEntries.length > 0 && paginatedEntries.map((house) => {
-                       return <tr key={house._id}>
+                      {paginatedEntries.length > 0 && paginatedEntries.map((entry) => {
+                       return <tr key={entry._id}>
                           <td className="py-1 text-capitalize">
-                            {/* <img
-                              src="../../assets/images/faces-clipart/pic-1.png"
+                            <img
+                              src={entry?.regularProfileImage ? `${PORT}${entry.regularProfileImage?.split("public")[1]}`:"../../assets/images/faces-clipart/pic-1.png"}
                               alt="user avatar"
                               className="me-2"
-                            /> */}
-                            {house.houseNo}
+                            />
+                            {entry.name}
                           </td>
-                          <td>{house.blockNo ? house?.blockNo:<span className="px-5" > -</span>}</td>
-                          <td>{house.ownerName ? house?.ownerName:<span className="px-3" > -</span>}</td>
-                          <td>{house.mobile ? house?.mobile:<span className="px-3" > -</span>}</td>
+                          <td>{entry.gender ? entry?.gender:<span className="px-5" > -</span>}</td>
+                          <td>{entry.aadhaarNumber ? entry?.aadhaarNumber:<span className="px-3" > -</span>}</td>
+                          <td>{entry.mobile ? entry?.mobile:<span className="px-3" > -</span>}</td>
                          
                           <td>
                             <div>
-                            {house?.approvalStatus==='Pending'&&   <i
-                                  className="mdi mdi-account-check pe-3"
+                            {hasPermission("Regular Entries", "Edit") && entry?.approvalStatus!=='Rejected'&&(
+                                <i
+                                  className="mdi mdi-fingerprint pe-3"
                                   data-bs-toggle="tooltip"
-                                  title="Approve"
-                                  onClick={() => handleApprove(house._id,"Approved")}
+                                  title="Attendance"
+                                  onClick={() => handleEdit(entry)}
                                   style={{ cursor: "pointer" }}
-                                />}
-                            {house?.approvalStatus==='Pending'&& <i
-                                  className="mdi mdi-account-remove pe-3"
-                                  data-bs-toggle="tooltip"
-                                  title="Reject"
-                                  onClick={() => handleApprove(house._id,"Rejected")}
-                                  style={{ cursor: "pointer" }}
-                                /> }
-
-                              {hasPermission("Regular Entries", "Edit") && house?.approvalStatus!=='Rejected'&&(
+                                />
+                              )}
+                              {hasPermission("Regular Entries", "Edit") && entry?.approvalStatus!=='Rejected'&&(
                                 <i
                                   className="mdi mdi-lead-pencil pe-3"
                                   data-bs-toggle="tooltip"
-                                  title="Edit"
-                                  onClick={() => handleEdit(house)}
+                                  title="View / Edit"
+                                  onClick={() => handleEdit(entry)}
                                   style={{ cursor: "pointer" }}
                                 />
                               )}
@@ -213,7 +207,7 @@ function RegularEntries() {
                                   className="mdi mdi-delete"
                                   data-bs-toggle="tooltip"
                                   title="Delete"
-                                  onClick={() => handleDelete(house._id)}
+                                  onClick={() => handleDelete(entry._id)}
                                   style={{ cursor: "pointer" }}
                                 />
                               )}
@@ -221,7 +215,7 @@ function RegularEntries() {
                           </td>
                         </tr>
                       })}
-                      {paginatedEntries.length === 0 && HouseList.length === 0 && (
+                      {paginatedEntries.length === 0 && RegularEntryList.length === 0 && (
                         <tr>
                           <td colSpan="5" className="text-center">
                             No data available

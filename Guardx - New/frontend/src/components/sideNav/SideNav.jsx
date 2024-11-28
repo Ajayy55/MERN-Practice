@@ -5,6 +5,7 @@ import { jwtDecode } from "jwt-decode";
 import { NavLink, useNavigate } from 'react-router-dom';
 import Swal from "sweetalert2/dist/sweetalert2.js";
 
+
 function SideNav({ isOpen}) {
 // function SideNav() {
 const [permissions,Setpermissions]=useState([])
@@ -19,6 +20,12 @@ const decode = jwtDecode(tkn);
 // const storedToken = localStorage.getItem("token") || sessionStorage.getItem("token");
 let userID;
 let societyId;
+const [isCollapsed, setIsCollapsed] = useState(false);
+
+const toggleCollapse = () => {
+  setIsCollapsed((prevState) => !prevState);
+};
+
 
 const navigate =useNavigate()
   useEffect(() => {
@@ -122,8 +129,8 @@ const handleNavigate=(entry)=>{
     
     {/* <nav className={`sidebar sidebar-offcanvas `} > */}
     <nav className={`sidebar sidebar-offcanvas ${isOpen ? "" : ""}`} id="sidebar"  style={{
-        transform: isOpen ? "translateX(0)" : "translateX(-100%)", // Slide in/out
-        // transition: "transform 0.3s ease-in-out", // Smooth animation
+         transform: !isOpen ? "translateX(-100%)" : "", // Slide in/out
+        transition: "transform 0.3s ease-in-out", // Smooth animation 
       }}>
   <div className="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
     <NavLink to='/' className="sidebar-brand brand-logo" >
@@ -238,7 +245,7 @@ const handleNavigate=(entry)=>{
     {/* Regular Entries */}
     {hasPermission('Regular Entries', 'Module') && (
             <li className="nav-item menu-items">
-              <a
+              <span
                 className="nav-link"
                 data-bs-toggle="collapse"
                 href="#ui-basic"
@@ -250,7 +257,7 @@ const handleNavigate=(entry)=>{
                 </span>
                 <span className="menu-title">Regular Entries</span>
                 <i className="menu-arrow" />
-              </a>
+              </span>
               <div className="collapse" id="ui-basic">
                 <ul className="nav flex-column sub-menu">
                   

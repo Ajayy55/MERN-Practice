@@ -2,6 +2,7 @@ import React, { Children, useEffect, useState } from 'react'
 import SideNav from '../components/sideNav/SideNav'
 import Navbar from '../components/navbar/Navbar'
 import Footer from '../components/footer/Footer'
+import { Outlet } from 'react-router-dom';
 
 function Layout({children}) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);

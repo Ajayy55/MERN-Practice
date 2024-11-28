@@ -187,7 +187,7 @@ const getTypesOfEntriesOfSociety=async(req,res)=>{
     const id=req.params.id;
 
     try {
-        const response= await Society.findOne({_id:id}).populate("typeOfEntries");
+        const response= await Society.findOne({_id:id}).populate("typeOfEntries").select("typeOfEntries");
         if(!response){
             return res.status(500).json({message:`No Society Found !`})
         }

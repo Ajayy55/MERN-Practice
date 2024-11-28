@@ -11,10 +11,11 @@ import { useNavigate } from "react-router-dom";
 import BackButton from "../utils/BackButton";
 import { jwtDecode } from "jwt-decode";
 
-const token=localStorage.getItem("token")
-const decode=jwtDecode(token)
+
+
 
 function AddUser() {
+  const token=localStorage.getItem("token")||""
   const { hasPermission, userRole } = usePermissions();
   const navigate = useNavigate();
   const [rolesData, setRolesData] = useState([]);
@@ -60,7 +61,9 @@ function AddUser() {
       isActive: Yup.boolean(),
     }),
     onSubmit: async (values) => {
+      const decode=jwtDecode(token)
       console.log(decode);
+
       
       const payload = {
         createdBy:decode.id||null,

@@ -16,7 +16,7 @@ function ImagePreview({ image }) {
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
+  
   return (
     <>
       {/* Card for Image */}

@@ -3,9 +3,13 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Layout from '../../layout/Layout';
 import BackButton from '../utils/BackButton';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { swal } from 'sweetalert2/dist/sweetalert2';
 import Swal from "sweetalert2";
+import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
+import { PORT } from '../../port/Port';
+const token=localStorage.getItem('token')||""
 
 
 const customButtonStyle = {
@@ -22,59 +26,13 @@ const customButtonStyle = {
 function AddRegularEntry() {
   const location = useLocation();
   const entry = location.state;
-
-  // Formik initial values
-//   const formik = useFormik({
-//     initialValues: {
-//       name: '',
-//       gender: '',
-//       mobile: '',
-//       aadhaar: '',
-//       address: '',
-//       regularProfileImage: '',
-//       regularAadharImage: '',
-//       regularOtherProof: '',
-//     },
-//     validationSchema: Yup.object({
-//         name: Yup.string().required('Name is required'),
-//         gender: Yup.string().required('Gender is required'),
-//         mobile: Yup.string()
-//           .matches(/^[0-9]{10}$/, 'Mobile number must be 10 digits')
-//           .required('Mobile number is required'),
-//         aadhaar: Yup.string()
-//           .matches(/^[0-9]{12}$/, 'Aadhaar number must be 12 digits')
-//           .required('Aadhaar number is required'),
-//         address: Yup.string().required('Address is required'),
-//         regularProfileImage: Yup.mixed().required('Profile image is required'),
-//         regularAadharImage: Yup.mixed().nullable(),
-//         regularOtherProof: Yup.mixed().nullable(),
-//       }).test(
-//         'at-least-one-upload',
-//         'Either Aadhaar Image or Other Proof is required',
-//         function (values) {
-//           // Check that at least one of the two fields is provided
-//           const { regularAadharImage, regularOtherProof } = values;
-      
-//           // Verify that one of the fields is truthy (a file exists)
-//           return regularAadharImage || regularOtherProof;
-//         }
-//       ),
-//     onSubmit: (values) => {
-      
-//       if(values.regularOtherProof==="" ||values.regularAadharImage==="")
-//       {
-//         return alert('Either Aadhaar Image or Other Proof is required')
-//       }
-//       console.log('Form Submitted:', values);
-//       alert('Form Submitted Successfully!');
-//     },
-//   });
+  const navigate=useNavigate()
 const formik = useFormik({
     initialValues: {
       name: '',
       gender: '',
       mobile: '',
-      aadhaar: '',
+      aadhaarNumber: '',
       address: '',
       regularProfileImage: null,
       regularAadharImage: null,
@@ -85,16 +43,51 @@ const formik = useFormik({
       mobile: Yup.string()
         .matches(/^[0-9]{10}$/, 'Mobile number must be 10 digits')
         .required('Mobile number is required'),
-      aadhaar: Yup.string()
+      aadhaarNumber: Yup.string()
         .matches(/^[0-9]{12}$/, 'Aadhaar number must be 12 digits')
         .required('Aadhaar number is required'),
       address: Yup.string().required('Address is required'),
       regularProfileImage: Yup.mixed().required('Profile image is required'),
       regularAadharImage: Yup.mixed().required('Proof required'),
     }),
-    onSubmit: (values) => {
-      console.log('Form submitted:', values);
-      alert('Form submitted successfully!');
+    onSubmit: async(values) => {
+      const decode=jwtDecode(token)
+      const payload={
+        ...values,
+
+        entry:entry._id,
+        society:decode?.society||null,
+        createdBy:decode?.id||null,
+      }
+      console.log('submited values: ',payload);
+      
+      try {
+          const url=`${PORT}addRegularEntry`
+          const response=await axios.post(url,payload,{
+            headers:{
+             "Content-Type": "multipart/form-data",
+            },
+          })
+
+          if (response.status == 201) {
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: response?.data.message || " Regular Entry Added Succesfully",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            setTimeout(() => {
+              navigate(-1);
+            }, 1000);
+          }
+      
+          
+      } catch (error) {
+        console.log(error);
+        Swal.fire("Error",  error?.response?.data?.message || "Error Occured Adding Regular Entry!", "error");
+        
+      }
     },
   });
   
@@ -138,25 +131,21 @@ console.log(formik.errors);
                       Select Gender <span className="text-danger">*</span>
                     </label>
                     <div className='d-flex'>
+                    <select
+                      id="gender"
+                      name="gender"
+                      className="form-control"
+                      value={formik.values.gender}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                    >
+                      <option value="">Select Gender</option>
                       {['Male', 'Female', 'Other'].map((gender) => (
-                        <div className="" key={gender}>
-                          <input
-                            className="form-check-input me-1"
-                            type="radio"
-                            id={gender.toLowerCase()}
-                            name="gender"
-                            value={gender}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                          />
-                          <label
-                            className="form-check-label me-3"
-                            htmlFor={gender.toLowerCase()}
-                          >
-                            {gender}
-                          </label>
-                        </div>
+                        <option key={gender} value={gender}>
+                          {gender}
+                        </option>
                       ))}
+                    </select>
                     </div>  
                     {formik.touched.gender && formik.errors.gender && (
                       <div className="text-danger">{formik.errors.gender}</div>
@@ -186,20 +175,20 @@ console.log(formik.errors);
 
                   {/* Aadhaar Number */}
                   <div className="col-md-6 mb-2">
-                    <label htmlFor="aadhaar" className="form-label">
+                    <label htmlFor="aadhaarNumber" className="form-label">
                       Aadhaar Number <span className="text-danger">*</span>
                     </label>
                     <input
                       type="text"
                       className="form-control"
-                      id="aadhaar"
-                      name="aadhaar"
-                      value={formik.values.aadhaar}
+                      id="aadhaarNumber"
+                      name="aadhaarNumber"
+                      value={formik.values.aadhaarNumber}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                     />
-                    {formik.touched.aadhaar && formik.errors.aadhaar && (
-                      <div className="text-danger">{formik.errors.aadhaar}</div>
+                    {formik.touched.aadhaarNumber && formik.errors.aadhaarNumber && (
+                      <div className="text-danger">{formik.errors.aadhaarNumber}</div>
                     )}
                   </div>
                 </div>

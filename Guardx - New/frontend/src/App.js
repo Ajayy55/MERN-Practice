@@ -37,6 +37,7 @@ import AddHouse from './pages/house list/AddHouse';
 import ViewHouse from './pages/house list/ViewHouse';
 import RegularEntries from './pages/regular/RegularEntries';
 import AddRegularEntry from './pages/regular/AddRegularEntry';
+import ViewRegularEntry from './pages/regular/ViewRegularEntry';
 
 
 function App() {
@@ -94,10 +95,10 @@ function App() {
 
 
         {/* Regular */}
-       
-      
-        <Route path="/regularEntries" element={<RegularEntries/>}/>
-        <Route path="/addRegularEntry" element={<AddRegularEntry/>}/>
+    
+        <Route path="regularEntries" element={<RegularEntries/>}/>
+        <Route path="addRegularEntry" element={<AddRegularEntry/>}/>
+        <Route path="viewRegularEntry" element={<ViewRegularEntry/>}/>
         {/* <Route path="/viewHouse" element={<ViewHouse/>}/> */}
 
 
@@ -107,11 +108,13 @@ function App() {
         {/* Guard */}
         <Route path="/GuardAccess" element={<GuardAccess/>}/>
         </Route>
+        
         <Route path="*" element={<Error404/>}/> 
         {/* </Route> */}
 
 
       </Routes>
+  
     </BrowserRouter>
    
  </>

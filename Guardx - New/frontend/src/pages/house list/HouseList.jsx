@@ -216,7 +216,7 @@ function HouseList() {
                                 <i
                                   className="mdi mdi-lead-pencil pe-3"
                                   data-bs-toggle="tooltip"
-                                  title="Edit"
+                                  title="View / Edit"
                                   onClick={() => handleEdit(house)}
                                   style={{ cursor: "pointer" }}
                                 />

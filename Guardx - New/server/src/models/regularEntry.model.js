@@ -8,7 +8,7 @@ const regularProfileSchema=new mongoose.Schema({
     gender:{
         type:String,
         required:true,
-        enum:["male","female","other"],
+        enum:["Male","Female","Other"],
         default:"male"
     },
     address:{
@@ -46,6 +46,13 @@ const regularProfileSchema=new mongoose.Schema({
         required:true,
     },
     createdBy:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"User"
+    },
+    society:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Society"
+    },updatedBy:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"User"
     }
