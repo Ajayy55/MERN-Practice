@@ -230,7 +230,7 @@ useEffect(()=>{
                       id="societyLogo"
                       className="form-control"
                       style={{ display: "none" }}
-                      accept="image/*"
+                      accept="image/*,svg/*"
                       onChange={handleMediaChange}
                         // onChange={(event) => {
                         //   formik.setFieldValue("societyLogo", event.currentTarget.files[0]);handleMediaChange()
@@ -243,8 +243,8 @@ useEffect(()=>{
                       
                       {/* <i className="mdi mdi-eye" onClick={handleOpen} /> */}
                     </div>
-                    {logo && <p>{logo.name}</p>}
-                    <Modal open={open} onClose={handleClose}>
+                    {logo && <p>{logo.name.slice(0, 30)}</p>}
+                    {/* <Modal open={open} onClose={handleClose}>
                       <Box sx={style}>
                         <IconButton
                           sx={closeModalButtonStyle}
@@ -284,7 +284,7 @@ useEffect(()=>{
                           ))}
                         </Grid>
                       </Box>
-                    </Modal>
+                    </Modal> */}
                     {/* {formik.touched.societyLogo && formik.errors.societyLogo ? (
                       <div className="text-danger">{formik.errors.societyLogo}</div>
                     ) : null} */}

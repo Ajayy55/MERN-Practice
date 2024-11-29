@@ -60,7 +60,7 @@ function AddSocietyUser() {
 
           if(response.data.response.length<=0){
             console.log(response.data.response);
-            errorAlert('You dont have Roles')
+            errorAlert('You dont have Roles Please Create')
           }
           setRolesData(response.data.response);
         }

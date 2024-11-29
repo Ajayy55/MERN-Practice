@@ -2,6 +2,7 @@ import React,{useState,useEffect} from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import { jwtDecode } from "jwt-decode";
+import { PORT } from "../../port/Port";
 
 
 
@@ -11,6 +12,7 @@ function Navbar({ toggleSidenav }) {
   const navigate =useNavigate();
   const token=localStorage.getItem('token')
   const location = useLocation();
+ 
 
   // Format the path for better display
   const formatPath = (path) => {
@@ -21,6 +23,8 @@ function Navbar({ toggleSidenav }) {
       .join(" > "); // Join with an arrow for better visual hierarchy
     return formatted || "Home"; // Default to 'Home' if the path is empty
   };
+
+  const decode=jwtDecode(token)
   if(token){
   const decode = jwtDecode(token);
   // console.log(decode);
@@ -263,7 +267,7 @@ function Navbar({ toggleSidenav }) {
                 <div className="navbar-profile">
                   <img
                     className="img-xs rounded-circle"
-                    src="../../../assets/images/faces/face15.jpg"
+                    src={decode.rwaImage? `${PORT}${decode.rwaImage.split('public')[1]}`:"../../../assets/images/faces/face15.jpg"}
                     alt=""
                   />
                   <p className="mb-0 d-none d-sm-block navbar-profile-name">
@@ -276,8 +280,8 @@ function Navbar({ toggleSidenav }) {
                 className="dropdown-menu dropdown-menu-end navbar-dropdown preview-list"
                 aria-labelledby="profileDropdown"
               >
-                <h6 className="p-3 mb-0">Profile</h6>
-                <div className="dropdown-divider" />
+                <h6 className="p-3 mb-0 text-center">Profile</h6>
+                {/* <div className="dropdown-divider" />
                 <a className="dropdown-item preview-item">
                   <div className="preview-thumbnail">
                     <div className="preview-icon bg-dark rounded-circle">
@@ -287,7 +291,7 @@ function Navbar({ toggleSidenav }) {
                   <div className="preview-item-content">
                     <p className="preview-subject mb-1">Attendance</p>
                   </div>
-                </a>
+                </a> */}
                 <div className="dropdown-divider" />
                 <a className="dropdown-item preview-item" onClick={handleLogout}>
                   <div className="preview-thumbnail">

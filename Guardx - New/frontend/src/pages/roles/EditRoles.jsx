@@ -441,9 +441,16 @@ function EditRoles() {
       roleType: Yup.string().required("Role Type is required"),
     }),
     onSubmit: async (values) => {
+      let permLevel;
+      if(values.roleType==='saas') permLevel=2;
+      if(values.roleType==='society') permLevel=3;
+      if(values.roleType==='subSociety') permLevel=4;
+      if(values.roleType==='guardAccess') permLevel=5;
+
+
       const payload = {
         createdBy: localStorage.getItem("user"),
-        permissionLevel: userRole.permissionLevel,
+        permissionLevel: permLevel,
         roleId: id,
         ...values,
         permissions: formik.values.permissions,

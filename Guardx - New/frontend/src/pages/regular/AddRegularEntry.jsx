@@ -51,7 +51,8 @@ const formik = useFormik({
       regularAadharImage: Yup.mixed().required('Proof required'),
     }),
     onSubmit: async(values) => {
-      const decode=jwtDecode(token)
+      const decode=await jwtDecode(token)
+      
       const payload={
         ...values,
 
@@ -59,7 +60,7 @@ const formik = useFormik({
         society:decode?.society||null,
         createdBy:decode?.id||null,
       }
-      console.log('submited values: ',payload);
+      // console.log('submited values: ',payload);
       
       try {
           const url=`${PORT}addRegularEntry`
@@ -91,7 +92,6 @@ const formik = useFormik({
     },
   });
   
-console.log(formik.errors);
 
   return (
     <Layout>

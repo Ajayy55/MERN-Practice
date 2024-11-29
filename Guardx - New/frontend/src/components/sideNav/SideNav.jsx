@@ -21,6 +21,7 @@ const decode = jwtDecode(tkn);
 let userID;
 let societyId;
 const [isCollapsed, setIsCollapsed] = useState(false);
+const [flag,setFlag]=useState(true)
 
 const toggleCollapse = () => {
   setIsCollapsed((prevState) => !prevState);
@@ -50,6 +51,25 @@ const navigate =useNavigate()
       }
     }
 
+
+    const getPermissions=async()=>{
+      try {
+        if(userID){
+          const url=`${PORT}getPemissions`
+          const response=await axios.post(url,{id:userID})  //super
+          // console.log('permssions',response);
+          
+          setUser({name:response?.data?.name,role:response?.data?.role?.title,society:response?.data?.society?.name||"",societyLogo:response?.data?.society?.societyLogo||""})
+          Setpermissions(response?.data.role?.permissions)
+          SetpermissionLevel(response?.data?.permissionLevel)
+        }
+      } catch (error) {
+       console.log('At fetching permissions',error);
+      }
+    }
+  
+  // console.log(user)
+
     getPermissions();
 
     return () => {
@@ -57,22 +77,6 @@ const navigate =useNavigate()
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
   }, [token]);
-
-  const getPermissions=async()=>{
-    try {
-      if(userID){
-        const url=`${PORT}getPemissions`
-        const response=await axios.post(url,{id:userID})  //super
-        // console.log('permssions',response);
-        
-        setUser({name:response?.data?.name,role:response?.data?.role?.title})
-        Setpermissions(response?.data.role?.permissions)
-        SetpermissionLevel(response?.data?.permissionLevel)
-      }
-    } catch (error) {
-     console.log('At fetching permissions',error);
-    }
-  }
 
 
 
@@ -102,26 +106,30 @@ const handleSessionExpired = () => {
     const fetchSocietyTypeOfEntries=async()=>{
       try {
           // const id='6731880e33cc6e06c07b10eb'
-          const response=await axios.get(`${PORT}getTypesOfEntriesOfSociety/${decode.society}`)
-          // console.log('res',response);
-          
-          const societyRegularEntries = response?.data?.response.typeOfEntries.filter((entry)=>entry.entryType==='regular') ||null;
-          setSocietyEntriesData(societyRegularEntries);
+          if(decode?.society){
+            const response=await axios.get(`${PORT}getTypesOfEntriesOfSociety/${decode?.society}`)
+            // console.log('res',response);
+            
+            const societyRegularEntries = response?.data?.response.typeOfEntries.filter((entry)=>entry.entryType==='regular') ||null;
+            setSocietyEntriesData(societyRegularEntries);
+          }
+         
       } catch (error) {
         console.log(error);
       }
     }
  
   useEffect(()=>{
+    // console.log('inside');
+    
     fetchSocietyTypeOfEntries();
-  },[])
+  },[flag])
   // console.log('ss',SocietyEntriesData,decode);
 // console.log('pp',permissions,permissionLevel);
 
 const handleNavigate=(entry)=>{
   navigate(`/regularEntries`, {state:{_id:entry._id,title:entry.title}});
 }
-
 
 
   return (
@@ -147,15 +155,16 @@ const handleNavigate=(entry)=>{
       <div className="profile-desc">
         <div className="profile-pic">
           <div className="count-indicator">
+           
             <img
               className="img-xs rounded-circle "
-              src="assets/images/faces/face15.jpg"
+              src={user?.societyLogo ? `${PORT}${user?.societyLogo.split('public')[1]}`:"assets/images/faces/face15.jpg"}
               alt=""
             />
             <span className="count bg-success" />
           </div>
           <div className="profile-name">
-            <h5 className="mb-0 font-weight-normal text-capitalize">{user.name}</h5>
+            <h5 className="mb-0 font-weight-normal text-capitalize">{user?.society ? user?.society :user?.name }</h5>
             <span>{user?.role}</span>
           </div>
         </div>
@@ -245,34 +254,36 @@ const handleNavigate=(entry)=>{
     {/* Regular Entries */}
     {hasPermission('Regular Entries', 'Module') && (
             <li className="nav-item menu-items">
-              <span
+              <span onClick={() => setFlag((prev) => !prev)}
                 className="nav-link"
                 data-bs-toggle="collapse"
                 href="#ui-basic"
-                aria-expanded="false"
+                aria-expanded="true"
                 aria-controls="ui-basic"
               >
                 <span className="menu-icon">
                   <i className="mdi mdi-laptop" />
                 </span>
-                <span className="menu-title">Regular Entries</span>
+                <span className="menu-title" >Regular Entries</span>
                 <i className="menu-arrow" />
               </span>
               <div className="collapse" id="ui-basic">
                 <ul className="nav flex-column sub-menu">
                   
                   {
-                    SocietyEntriesData.length>0 && SocietyEntriesData.map((entry)=>{
+                    SocietyEntriesData.length>0 ? ( SocietyEntriesData.map((entry)=>{
                       return <li className="nav-item" key={entry._id}>
                       <span className="nav-link text-capitalize" href="pages/ui-features/buttons.html" onClick={()=>{handleNavigate(entry)}} style={{cursor:'pointer'}}>
                        {entry?.title}
                       </span>
                     </li> 
 
-                    })
-                 
-                  }
+                    })):( <span className="nav-link text-capitalize" href="pages/ui-features/buttons.html" onClick={()=>{handleNavigate("entry")}} style={{cursor:'pointer'}}>
+                    {"Add Type of Entries"}
+                   </span>)
 
+                  }
+                <li className="nav-item" ></li>
                   {/* <li className="nav-item">
                     <a className="nav-link" href="pages/ui-features/dropdowns.html">
                       Dropdowns
@@ -289,7 +300,8 @@ const handleNavigate=(entry)=>{
           )}
 
 {/* Guest List */}
-{hasPermission('Guest Entries', 'Module') && (
+
+{/* {hasPermission('Guest Entries', 'Module') && (
             <li className="nav-item menu-items">
               <a className="nav-link" href="pages/forms/basic_elements.html">
                 <span className="menu-icon">
@@ -299,20 +311,9 @@ const handleNavigate=(entry)=>{
                 <i className="menu-arrow" />
               </a>
             </li>
-          )}
+          )} */}
 
-{/* Types of entires */}
-{hasPermission('Type of Entries', 'Module') && (
-            <li className="nav-item menu-items">
-              <NavLink to='/TypeOfEntries' className="nav-link" href="pages/tables/basic-table.html">
-                <span className="menu-icon">
-                  <i className="mdi mdi-format-list-bulleted" />
-                </span>
-                <span className="menu-title">Type of Entries</span>
-                <i className="menu-arrow" />
-              </NavLink>
-            </li>
-          )}
+
 
 {/* Occasional purpose */}
 {hasPermission('Purpose of Occasional', 'Module') && (
@@ -326,6 +327,19 @@ const handleNavigate=(entry)=>{
       </NavLink>
     </li>)
      }
+
+     {/* Types of entires */}
+{hasPermission('Type of Entries', 'Module') && (
+            <li className="nav-item menu-items">
+              <NavLink to='/TypeOfEntries' className="nav-link" href="pages/tables/basic-table.html">
+                <span className="menu-icon">
+                  <i className="mdi mdi-format-list-bulleted" />
+                </span>
+                <span className="menu-title">Type of Entries</span>
+                <i className="menu-arrow" />
+              </NavLink>
+            </li>
+          )}
 
 {/* House List */}
 {hasPermission('House List', 'Module') && (
@@ -343,7 +357,7 @@ const handleNavigate=(entry)=>{
 
 
 {/* Attendance*/}
-{hasPermission('Attendance', 'Module') && (
+{/* {hasPermission('Attendance', 'Module') && (
     <li className="nav-item menu-items">
       <a className="nav-link" href="pages/charts/chartjs.html">
         <span className="menu-icon">
@@ -353,10 +367,10 @@ const handleNavigate=(entry)=>{
         <i className="menu-arrow" />
       </a>
     </li>)
-     }
+     } */}
 
     {/* Annoucmnets */}
-    {hasPermission('Announcements', 'Module') && (
+    {/* {hasPermission('Announcements', 'Module') && (
     <li className="nav-item menu-items">
       <a className="nav-link" href="pages/charts/chartjs.html">
         <span className="menu-icon">
@@ -366,10 +380,10 @@ const handleNavigate=(entry)=>{
         <i className="menu-arrow" />
       </a>
     </li>)
-     }
+     } */}
 
      {/* Complaints */}
-     {hasPermission('Complaints', 'Module') && (
+     {/* {hasPermission('Complaints', 'Module') && (
     <li className="nav-item menu-items">
       <a className="nav-link" href="pages/icons/font-awesome.html">
         <span className="menu-icon">
@@ -379,7 +393,7 @@ const handleNavigate=(entry)=>{
         <i className="menu-arrow" />
       </a>
     </li>)
-     }
+     } */}
 
 {/* Users */}
 {hasPermission('Users', 'Module') && (

@@ -62,15 +62,17 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { PORT } from '../port/Port';
 import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
 
 const PermissionsContext = createContext();
+const token =localStorage.getItem('token')
 const userDataKey = 'user';
 
 export const PermissionsProvider = ({ children }) => {
   const [userRole, setUserRole] = useState(null);
   const [permissions, setPermissions] = useState([]);
   const [user, setUser] = useState(localStorage.getItem(userDataKey));
-
+ const [societyRegularEntries,setSocietyRegularEntries]=useState([]);
   const getPermissions = async (userID) => {
         // console.log('useriddd',userID);
         if (userID){
@@ -87,10 +89,12 @@ export const PermissionsProvider = ({ children }) => {
               }
         }
       };
+
   useEffect(()=>{
     if(permissions.length<0){
        getPermissions(user);
        console.log('inside 0');
+       
     }
   },[])
 

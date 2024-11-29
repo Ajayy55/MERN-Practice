@@ -184,7 +184,7 @@ function RegularEntries() {
                          
                           <td>
                             <div>
-                            {hasPermission("Regular Entries", "Edit") && entry?.approvalStatus!=='Rejected'&&(
+                            {/* {hasPermission("Regular Entries", "Edit") &&(
                                 <i
                                   className="mdi mdi-fingerprint pe-3"
                                   data-bs-toggle="tooltip"
@@ -192,8 +192,8 @@ function RegularEntries() {
                                   onClick={() => handleEdit(entry)}
                                   style={{ cursor: "pointer" }}
                                 />
-                              )}
-                              {hasPermission("Regular Entries", "Edit") && entry?.approvalStatus!=='Rejected'&&(
+                              )} */}
+                              {hasPermission("Regular Entries", "Edit") && (
                                 <i
                                   className="mdi mdi-lead-pencil pe-3"
                                   data-bs-toggle="tooltip"

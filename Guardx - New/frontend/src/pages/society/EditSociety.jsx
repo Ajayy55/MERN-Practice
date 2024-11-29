@@ -107,7 +107,7 @@ function EditSociety() {
     borderRadius: "5px",
     display: "inline-block",
     textAlign: "center",
-    width: "95%",
+    width: "100%",
   };
 
   const formik = useFormik({
@@ -253,9 +253,9 @@ function EditSociety() {
                       <label htmlFor="societyLogo" style={customButtonStyle}>
                         Choose File
                       </label>
-                      <i className="mdi mdi-eye" onClick={handleOpen} />
+                      {/* <i className="mdi mdi-eye" onClick={handleOpen} /> */}
                     </div>
-                    <Modal open={open} onClose={handleClose}>
+                    {/* <Modal open={open} onClose={handleClose}>
                       <Box sx={style}>
                         <IconButton
                           sx={closeModalButtonStyle}
@@ -295,7 +295,7 @@ function EditSociety() {
                           ))}
                         </Grid>
                       </Box>
-                    </Modal>
+                    </Modal> */}
                   </div>
 
                   {/* Address */}

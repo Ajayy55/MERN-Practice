@@ -711,11 +711,11 @@ function Vehicles({house}) {
                       </tr>
                     </thead>
                     <tbody>
-                      {house?.vehicles.length> 0 && house?.vehicles.map((vehicle) => {
+                      {house?.vehicles.length> 0 && house?.vehicles.map((vehicle,index) => {
                        return <tr key={vehicle._id}>
                           <td className="py-1 text-capitalize">
                             <img
-                              src="../../assets/images/faces-clipart/pic-1.png"
+                              src={vehicle.vehicleImage ? `${PORT}${vehicle.vehicleImage[index].split('public')[1]}` :"../../assets/images/faces-clipart/pic-1.png"}
                               alt="user avatar"
                               className="me-2"
                             />

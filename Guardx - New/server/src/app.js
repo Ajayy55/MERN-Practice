@@ -36,6 +36,10 @@ app.use(purposesRoutes)
 
 //regular entries
 import RegularEntriesRoutes from './routes/regularEntries.routes.js'
-app.use(RegularEntriesRoutes)
+app.use(RegularEntriesRoutes);
+
+//attendance 
+import attendanceRoutes from './routes/attendance.routes.js';
+app.use(attendanceRoutes);
 
 export {app}

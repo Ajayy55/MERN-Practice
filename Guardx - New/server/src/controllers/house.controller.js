@@ -81,7 +81,7 @@ const getHouseListBySocietyId = async (req, res) => {
   const societyId = req.params.id;
 
   try {
-    const response = await House.find({society:societyId });
+    const response = await House.find({ society: societyId });
     if (!response) {
       return res.status(400).json({ message: "Empty Houslist" });
     }
@@ -103,8 +103,8 @@ const handleApprovalStatus = async (req, res) => {
   }
   try {
     const house = await House.findById(houseId).populate("society");
-    console.log('house',house);
-    
+    // console.log("house", house);
+
     if (approvalStatus === "Approved") {
       if (
         !house.email ||
@@ -116,13 +116,22 @@ const handleApprovalStatus = async (req, res) => {
           .status(404)
           .json({ message: "House Owner KYC required, Incomplete Profile" });
       }
+    } 
+    if (approvalStatus === "Rejected") {
+      house.approvalStatus = approvalStatus;
+      const status = house.save();
+      return res
+          .status(200)
+          .json({ message: "House Application, Rejected !" });
     }
+
 
     if (!house) {
       return res.status(404).json({ message: "No House Record Found" });
     }
 
     house.approvalStatus = approvalStatus;
+    
     const status = house.save();
     if (status) {
       try {
@@ -133,11 +142,12 @@ const handleApprovalStatus = async (req, res) => {
         const password = await generateRandomPassword();
         // console.log("pass", password);
         const societyName = house.society.name.toUpperCase();
-        const societyCity = house.society.city.toUpperCase(); 
+        const societyCity = house.society.city.toUpperCase();
         const emailText = ` <div class="container">
             <h1>Dear ${house.ownerName},</h1>
             <p>Thank you for choosing us!</p>
             <p>We are pleased to inform you that your request to join the <b>${societyName},${societyCity} </b>at GuardX online portal has been successfully accepted by the Society Admin.</p>
+            <p><b>Username : <b> ${house.email} / ${house.mobile} </p>
             <p><b>Your System Genrated Password is ${password} please Reset Password if Required<b></p>
             <p>You can now enjoy access to all the features and services provided through our portal, including:</p>
             <p>Viewing notices and announcements</p>
@@ -160,8 +170,10 @@ const handleApprovalStatus = async (req, res) => {
         house.password = password;
         await house.save();
 
-        res.status(200).json({ message: "Approved email sent " });
         console.log("Message sent: %s", info.messageId);
+        if(info.messageId){
+          res.status(200).json({ message: "Status Approved,Email with user password sent to house Owner " });
+        }
       } catch (error) {
         console.log("node mail error", error);
         res.status(500).json({ message: "Approved Email genration faild " });
@@ -173,12 +185,10 @@ const handleApprovalStatus = async (req, res) => {
     }
   } catch (error) {
     console.log("Error while updating approval Status House List", error);
-    return res
-      .status(500)
-      .json({
-        message:
-          "Internal server error while updating approval Status House List",
-      });
+    return res.status(500).json({
+      message:
+        "Internal server error while updating approval Status House List",
+    });
   }
 };
 
@@ -231,12 +241,9 @@ const editHouse = async (req, res) => {
     });
 
     if (isDuplicateEntry) {
-      return res
-        .status(404)
-        .json({
-          message:
-            "Duplicate Entry ! User with this Credentials Already Exists",
-        });
+      return res.status(404).json({
+        message: "Duplicate Entry ! User with this Credentials Already Exists",
+      });
     }
     const response = await House.findByIdAndUpdate(
       houseId,

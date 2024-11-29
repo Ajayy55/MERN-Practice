@@ -36,6 +36,7 @@ const houseSchema=new mongoose.Schema({
     },blockNo:{
         type:String,
         required:true,
+        uppercase:true
     },
     ownerImage:{
         type:String,

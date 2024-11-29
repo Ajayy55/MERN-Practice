@@ -36,18 +36,16 @@ const createSuperAdmin=async(req,res)=>{
           }
           
          const initialModules = [
-            { moduleName: "Society List", actions: ["Module", "Create", "Read", "Edit", "Delete"] },
-            { moduleName: "Regular Entries", actions: ["Module", "Create", "Read", "Edit", "Delete"] },
-            { moduleName: "Guest Entries", actions: ["Module", "Create", "Read", "Edit", "Delete"] },
+            { moduleName: "Society List", actions: ["Module", "Create", "Read", "Edit", "Delete"] },  
             { moduleName: "Type of Entries", actions: ["Module", "Create", "Read", "Edit", "Delete"] },
             { moduleName: "Purpose of Occasional", actions: ["Module", "Create", "Read", "Edit", "Delete"] },
-            { moduleName: "House List", actions: ["Module", "Create", "Read", "Edit", "Delete"] },
-            { moduleName: "Attendance", actions: ["Module", "Create", "Read", "Edit", "Delete"] },
-            { moduleName: "Announcements", actions: ["Module", "Create", "Read", "Edit", "Delete"] },
-            { moduleName: "Complaints", actions: ["Module", "Create", "Read", "Edit", "Delete"] },
+            // { moduleName: "House List", actions: ["Module", "Create", "Read", "Edit", "Delete"] },
+            // { moduleName: "Attendance", actions: ["Module", "Create", "Read", "Edit", "Delete"] },
+            // { moduleName: "Announcements", actions: ["Module", "Create", "Read", "Edit", "Delete"] },
+            // { moduleName: "Complaints", actions: ["Module", "Create", "Read", "Edit", "Delete"] },
             { moduleName: "Users", actions: ["Module", "Create", "Read", "Edit", "Delete"] },
             { moduleName: "Roles", actions: ["Module", "Create", "Read", "Edit", "Delete"] },
-            { moduleName: "Public access", actions: ["Module", "Create", "Read", "Edit", "Delete"] },
+            // { moduleName: "Public access", actions: ["Module", "Create", "Read", "Edit", "Delete"] },
           // Add more modules as needed
         ];
 
@@ -196,7 +194,9 @@ try {
           id:user._id,
           email:user.email,
           username:user.username,
-          society:user?.society?._id|| null
+          society:user?.society?._id|| "",
+          rwaImage:user?.rwaImage||""
+
       }
       const jwtToken=await GenJwtToken(payload);
       if (!jwtToken) {
@@ -216,7 +216,8 @@ const getPemissions=async(req,res)=>{
   // console.log('post ',id);
   
   try {
-      const userRoles=await User.findById(id).populate({path:"role"}).select("role permissionLevel")
+      const userRoles=await User.findById(id).populate({path:"role"}).populate("society","name societyLogo").select("name rwaImage role permissionLevel societyLogo society")
+     
 
       if (!userRoles) {
         return res.status(400).json({ message: 'No Role assigned to you, plscontact Admin' });

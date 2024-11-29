@@ -41,7 +41,7 @@ function AddTypesOfEntry() {
         return value && value.size <= 2000000; // 2MB max file size
       })
       .test("fileType", "Only image files are allowed", (value) => {
-        return value && ["image/jpeg", "image/png", "image/gif"].includes(value.type);
+        return value && ["image/jpeg", "image/png", "image/gif" ,"image/svg"].includes(value.type);
       }),
     entryType: Yup.string().required("Please select an entry type"),
   });
@@ -130,7 +130,7 @@ function AddTypesOfEntry() {
                         className="form-control"
                         id="entryIcon"
                         name="entryIcon"
-                        accept="image/*"
+                        accept="image/* , .svg/*"
                         style={{ display: "none" }}
                         onChange={(event) => {
                           const file = event.currentTarget.files[0];

@@ -187,11 +187,13 @@ function AddPurpose() {
                           onBlur={formik.handleBlur}
                         >
                             <option label="Choose Purpose Type"></option>
+                            
                                 {   
                                     occasionalEntries?.map((entry)=>{
                                        return <option key={entry._id} className="text-capitalize">{entry?.title}</option>
                                     })
                                 } 
+                                <option key={"Other"}>Other</option>
                             </select>
                        
                       </div>

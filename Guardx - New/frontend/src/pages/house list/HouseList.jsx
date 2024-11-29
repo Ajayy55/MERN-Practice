@@ -127,7 +127,7 @@ function HouseList() {
         console.log(response);
         
         if(response.status===200){
-          Swal.fire("Success", "Approval Status Updated successfully!", "success");
+          Swal.fire("Success", response?.data?.message || "Approval Status Updated successfully!", "success");
           setFlag(flag?false:true)
         }
         

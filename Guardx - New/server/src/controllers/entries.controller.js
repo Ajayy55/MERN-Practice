@@ -155,13 +155,13 @@ const editTypeOfEntry=async(req,res)=>{
 
 const addTypesOfEntriesToSociety=async(req,res)=>{
     const id=req.params.id;
-    console.log(req.body,id);
+    // console.log(req.body,id);
     if(id==='null'){
         return res.status(404).json({message:'UnAuthorized Action Invalid Society '})
     }
     try {
         const society=await Society.findById(id)
-        console.log(society);
+        // console.log(society);
         if(!society){
             return res.status(404).json({message:'UnAuthorized Action Society Admin can add Entries'})
         }
@@ -204,17 +204,17 @@ const getTypesOfEntriesOfSociety=async(req,res)=>{
 const removeTypeOfEntryFromSociety=async(req,res)=>{
     const id=req.params.id;
     const {RemoveId}=req.body
-    console.log(RemoveId,id);
+    // console.log(RemoveId,id);
         
 
     try {
         const society=await Society.findById(id)
-        console.log(society);
+        // console.log(society);
         
         const abc = society.typeOfEntries.filter((entry) => 
             entry.toString() !== RemoveId
           );
-          console.log('abc', abc);
+        //   console.log('abc', abc);
           
          society.typeOfEntries=abc;
           

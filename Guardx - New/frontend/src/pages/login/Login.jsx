@@ -59,7 +59,7 @@ const clearLocalStorage=async()=>{
         if (response.status === 200) {
             const Responsedata=response?.data.user;
           
-            console.log('k',response?.data);
+            // console.log('k',response?.data);
             if(Responsedata.role !=null){
                   if(Responsedata.isActive===true)
                   {

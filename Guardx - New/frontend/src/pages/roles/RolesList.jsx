@@ -88,7 +88,7 @@ function RolesList() {
   return (
     <>
     <Layout>
-      <div class="content-wrapper">
+      <div className="content-wrapper">
         <div className="col-lg-12 grid-margin stretch-card">
           <div className="card">
           {hasPermission("Roles", "Read") ? (

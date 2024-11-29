@@ -16,7 +16,7 @@ function Dashboard() {
     Swal.fire({
       position: "center",
       icon: "info",
-      title:"Working Modules - Roles ,Users , Society , Types of Entry , Ocassional Purposes",
+      title:"Working Modules - Roles ,Users , Society , Types of Entry , Ocassional Purposes,House List",
       showConfirmButton: true,
       // timer: 1500,
     });
@@ -116,7 +116,7 @@ function Dashboard() {
       </div>
     </div>
   </div>
-  <div className="row">
+  {/* <div className="row">
     <div className="col-md-4 grid-margin stretch-card">
       <div className="card">
         <div className="card-body">
@@ -761,7 +761,7 @@ function Dashboard() {
         </div>
       </div>
     </div>
-  </div>
+  </div> */}
 </div>
 
     </Layout>
