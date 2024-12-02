@@ -72,14 +72,14 @@ const clearLocalStorage=async()=>{
 
                     localStorage.setItem('token',response.data.jwtToken)
                     localStorage.setItem('user',Responsedata._id)
-                      if(Responsedata?.permissionLevel===1)
+                      if(Responsedata.role?.permissionLevel===1)
                       {
                           successAlert("welcome Super Admin")
                       }
-                      else if(Responsedata?.permissionLevel===2){
+                      else if(Responsedata.role?.permissionLevel===2){
           
                             successAlert("Welcome SAAS Admin")
-                      }else if(Responsedata?.permissionLevel===3){
+                      }else if(Responsedata?.role?.permissionLevel===3){
                            if(Responsedata?.society){
                               successAlert("Welcome Society Admin")
                             }else{
@@ -87,13 +87,13 @@ const clearLocalStorage=async()=>{
                             }
                          
 
-                      }else if(Responsedata?.permissionLevel===4){
+                      }else if(Responsedata?.role?.permissionLevel===4){
                         if(Responsedata?.society){
                         successAlert("Welcome Society Sub Admin")
                         }else{
                           errorAlert("Society Not Found")
                         }
-                      }else if(Responsedata?.permissionLevel===5){
+                      }else if(Responsedata?.role?.permissionLevel===5){
                             
                         Swal.fire({
                           position: "center",

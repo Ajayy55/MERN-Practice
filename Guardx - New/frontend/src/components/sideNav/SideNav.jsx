@@ -61,7 +61,7 @@ const navigate =useNavigate()
           
           setUser({name:response?.data?.name,role:response?.data?.role?.title,society:response?.data?.society?.name||"",societyLogo:response?.data?.society?.societyLogo||""})
           Setpermissions(response?.data.role?.permissions)
-          SetpermissionLevel(response?.data?.permissionLevel)
+          SetpermissionLevel(response?.data?.role?.permissionLevel)
         }
       } catch (error) {
        console.log('At fetching permissions',error);

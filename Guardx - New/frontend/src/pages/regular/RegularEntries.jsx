@@ -123,7 +123,11 @@ function RegularEntries() {
     
     navigate(`/viewRegularEntry`, { state: entry });
   };
-  const handleApprove=()=>{
+  
+  const handleAttendanceView=(entry)=>{
+    navigate(`/viewRegularAttendence`, { state: entry });
+
+
   }
    
     // console.log('ssds',entry);
@@ -184,15 +188,15 @@ function RegularEntries() {
                          
                           <td>
                             <div>
-                            {/* {hasPermission("Regular Entries", "Edit") &&(
+                            {hasPermission("Regular Entries", "Edit") &&(
                                 <i
                                   className="mdi mdi-fingerprint pe-3"
                                   data-bs-toggle="tooltip"
                                   title="Attendance"
-                                  onClick={() => handleEdit(entry)}
+                                  onClick={() => handleAttendanceView(entry)}
                                   style={{ cursor: "pointer" }}
                                 />
-                              )} */}
+                              )}
                               {hasPermission("Regular Entries", "Edit") && (
                                 <i
                                   className="mdi mdi-lead-pencil pe-3"

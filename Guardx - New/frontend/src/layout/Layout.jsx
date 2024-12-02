@@ -53,3 +53,48 @@ function Layout({children}) {
 }
 
 export default Layout
+
+// import React, { useEffect, useState } from "react";
+// import SideNav from "../components/sideNav/SideNav";
+// import Navbar from "../components/navbar/Navbar";
+// import Footer from "../components/footer/Footer";
+// import { Outlet } from "react-router-dom";
+
+// function Layout() {
+//   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+
+//   const toggleSidebar = () => {
+//     setIsSidebarOpen((prev) => !prev);
+//   };
+
+//   useEffect(() => {
+//     const handleResize = () => {
+//       if (window.innerWidth <= 992) {
+//         setIsSidebarOpen(false); // Collapse sidebar on smaller screens
+//       } else {
+//         setIsSidebarOpen(true); // Expand sidebar on larger screens
+//       }
+//     };
+
+//     window.addEventListener("resize", handleResize);
+//     handleResize();
+
+//     return () => window.removeEventListener("resize", handleResize);
+//   }, []);
+
+//   return (
+//     <div className="container-scroller">
+//       <SideNav isOpen={isSidebarOpen} />
+//       <div className="main-panel">
+//         <Navbar toggleSidenav={toggleSidebar} />
+//         {/* Nested routes will be rendered here */}
+//         <div className="content">
+//           <Outlet />
+//         </div>
+//         <Footer />
+//       </div>
+//     </div>
+//   );
+// }
+
+// export default Layout;

@@ -1,9 +1,19 @@
 import {Router} from 'express'
-import { memberSession } from '../controllers/attendance.controller.js';
+
+
+import { memberSession 
+    ,handleRegularEntryClockIn,
+    handleRegularEntryClockOut,
+    viewRegularEntryAttendance,
+
+} from '../controllers/attendance.controller.js';
 
 
 const router= Router();
-router.post('/memberSession',memberSession);
+router.get('/memberSession',memberSession);
+router.post('/handleRegularEntryClockIn',handleRegularEntryClockIn);
+router.post('/handleRegularEntryClockOut',handleRegularEntryClockOut);
+router.post('/viewRegularEntryAttendance',viewRegularEntryAttendance);
 
 
 export default router;

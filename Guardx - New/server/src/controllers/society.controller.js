@@ -45,7 +45,7 @@ const getSocietyBySocietyID=async(req,res)=>{
     const id=req.params.id;
 
     try {
-        const response= await Society.findOne({_id:id})
+        const response= await Society.findOne({_id:id}).populate("purposeList").populate("typeOfEntries")
         if(!response){
             return res.status(500).json({message:`No Society Found !`})
         }
@@ -61,7 +61,8 @@ const getSocietyBySocietyID=async(req,res)=>{
 
 const getSocietyBycreatedBy=async(req,res)=>{
     const id=req.params.id;
-
+    console.log(id);
+    
     try {
         const response= await Society.find({createdBy:id})
         if(!response){
