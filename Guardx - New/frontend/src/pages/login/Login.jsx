@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -10,10 +10,12 @@ import { successAlert, useAlert } from "../utils/Alert";
 // import Loader from "../../components/loaderSpinner/Loader";
 function Login() {
   const { successAlert, errorAlert } = useAlert();
-
-  // const [loading, setLoading] = useState(true); 
+  const [isDisabled, setIsDisabled] = useState(false);
+  const [loading, setLoading] = useState(true); 
   const Email = localStorage.getItem('username');
   const Pass = localStorage.getItem('pass');
+ const sessionString=localStorage.getItem('sessionString')
+
   const navigate = useNavigate();
 
   // if (loading) return <Loader loading={loading} />; // Display loader when loading
@@ -36,6 +38,20 @@ const clearLocalStorage=async()=>{
   }, [Email, Pass]);
 
 
+  const memberSession=async(memberId)=>{
+  //  console.log(sessionString);
+   
+    try {
+      const url=`${PORT}memberSession`;
+      const response=await axios.post(url,{memberId,login:true,sessionString})
+      // console.log('dsdsd',response);
+      localStorage.setItem('sessionString',response.data.session)
+    } catch (error) {
+      console.log(error);
+      
+    }
+  }
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -49,6 +65,7 @@ const clearLocalStorage=async()=>{
         .required("Password is required"),
     }),
     onSubmit: async (values) => {
+      setIsDisabled(true)
       // console.log("Form values:", values);
       try {
         
@@ -69,9 +86,10 @@ const clearLocalStorage=async()=>{
                       localStorage.setItem('username',Email)
                       localStorage.setItem('pass',Pass)
                     }
-
+                    
                     localStorage.setItem('token',response.data.jwtToken)
                     localStorage.setItem('user',Responsedata._id)
+                    memberSession(Responsedata._id)
                       if(Responsedata.role?.permissionLevel===1)
                       {
                           successAlert("welcome Super Admin")
@@ -94,17 +112,20 @@ const clearLocalStorage=async()=>{
                           errorAlert("Society Not Found")
                         }
                       }else if(Responsedata?.role?.permissionLevel===5){
-                            
-                        Swal.fire({
-                          position: "center",
-                          icon: "success",
-                          title: 'Welcom Guard',
-                          showConfirmButton: false,
-                          timer: 1500,
-                        });
-                        setTimeout(() => {
-                          navigate("/GuardAccess");
-                        }, 1000);
+                          if(Responsedata?.society){
+                                Swal.fire({
+                                  position: "center",
+                                  icon: "success",
+                                  title: 'Welcom Guard',
+                                  showConfirmButton: false,
+                                  timer: 1500,
+                                });
+                                setTimeout(() => {
+                                  navigate("/GuardAccess");
+                                }, 1000);
+                          }else{
+                            errorAlert("Society Not Found")
+                          }
                       }else if(Responsedata?.permissionLevel===6){
                             
                         Swal.fire({
@@ -141,16 +162,19 @@ const clearLocalStorage=async()=>{
                   //     text: "You Account has been inActive pls contact Admin",
                   //     showConfirmButton: true
                   // });
-                  errorAlert("You Account has been inActive pls contact Admin")
+                  errorAlert("You Account has been inActive pls contact Admin");
+                  setIsDisabled(false)
                   }
                 
                 }else{
                   errorAlert("You Don't have a valid Role")
+                  setIsDisabled(false)
                 }
                   
           }
-        
+          setIsDisabled(false)
       } catch (error) {
+        setIsDisabled(false)
         console.error("Login failed:", error);
         Swal.fire({
           position: "center",
@@ -224,6 +248,7 @@ const clearLocalStorage=async()=>{
                       <button
                         type="submit"
                         className="btn btn-primary btn-block enter-btn"
+                        disabled={isDisabled} 
                       >
                         Login
                       </button>

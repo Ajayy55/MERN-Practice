@@ -3,6 +3,7 @@ import Layout from "../../layout/Layout";
 import { PORT } from "../../port/Port";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
+import { swal } from "sweetalert2/dist/sweetalert2";
 
 // Mock data
 
@@ -12,9 +13,11 @@ function GuardAccess() {
   const [entryTypes,setEntries] =useState([])
   const [purposeList,setPurpose]=useState([])
   const [houseList,setHouseList]=useState([])
+  const [regularEntryList,setRegularEntryList]=useState([])
   const [selectedEntry,setSelectedEntry]=useState([])
   const [currentStep, setCurrentStep] = useState(1); // Track the active step
   const [formData, setFormData] = useState({
+    typeOfEntryId:"",
     entryId: "",
     purposeId: "",
     house: "",
@@ -22,15 +25,16 @@ function GuardAccess() {
 
   // Handle selection for cards
   const handleCardSelect = (name, value,type) => {
+    console.log(name,value,type);
+    
     setFormData((prevData) => ({ ...prevData, [name]: value }));
     console.log(formData);
     
     setSelectedEntry(type);
-    if(type==='regular'){
-      setCurrentStep(3)
-    }
+    
   };
 
+ 
   // Navigate to the next or previous step
   const handleNext = () => {
     if (currentStep < 3) setCurrentStep(currentStep + 1);
@@ -40,16 +44,73 @@ function GuardAccess() {
     if (currentStep > 1) setCurrentStep(currentStep - 1);
   };
 
+
+  const fetchEntry = async (society,entryId) => {
+    try {
+      const url = `${PORT}getSocietyRegularEntryById`;
+      console.log('fomsta',society,entryId);
+    
+      const response = await axios.post(url, { society,entry:entryId});
+      // console.log('res et',response);
+
+      if (response.status === 200) {
+        setRegularEntryList(response.data.response);
+      }
+
+
+    } catch (error) {
+      console.error('Error fetching attendance records:', error);
+    }
+  };
+
+  useEffect(() => {
+    if (formData.typeOfEntryId && currentStep==2)  {
+      const decode = jwtDecode(Token);
+      fetchEntry(decode.society,formData.typeOfEntryId);
+    }
+  }, [currentStep]);
+
   const handleSubmit =async () => {
-    console.log("Form Submitted:", formData);
+    // console.log("Form Submitted:", formData);
     const decode=await jwtDecode(Token);
     const payload={
       ...formData,
-      society,
+      society:decode.society,
+      guardID:decode.id,
+      regularEntryID:formData.entryId,
     }
 
+    console.log('payload',payload);
+    
+    try {
+      const url = `${PORT}handleRegularEntryClockIn`;
+      const response = await axios.post(url,payload);
+      // console.log(response);
 
-    alert("Form Submitted Successfully!");
+      if (response.status === 200) {
+    
+        setCurrentStep(1);
+        setFormData({ 
+          typeOfEntryId:"",
+          entryId: "",
+          purposeId: "",
+          house: "",})
+        alert("Entry Registered Successfully!");
+      }
+    } catch (error) {
+      console.error('Error fetching attendance records:', error);
+      alert("Error!!!  pls do manual entry");
+      setTimeout(()=>{
+        setCurrentStep(1);
+        setFormData({ 
+          typeOfEntryId:"",
+          entryId: "",
+          purposeId: "",
+          house: "",})
+      },1500)
+    }
+
+   
     // Reset form or add further logic here
   };
 
@@ -57,7 +118,7 @@ const getEntriesList=async(society)=>{
   try {
     const url=`${PORT}getSocietyBySocietyID/${society}`;
     const response=await axios.get(url);
-    console.log(response);
+    // console.log(response);
     setEntries(response?.data?.response?.typeOfEntries);
     setPurpose(response?.data?.response?.purposeList);
   } catch (error) {
@@ -69,7 +130,7 @@ const getHouseList=async(society)=>{
   try {
     const url=`${PORT}getHouseListBySocietyId/${society}`;
     const response=await axios.get(url);
-    console.log('house',response);
+    // console.log('house',response);
     setHouseList(response?.data?.response);
   } catch (error) {
     console.log(error);
@@ -85,7 +146,7 @@ const getHouseList=async(society)=>{
     }
   },[Token])
 
-  console.log(entryTypes,purposeList,selectedEntry);
+  // console.log(entryTypes,purposeList,selectedEntry,regularEntryList);
   
   return (
     <Layout>
@@ -140,10 +201,10 @@ const getHouseList=async(society)=>{
                           <div className="col-4" key={type._id}>
                             <button
                               className={`btn btn-outline-primary w-100 ${
-                                formData.entryId === type._id ? "active" : ""
+                                formData?.typeOfEntryId === type?._id ? "active" : ""
                               }`}
                               onClick={() =>
-                                handleCardSelect("entryId", type._id,type.entryType)
+                                handleCardSelect("typeOfEntryId", type?._id,type.entryType)
                                 
                               }
                             >
@@ -155,7 +216,7 @@ const getHouseList=async(society)=>{
                     </div>
                   )}
                   
-                  {selectedEntry==='occasional' && currentStep === 2 && (
+                  {selectedEntry==='occasional' && currentStep === 2 &&(
                     <div>
                       <h4 className="mb-3">Step 2: Purpose of Visit</h4>
                       <div className="row g-3">
@@ -175,6 +236,29 @@ const getHouseList=async(society)=>{
                         ))}
                       </div>
                     </div>
+                  )}
+                  {selectedEntry==='regular' && currentStep === 2 &&
+                  (<div>
+                  <h4 className="mb-3">Step 2: Select Entry</h4>
+                  <div className="row g-3">
+                  {regularEntryList.map((entry, index) => (
+                            <div className="col-4" key={entry._id}>
+                            <button
+                              className={`btn btn-outline-primary w-100 ${
+                                formData.purposeId === entry._id ? "active" : ""
+                              }`}
+                              onClick={() =>{
+                                handleCardSelect("purposeId", entry._id);
+                                handleCardSelect("entryId", entry._id);
+                              }
+                              }
+                            >
+                              {entry.name}
+                            </button>
+                          </div>
+                        ))}
+                  </div>
+                </div>
                   )}
 
                   {currentStep === 3 && (
@@ -216,7 +300,7 @@ const getHouseList=async(society)=>{
                       className="btn btn-primary"
                       onClick={handleNext}
                       disabled={
-                        !formData[currentStep === 1 ? "entryId" : "purposeId"]
+                        !formData[currentStep === 1 ? "typeOfEntryId" : "purposeId"]
                       }
                     >
                       Next

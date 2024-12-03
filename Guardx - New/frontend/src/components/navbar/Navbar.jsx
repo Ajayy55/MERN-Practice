@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import { jwtDecode } from "jwt-decode";
 import { PORT } from "../../port/Port";
+import axios from "axios";
 
 
 
@@ -12,7 +13,8 @@ function Navbar({ toggleSidenav }) {
   const navigate =useNavigate();
   const token=localStorage.getItem('token')
   const location = useLocation();
- 
+  const sessionString=localStorage.getItem('sessionString')
+
 
   // Format the path for better display
   const formatPath = (path) => {
@@ -29,9 +31,26 @@ function Navbar({ toggleSidenav }) {
   const decode = jwtDecode(token);
   // console.log(decode);
   }
-  const handleLogout = ()=>{
+
+  const memberSession=async(memberId)=>{
+    // console.log(sessionString);
+    
+     try {
+       const url=`${PORT}memberSession`;
+       const response=await axios.post(url,{memberId,login:false,sessionString})
+      //  console.log('dsdsd',response);
+       localStorage.setItem('sessionString',response.data.session)
+     } catch (error) {
+       console.log(error);
+       
+     }
+   }
+
+  const handleLogout = async()=>{
+   await memberSession(localStorage.getItem('user'))
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+   
     navigate('/login')
   }
 

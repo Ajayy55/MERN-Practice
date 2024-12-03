@@ -11,21 +11,23 @@ const memberSessionSchema=new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:"User"
       },
-      societyId: {
-        type: String
-      },
+
       clockInTime: {
         type: Date,
         default: Date.now, 
         required: true,
       },
-      date: {
-        type: String,
-        default: `${day}/${month}/${year}`
-      },
+      // date: {
+      //   type: String,
+      //   default: `${day}/${month}/${year}`
+      // }
+      // ,
       clockOutTime: {
-        type: String,
+        type: Date,
     
+      },
+      sessionString: {
+        type: String, 
       },
       ipAddress: {
         type: String, 

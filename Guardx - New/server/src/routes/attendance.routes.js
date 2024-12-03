@@ -1,8 +1,9 @@
 import {Router} from 'express'
 
 
-import { memberSession 
-    ,handleRegularEntryClockIn,
+import { memberSession ,
+    viewMemberAttendance,
+    handleRegularEntryClockIn,
     handleRegularEntryClockOut,
     viewRegularEntryAttendance,
 
@@ -10,7 +11,9 @@ import { memberSession
 
 
 const router= Router();
-router.get('/memberSession',memberSession);
+router.post('/memberSession',memberSession);
+router.get('/viewMemberAttendance/:id',viewMemberAttendance);
+
 router.post('/handleRegularEntryClockIn',handleRegularEntryClockIn);
 router.post('/handleRegularEntryClockOut',handleRegularEntryClockOut);
 router.post('/viewRegularEntryAttendance',viewRegularEntryAttendance);

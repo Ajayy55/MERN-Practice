@@ -77,7 +77,7 @@ const addRegularEntry = async (req, res) => {
 
 const getSocietyRegularEntryById = async (req, res) => {
   const { society, entry } = req.body;
-
+  
   if (!society || !entry) {
     return res
       .status(400)
