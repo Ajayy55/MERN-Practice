@@ -42,7 +42,7 @@ function RolesList() {
     const { hasPermission } = usePermissions();
   
     const handleEdit = (id) => {
-      navigate(`/editRoles`, { state: id });
+      navigate(`/roles/editroles`, { state: id });
     };
   
     const handleDelete = async (id) => {
@@ -87,7 +87,7 @@ function RolesList() {
 
   return (
     <>
-    <Layout>
+    {/* <Layout> */}
       <div className="content-wrapper">
         <div className="col-lg-12 grid-margin stretch-card">
           <div className="card">
@@ -96,7 +96,7 @@ function RolesList() {
               <div className="card-title d-flex justify-content-between">
                 {hasPermission("Roles", "Create") ? (
                   <Link
-                    to="/addRoles"
+                    to="addRoles"
                     className="btn"
                     style={customButtonStyle}
                   >
@@ -127,11 +127,11 @@ function RolesList() {
                     {rolesData.length > 0 &&
                       rolesData?.map((role) => {
                         return (<tr key={role._id}>
-                            {/* Email */}
-                            <td> {role.title} </td>
-                            {/* contact */}
+                            {/* title */}
+                            <td className="text-capitalize"> {role.title} </td>
+                            {/* desc */}
                             <td >{role.desc}</td>
-                            {/* Date */}
+                            {/* roletype */}
                             <td className="text-capitalize">
                              {role?.roleType}
                             </td>
@@ -175,7 +175,7 @@ function RolesList() {
           </div>
         </div>
       </div>
-    </Layout>
+    {/* </Layout> */}
   </>
 
   )

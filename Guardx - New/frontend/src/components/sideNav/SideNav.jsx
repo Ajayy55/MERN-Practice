@@ -22,6 +22,7 @@ let userID;
 let societyId;
 const [isCollapsed, setIsCollapsed] = useState(false);
 const [flag,setFlag]=useState(true)
+const sessionString=localStorage.getItem('sessionString')
 
 const toggleCollapse = () => {
   setIsCollapsed((prevState) => !prevState);
@@ -61,7 +62,7 @@ const navigate =useNavigate()
           
           setUser({name:response?.data?.name,role:response?.data?.role?.title,society:response?.data?.society?.name||"",societyLogo:response?.data?.society?.societyLogo||""})
           Setpermissions(response?.data.role?.permissions)
-          SetpermissionLevel(response?.data?.role?.permissionLevel)
+          SetpermissionLevel(response?.data?.permissionLevel)
         }
       } catch (error) {
        console.log('At fetching permissions',error);
@@ -78,9 +79,21 @@ const navigate =useNavigate()
     };
   }, [token]);
 
+  const memberSession=async(memberId)=>{
+    // console.log(sessionString);
+    
+     try {
+       const url=`${PORT}memberSession`;
+       const response=await axios.post(url,{memberId,login:false,sessionString})
+       console.log('dsdsd',response);
+       localStorage.setItem('sessionString',response.data.session)
+     } catch (error) {
+       console.log(error);
+       
+     }
+   }
 
-
-const handleSessionExpired = () => {
+const handleSessionExpired = async() => {
     if (intervalRef.current) clearInterval(intervalRef.current);
 
     Swal.fire({
@@ -90,6 +103,7 @@ const handleSessionExpired = () => {
       showConfirmButton: false,
       timer: 1500
     });
+    await memberSession(localStorage.getItem('user'))
     navigate("/login");
     localStorage.removeItem('token');
     localStorage.removeItem('user');
@@ -111,6 +125,8 @@ const handleSessionExpired = () => {
             // console.log('res',response);
             
             const societyRegularEntries = response?.data?.response.typeOfEntries.filter((entry)=>entry.entryType==='regular') ||null;
+           
+            
             setSocietyEntriesData(societyRegularEntries);
           }
          
@@ -128,7 +144,9 @@ const handleSessionExpired = () => {
 // console.log('pp',permissions,permissionLevel);
 
 const handleNavigate=(entry)=>{
-  navigate(`/regularEntries`, {state:{_id:entry._id,title:entry.title}});
+  // console.log('entry',entry);
+  
+  navigate(`/regularentries`, {state:{_id:entry._id,title:entry.title}});
 }
 
 
@@ -229,7 +247,7 @@ const handleNavigate=(entry)=>{
 {/* Dashboard */}
     {permissionLevel && permissionLevel <= 4 ?<>
     <li className="nav-item menu-items">
-    <NavLink to='/' className="nav-link">
+    <NavLink to='/dashboard' className="nav-link">
         <span className="menu-icon">
           <i className="mdi mdi-speedometer" />
         </span>
@@ -284,16 +302,7 @@ const handleNavigate=(entry)=>{
 
                   }
                 <li className="nav-item" ></li>
-                  {/* <li className="nav-item">
-                    <a className="nav-link" href="pages/ui-features/dropdowns.html">
-                      Dropdowns
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link" href="pages/ui-features/typography.html">
-                      Typography
-                    </a>
-                  </li> */}
+             
                 </ul>
               </div>
             </li>

@@ -28,9 +28,12 @@ function RegularEntries() {
   const itemsPerPage = 10; // Items per page
   const [flag,setFlag]=useState(false)
   const navigate = useNavigate();
+  // const [entry,setEntry]=useState()
   const { hasPermission } = usePermissions();
   const location=useLocation();
   const entry=location.state;
+  console.log();
+
 
   const fetchSocietyRegularEntryById = async (society,entry) => {
     try {
@@ -49,6 +52,7 @@ function RegularEntries() {
 
   useEffect(() => {
     const Token = localStorage.getItem("token"); // Moved here to update dynamically
+ 
     if (Token) {
       try {
         const decoded = jwtDecode(Token);
@@ -121,25 +125,25 @@ function RegularEntries() {
   const handleEdit = (entry) => {
     // console.log(house);
     
-    navigate(`/viewRegularEntry`, { state: entry });
+    navigate(`/regularentries/viewregularentry`, { state: entry });
   };
-  
-  const handleAttendanceView=(entry)=>{
-    navigate(`/viewRegularAttendence`, { state: entry });
-
-
+  const handleApprove=()=>{
   }
    
     // console.log('ssds',entry);
     
     const handleAddRegularEntry=(entry)=>{
-        navigate("/addRegularEntry",{state:{_id:entry._id,title:entry.title}})
+        navigate("/regularentries/addregularentry",{state:{_id:entry._id,title:entry.title}})
     }
 
+    const handleAttendanceView=(entry)=>{
+      navigate(`/regularentries/viewregularattendence`, { state: entry });
+  
+    }
 
   return (
     <>
-    <Layout>
+    {/* <Layout> */}
     <div className="content-wrapper">
         <div className="col-lg-12 grid-margin stretch-card">
         <div className="card">
@@ -267,7 +271,7 @@ function RegularEntries() {
 
   
 
-    </Layout>
+    {/* </Layout> */}
     
     </>
   )

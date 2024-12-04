@@ -14,7 +14,7 @@ export const useAlert = () => {
       timer: 1500,
     });
     setTimeout(() => {
-      navigate("/");
+      navigate("/dashboard");
     }, 1000);
   };
 

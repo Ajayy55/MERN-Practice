@@ -17,6 +17,8 @@ function AddSocietyUser() {
   const { hasPermission } = usePermissions();
   const location = useLocation();
   const id = location.state;
+  // console.log(id);
+  
   const navigate = useNavigate();
   const [rolesData, setRolesData] = useState([]);
   const [selectedFileName, setSelectedFileName] = useState("");
@@ -59,7 +61,7 @@ function AddSocietyUser() {
         if (response.status === 200) {
 
           if(response.data.response.length<=0){
-            console.log(response.data.response);
+            // console.log(response.data.response);
             errorAlert('You dont have Roles Please Create')
           }
           setRolesData(response.data.response);
@@ -132,6 +134,7 @@ function AddSocietyUser() {
             timer: 1500,
           });
           resetForm();
+          setSelectedFileName("")
           fetchSocietyUser();
           // setTimeout(() => navigate("/society"), 1000);
         }
@@ -179,7 +182,7 @@ function AddSocietyUser() {
     });
   };
   return (
-    <Layout>
+    // <Layout>
       <div className="content-wrapper">
         <div className="col-lg-12 grid-margin stretch-card">
           <div className="container mt-0">
@@ -359,7 +362,7 @@ function AddSocietyUser() {
                        return <tr key={user._id}>
                           <td className="py-1 text-capitalize">
                             <img
-                              src="../../assets/images/faces-clipart/pic-1.png"
+                              src={user.rwaImage? `${PORT}${user?.rwaImage?.split('public')[1]}`:"../../assets/images/faces-clipart/pic-1.png"}
                               alt="user avatar"
                               className="me-2"
                             />
@@ -411,7 +414,7 @@ function AddSocietyUser() {
             </div>
         </div>
       </div>
-    </Layout>
+    // </Layout>
   );
 }
 

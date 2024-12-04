@@ -92,11 +92,11 @@ function AddRoles() {
           return acc;
         }, {})
       };
-      console.log("Submitting data:", payload);
+      // console.log("Submitting data:", payload);
       try {
         const url=`${PORT}addUserRoles`;
         const response=await axios.post(url,payload)
-        console.log(response);
+        // console.log(response);
         
         if (response.status == 201) {
           Swal.fire({
@@ -152,7 +152,7 @@ function AddRoles() {
 
   
   return (
-    <Layout>
+    // <Layout>
       <div className="content-wrapper">
         <div className="col-lg-12 grid-margin stretch-card">
           <div className="container mt-0">
@@ -298,7 +298,7 @@ function AddRoles() {
           </div>
         </div>
       </div>
-    </Layout>
+    // </Layout>
   );
 }
 

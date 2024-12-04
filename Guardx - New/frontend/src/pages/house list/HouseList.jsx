@@ -117,7 +117,7 @@ function HouseList() {
   const handleEdit = (house) => {
     // console.log(house);
     
-    navigate(`/viewHouse`, { state: house });
+    navigate(`/houselist/viewhouse`, { state: house });
   };
 
   const handleApprove=async(houseId,approvalStatus)=>{
@@ -140,7 +140,7 @@ function HouseList() {
 
 
   return (
-    <Layout>
+    // <Layout>
       <div className="content-wrapper">
         <div className="col-lg-12 grid-margin stretch-card">
           <div className="card">
@@ -148,7 +148,7 @@ function HouseList() {
               <div className="card-body">
                 <div className="card-title d-flex justify-content-between">
                   {hasPermission("House List", "Create") && (
-                    <Link to="/addHouse" className="btn" style={customButtonStyle}>
+                    <Link to="addHouse" className="btn" style={customButtonStyle}>
                       <i className="mdi mdi-plus-box" /> Add House
                     </Link>
                   )}
@@ -278,7 +278,7 @@ function HouseList() {
           </div>
         </div>
       </div>
-    </Layout>
+    // </Layout>
   );
 }
 

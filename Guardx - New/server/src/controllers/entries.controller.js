@@ -187,7 +187,14 @@ const getTypesOfEntriesOfSociety=async(req,res)=>{
     const id=req.params.id;
 
     try {
-        const response= await Society.findOne({_id:id}).populate("typeOfEntries").select("typeOfEntries");
+        const response = await Society.findOne({ _id: id })
+        .populate({
+          path: "typeOfEntries", 
+          options: { sort: { title: 1 } }, 
+        })
+        .select("typeOfEntries");       
+       
+        
         if(!response){
             return res.status(500).json({message:`No Society Found !`})
         }
@@ -229,6 +236,46 @@ const removeTypeOfEntryFromSociety=async(req,res)=>{
 
 }
 
+// const Society = mongoose.model("Society", new mongoose.Schema({
+//     regularEntryName: String
+//   }));
+  
+//   const Attendance = mongoose.model("Attendance", new mongoose.Schema({
+//     regularEntryID: mongoose.Schema.Types.ObjectId,
+//     date: Date,
+//   }));
+  
+//   const fetchRegularEntriesWithAttendance = async () => {
+
+
+//     const entriesWithAttendance = await Society.aggregate([
+//       {
+//         $lookup: {
+//           from: "attendances", // Name of the Attendance collection
+//           localField: "_id", // Match Society._id
+//           foreignField: "regularEntryID", // Match Attendance.regularEntryID
+//           as: "attendanceRecords", // Alias for joined records
+//         },
+//       },
+//       {
+//         $match: {
+//           attendanceRecords: { $ne: [] }, // Keep only documents with attendance records
+//         },
+//       },
+//       {
+//         $project: {
+//           _id: 1, // Only return the _id field
+//         },
+//       },
+//     ]);
+  
+//     return entriesWithAttendance.map((entry) => entry._id); // Extract IDs
+//   };
+  
+//   fetchRegularEntriesWithAttendance()
+//     .then((result) => console.log(result))
+//     .catch((err) => console.error(err));
+  
 
 
 

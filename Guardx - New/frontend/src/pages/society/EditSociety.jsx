@@ -70,6 +70,8 @@ function EditSociety() {
   const [societyData, setSocietyData] = useState(null);
   const location = useLocation();
   const id = location.state;
+  // console.log('uppe',id);
+  
   const navigate = useNavigate();
   const [media, setMedia] = useState([]);
   const [logo,setLogo]=useState()
@@ -138,7 +140,8 @@ function EditSociety() {
     onSubmit: async (values) => {
       console.log("Form values:", values);
       const formData = new FormData();
-    
+      // console.log(id);
+
         
       if (logo) {
         formData.append("societyLogo", logo);
@@ -181,6 +184,8 @@ function EditSociety() {
 
   useEffect(() => {
     if (id) {
+      // console.log(id);
+      
       axios
         .get(`${PORT}getSocietyBySocietyID/${id}`)
         .then((response) => {
@@ -206,7 +211,7 @@ function EditSociety() {
   //   const [societyData, setSocietyData] = useState(null);
 
   return (
-    <Layout>
+    // <Layout>
       <div className="content-wrapper">
         <div className="col-lg-12 grid-margin stretch-card">
           <div className="container mt-0">
@@ -245,9 +250,9 @@ function EditSociety() {
                       style={{ display: "none" }}
                       accept="image/*,video/*"
                       onChange={handleMediaChange}
-                      //   onChange={(event) => {
-                      //     formik.setFieldValue("societyLogo", event.currentTarget.files[0]);
-                      //   }}
+                        // onChange={(event) => {
+                        //   formik.setFieldValue("societyLogo", event.currentTarget.files[0]);
+                        // }}
                     />
                     <div className="d-flex justify-content-between">
                       <label htmlFor="societyLogo" style={customButtonStyle}>
@@ -410,7 +415,7 @@ function EditSociety() {
           </div>
         </div>
       </div>
-    </Layout>
+    // </Layout>
   );
 }
 

@@ -72,7 +72,8 @@ function EntriesList() {
   }, [showModal]);
 
   const handleEdit = (id) => {
-    navigate(`/editTypesOfEntry`, { state: id });
+    
+    navigate(`/typeofentries/edittypesofentry`, { state: id });
   };
 
   const handleDeleteFromSociety=async(RemoveId)=>{
@@ -157,7 +158,7 @@ function EntriesList() {
 
 
   return (
-    <Layout>
+    // <Layout>
       <div className="content-wrapper">
         <div className="col-lg-12 grid-margin stretch-card">
           <div className="card">
@@ -169,7 +170,7 @@ function EntriesList() {
                        
                         userRole.permissionLevel<=2 ?   //if role <2 Add new roles else add roles prevoius added by admin
                           ( <Link
-                          to="/addTypesOfEntry"
+                          to="addTypesOfEntry"
                           className="btn"
                           style={customButtonStyle}
                         >
@@ -300,7 +301,7 @@ function EntriesList() {
           </div>
         </div>
       </div>
-    </Layout>
+    // </Layout>
   );
 }
 

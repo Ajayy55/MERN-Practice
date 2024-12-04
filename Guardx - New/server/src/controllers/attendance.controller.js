@@ -13,18 +13,23 @@ import { generateRandomPassword } from "../utils/GenrateRandomPass.js";
 
 const memberSession = async (req, res) => {
   const { memberId, login, sessionString } = req.body;
-    let invalidString =false;
-    
-  const ip = (req.headers["x-forwarded-for"] || req.socket.remoteAddress || "").split(",")[0].trim();
-  const userAgentString = req.headers['user-agent'];
-  const agent =useragent.parse(userAgentString)
+  let invalidString = false;
+
+  const ip = (req.headers["x-forwarded-for"] || req.socket.remoteAddress || "")
+    .split(",")[0]
+    .trim();
+  const userAgentString = req.headers["user-agent"];
+  const agent = useragent.parse(userAgentString);
   let ipAddress = ip === "::1" ? "127.0.0.1" : ip;
-  let browserName ;
+  let browserName;
 
   if (userAgentString.includes("Edg/")) {
-    browserName = "Edge";}else{ browserName =agent.family}
+    browserName = "Edge";
+  } else {
+    browserName = agent.family;
+  }
 
-  ipAddress =`${ipAddress}/${agent.os}/${browserName}`;
+  ipAddress = `${ipAddress}/${agent.os}/${browserName}`;
 
   if (!memberId) {
     return res.status(400).json({ message: "Member Id Required!" });
@@ -32,71 +37,68 @@ const memberSession = async (req, res) => {
 
   try {
     if (login) {
-                const session = await generateRandomPassword();
-                // console.log(session);
-                const response = await MemberSession.create({
-                    ...req.body,
-                    sessionString:session,
-                    ipAddress,
-                });
+      const session = await generateRandomPassword();
+      // console.log(session);
+      const response = await MemberSession.create({
+        ...req.body,
+        sessionString: session,
+        ipAddress,
+      });
 
-                if (sessionString) {
-                    const checkClockedInAgain = await MemberSession.findOne({
-                    //if session found it will delete single entry matching memberID and preveioisu session id
-                    memberId,
-                    sessionString,
-                    }).sort({ createdAt: -1 });
-                    if (checkClockedInAgain && !checkClockedInAgain.clockOutTime) {
-                    checkClockedInAgain.clockOutTime = Date.now();
-                    await checkClockedInAgain.save();
-                    }
-                } 
+      if (sessionString) {
+        const checkClockedInAgain = await MemberSession.findOne({
+          //if session found it will delete single entry matching memberID and preveioisu session id
+          memberId,
+          sessionString,
+        }).sort({ createdAt: -1 });
+        if (checkClockedInAgain && !checkClockedInAgain.clockOutTime) {
+          checkClockedInAgain.clockOutTime = Date.now();
+          await checkClockedInAgain.save();
+        }
+      }
 
-                    if (!response) {
-                        return res.status(500).json({
-                            message: "Something went wrong while saving user attendance record",
-                        });
-                    }
-                    
-                    return res
-                        .status(200)
-                        .json({ message: "success Entry Saved", session });
+      if (!response) {
+        return res.status(500).json({
+          message: "Something went wrong while saving user attendance record",
+        });
+      }
 
+      return res.status(200).json({ message: "success Entry Saved", session });
     } else {
+      if (sessionString) {
+        const checkClockedInAgain = await MemberSession.findOne({
+          //if session found it will delete single entry matching memberID and preveioisu session id
+          memberId,
+          sessionString,
+        }).sort({ createdAt: -1 });
+        if (checkClockedInAgain && !checkClockedInAgain.clockOutTime) {
+          checkClockedInAgain.clockOutTime = Date.now();
+          await checkClockedInAgain.save();
+        } else {
+          invalidString = true;
+          //   return res.status(400).json({ message: "Invalid Session String" }); //return res with invalid sting if string not matched or  already clock out with sesionstring
+        }
+      }
 
-                if (sessionString) {
-                    const checkClockedInAgain = await MemberSession.findOne({
-                    //if session found it will delete single entry matching memberID and preveioisu session id
-                    memberId,
-                    sessionString,
-                    }).sort({ createdAt: -1 });
-                    if (checkClockedInAgain && !checkClockedInAgain.clockOutTime) {
-                    checkClockedInAgain.clockOutTime = Date.now();
-                    await checkClockedInAgain.save();
-                    } else {
-                        invalidString=true;
-                    //   return res.status(400).json({ message: "Invalid Session String" }); //return res with invalid sting if string not matched or  already clock out with sesionstring
-                    }
-                } 
-                
-                if (!sessionString || invalidString){
-                    const checkClockedInAgain = await MemberSession.find({
-                    //if string not found while logout all sessions
-                    memberId: memberId,
-                    clockOutTime: { $exists: false },
-                    });
-                    if (checkClockedInAgain.length > 0) {
-                    for (const session of checkClockedInAgain) {
-                        session.clockOutTime = Date.now();
-                        await session.save();
-                    }
+      if (!sessionString || invalidString) {
+        const checkClockedInAgain = await MemberSession.find({
+          //if string not found while logout all sessions
+          memberId: memberId,
+          clockOutTime: { $exists: false },
+        });
+        if (checkClockedInAgain.length > 0) {
+          for (const session of checkClockedInAgain) {
+            session.clockOutTime = Date.now();
+            await session.save();
+          }
 
-                    // console.log("Updated sessions:", checkClockedInAgain);
-                    return res.status(400).json({
-                        message: "All Session closed due to Session String not provided/ tempered",
-                    });
-                    }
-                }
+          // console.log("Updated sessions:", checkClockedInAgain);
+          return res.status(400).json({
+            message:
+              "All Session closed due to Session String not provided/ tempered",
+          });
+        }
+      }
     }
 
     res.status(200).json({ message: "Logged Out !" });
@@ -111,27 +113,27 @@ const memberSession = async (req, res) => {
   }
 };
 
-
 const viewMemberAttendance = async (req, res) => {
-    const id = req.params.id;
+  const id = req.params.id;
 
-    try {
-        const response = await MemberSession.find({ memberId: id });
-        if (!response)
-            return res.status(400).json({ message: "No Attendance Record Found !" });
+  try {
+    const response = await MemberSession.find({ memberId: id }).sort({
+      createdAt: -1,
+    });
+    if (!response)
+      return res.status(400).json({ message: "No Attendance Record Found !" });
 
-        res.status(200).json({ message: "Attendence List :", response });
-    } catch (error) {
-        console.log(
-            error,
-            "Internal server error while getting  user attendance entry"
-        );
-        res.status(500).json({
-            message: "Internal server error while getting user attendance entry",
-        });
-    }
+    res.status(200).json({ message: "Attendence List :", response });
+  } catch (error) {
+    console.log(
+      error,
+      "Internal server error while getting  user attendance entry"
+    );
+    res.status(500).json({
+      message: "Internal server error while getting user attendance entry",
+    });
+  }
 };
-
 
 const handleRegularEntryClockIn = async (req, res) => {
   const { regularEntryID, guardID, society } = req.body;
@@ -233,10 +235,56 @@ const viewRegularEntryAttendance = async (req, res) => {
   }
 };
 
+const viewAllRegularEntryAttendanceOfSociety = async (req, res) => {
+  const startDate = new Date();
+  const endDate = new Date();
+  const { society, filter } = req.body;
+  if (!society) {
+    return res.status(400).json({ message: "Society Id Required" });
+  }
+  try {
+    if (filter) {
+      console.log(startDate);
+      endDate.setDate(endDate.getDate() - filter);
+      const response = await RegularEntriesAttendance.find({
+        society,
+        createdAt: { $gte: endDate, $lte: startDate },
+      }).populate({
+        path: "regularEntryID",
+        select: "name entry",
+        populate: { path: "entry", select: "title" },
+      });
+
+      return res.send(response);
+    } else {
+      const response = await RegularEntriesAttendance.find({
+        society,
+      }).populate({
+        path: "regularEntryID",
+        select: "name entry",
+        populate: { path: "entry", select: "title" },
+      });
+
+      return res.send(response);
+    }
+  } catch (error) {
+    console.log(
+      error,
+      "Internal server error while getting all regular society entry "
+    );
+    res
+      .status(500)
+      .json({
+        message: "Internal server error while getting all regular societyentry",
+      });
+  }
+};
+
 export {
   memberSession,
   viewMemberAttendance,
   handleRegularEntryClockIn,
   handleRegularEntryClockOut,
   viewRegularEntryAttendance,
+  viewAllRegularEntryAttendanceOfSociety,
 };

@@ -12,19 +12,11 @@ function Dashboard() {
     // console.log('permissions called' ,permissions);
   }, [user]);
 
-  useEffect(()=>{
-    Swal.fire({
-      position: "center",
-      icon: "info",
-      title:"Working Modules - Roles ,Users , Society , Types of Entry , Ocassional Purposes,House List",
-      showConfirmButton: true,
-      // timer: 1500,
-    });
-  },[user])
+
 
   return (
     <>
-    <Layout>
+    {/* <Layout> */}
 <div className="content-wrapper" >
   <div className="row">
     <div className="col-xl-3 col-sm-6 grid-margin stretch-card">
@@ -764,7 +756,7 @@ function Dashboard() {
   </div> */}
 </div>
 
-    </Layout>
+    {/* </Layout> */}
     </>
   )
 }

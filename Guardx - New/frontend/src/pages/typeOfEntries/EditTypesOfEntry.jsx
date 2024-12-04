@@ -82,7 +82,7 @@ const fetchEntry=async()=>{
     validationSchema, // Pass the validation schema
     onSubmit: async (values) => {
       // Handle form submission
-      console.log(values);
+      // console.log(values);
       
       const formData = new FormData();
 
@@ -117,7 +117,7 @@ const fetchEntry=async()=>{
   });
 
   return (
-    <Layout>
+    // <Layout>
       <div className="content-wrapper">
         <div className="col-lg-12 grid-margin stretch-card">
           <div className="container mt-0">
@@ -232,7 +232,7 @@ const fetchEntry=async()=>{
           </div>
         </div>
       </div>
-    </Layout>
+    // </Layout>
   );
 }
 

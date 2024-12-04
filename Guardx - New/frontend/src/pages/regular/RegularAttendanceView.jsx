@@ -180,6 +180,7 @@ import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import DatePicker from 'react-datepicker'; // Import DatePicker
 import 'react-datepicker/dist/react-datepicker.css'; // Import DatePicker styles
+import BackButton from '../utils/BackButton';
 
 
 const customButtonStyle= {
@@ -209,9 +210,11 @@ function RegularAttendanceView() {
 
   const fetchEntry = async (society) => {
     try {
+      // console.log(society,entry._id);
+    
       const url = `${PORT}viewRegularEntryAttendance`;
       const response = await axios.post(url, { society, regularEntryID: entry._id });
-    //   console.log(response);
+      // console.log(response);
 
       if (response.status === 200) {
         setRegularEntryList(response.data.response);
@@ -265,10 +268,13 @@ function RegularAttendanceView() {
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
 
   return (
-    <Layout>
+    // <Layout>
       <div className="content-wrapper">
+         <BackButton/>
         <div className="col-lg-12 grid-margin stretch-card">
+         
           <div className="card">
+            
             {hasPermission('Regular Entries', 'Read') ? (
               <div className="card-body">
                 <div className="card-title d-flex justify-content-between align-items-center">
@@ -392,7 +398,7 @@ function RegularAttendanceView() {
           </div>
         </div>
       </div>
-    </Layout>
+    // </Layout>
   );
 }
 

@@ -109,7 +109,7 @@ function ViewHouse() {
 
   return (
     <>
-      <Layout>
+      {/* <Layout> */}
         <div className="content-wrapper">
           {/* <BackButton/ > */}
           <Box>
@@ -172,7 +172,7 @@ function ViewHouse() {
             )}
           </Box>
         </div>
-      </Layout>
+      {/* </Layout> */}
     </>
   );
 }
@@ -715,7 +715,7 @@ function Vehicles({house}) {
                        return <tr key={vehicle._id}>
                           <td className="py-1 text-capitalize">
                             <img
-                              src={vehicle.vehicleImage ? `${PORT}${vehicle.vehicleImage[index].split('public')[1]}` :"../../assets/images/faces-clipart/pic-1.png"}
+                              src={vehicle.vehicleImage ? `${PORT}${vehicle.vehicleImage[index]?.split('public')[1]}` :"../../assets/images/faces-clipart/pic-1.png"}
                               alt="user avatar"
                               className="me-2"
                             />

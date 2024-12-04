@@ -88,7 +88,7 @@ function AddTypesOfEntry() {
   });
 
   return (
-    <Layout>
+    // <Layout>
       <div className="content-wrapper">
         <div className="col-lg-12 grid-margin stretch-card">
           <div className="container mt-0">
@@ -201,7 +201,7 @@ function AddTypesOfEntry() {
           </div>
         </div>
       </div>
-    </Layout>
+    // </Layout>
   );
 }
 

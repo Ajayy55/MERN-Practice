@@ -55,6 +55,7 @@ function UsersList() {
     const filtered = usersData.filter(
       (user) =>
         user.name?.toLowerCase().includes(query) ||
+        user.society?.name?.toLowerCase().includes(query) ||
         user.email?.toLowerCase().includes(query)
     );
     setFilteredData(filtered);
@@ -100,13 +101,13 @@ function UsersList() {
 
   // Handle edit action
   const handleEdit = (user) => {
-    console.log(user);
+    // console.log(user);
     
-    navigate(`/editUser`, { state: user });
+    navigate(`/users/edituser`, { state: user });
   };
 
   return (
-    <Layout>
+    // <Layout>
       <div className="content-wrapper">
         <div className="col-lg-12 grid-margin stretch-card">
           <div className="card">
@@ -114,7 +115,7 @@ function UsersList() {
               <div className="card-body">
                 <div className="card-title d-flex justify-content-between">
                   {hasPermission("Users", "Create") && (
-                    <Link to="/addUser" className="btn" style={customButtonStyle}>
+                    <Link to="addUser" className="btn" style={customButtonStyle}>
                       <i className="mdi mdi-plus-box" /> Add User
                     </Link>
                   )}
@@ -227,7 +228,7 @@ function UsersList() {
           </div>
         </div>
       </div>
-    </Layout>
+    // </Layout>
   );
 }
 

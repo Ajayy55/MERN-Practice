@@ -46,12 +46,15 @@ function SocietyList() {
     fetchSocieties();
   }, []);
 
-  const handleEdit = (id) => {
-    navigate(`/editSociety`, { state: id });
+  const handleEdit = (id) => 
+  
+    {
+    navigate(`/society/editsociety`, { state: id });
   };
 
   const handleAddSocietyUser = (id) => {
-    navigate(`/addSocietyUser`, { state: id });
+    console.log('addus',id);
+    navigate(`/society/addsocietyuser`, { state: id });
   };
 
   const handleDelete = async (id) => {
@@ -91,7 +94,7 @@ function SocietyList() {
   );
 
   return (
-    <Layout>
+    // <Layout>
     
       <div className="content-wrapper">
         <div className="col-lg-12 grid-margin stretch-card">
@@ -101,7 +104,7 @@ function SocietyList() {
                 <div className="card-title d-flex justify-content-between">
                   {hasPermission("Society List", "Create") ? (
                     <Link
-                      to="/addSociety"
+                      to="addSociety"
                       className="btn"
                       style={customButtonStyle}
                     >
@@ -144,7 +147,7 @@ function SocietyList() {
                               />{" "}
                               {single.name}
                             </td>
-                            <td> {single.address} </td>
+                            <td className="text-capitalize"> {single.address} </td>
                             <td>{single.contact}</td>
                             <td>
                               {new Date(single.createdAt).toLocaleString(
@@ -203,7 +206,7 @@ function SocietyList() {
           </div>
         </div>
       </div>
-    </Layout>
+    // </Layout>
   );
 }
 

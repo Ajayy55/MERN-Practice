@@ -69,7 +69,8 @@ function PurposeList() {
   }, [showModal]);
 
   const handleEdit = (data) => {
-    navigate(`/editPurposeOfOccasional`, { state: data });
+    
+    navigate(`/purposeofoccasional/editpurposeofoccasional`, { state: data });
   };
 
   const handleDeleteFromSociety=async(RemoveId)=>{
@@ -154,7 +155,7 @@ function PurposeList() {
 
 
   return (
-    <Layout>
+    // <Layout>
       <div className="content-wrapper">
         <div className="col-lg-12 grid-margin stretch-card">
           <div className="card">
@@ -166,7 +167,7 @@ function PurposeList() {
                        
                         userRole.permissionLevel<=2 ?   //if role <2 Add new roles else add roles prevoius added by admin
                           ( <Link
-                          to="/AddPurposeOfOccasional"
+                          to="AddPurposeOfOccasional"
                           className="btn"
                           style={customButtonStyle}
                         >
@@ -297,7 +298,7 @@ function PurposeList() {
           </div>
         </div>
       </div>
-    </Layout>
+    // </Layout>
   );
 }
 

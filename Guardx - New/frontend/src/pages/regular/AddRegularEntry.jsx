@@ -26,6 +26,8 @@ const customButtonStyle = {
 function AddRegularEntry() {
   const location = useLocation();
   const entry = location.state;
+  
+  
   const navigate=useNavigate()
 const formik = useFormik({
     initialValues: {
@@ -60,7 +62,7 @@ const formik = useFormik({
         society:decode?.society||null,
         createdBy:decode?.id||null,
       }
-      // console.log('submited values: ',payload);
+      console.log('submited values: ',payload);
       
       try {
           const url=`${PORT}addRegularEntry`
@@ -94,7 +96,7 @@ const formik = useFormik({
   
 
   return (
-    <Layout>
+    // <Layout>
       <div className="content-wrapper">
         <div className="col-lg-12 grid-margin stretch-card">
           <div className="container mt-0">
@@ -287,7 +289,7 @@ const formik = useFormik({
           </div>
         </div>
       </div>
-    </Layout>
+    // </Layout>
   );
 }
 

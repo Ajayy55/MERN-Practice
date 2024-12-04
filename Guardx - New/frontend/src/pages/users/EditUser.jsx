@@ -17,8 +17,8 @@ function EditUser() {
   const [pass,setPass]=useState();
   const location=useLocation();
   const user=location.state;
-console.log('hh',user);
-console.log('psas',pass);
+// console.log('hh',user);
+// console.log('psas',pass);
 
   useEffect(() => {
     const fetchRolesList = async () => {
@@ -102,7 +102,7 @@ console.log('psas',pass);
   });
 
   return (
-    <Layout>
+    // <Layout>
       <div className="content-wrapper">
         <div className="col-lg-12 grid-margin stretch-card">
           <div className="container mt-0">
@@ -253,7 +253,7 @@ console.log('psas',pass);
           </div>
         </div>
       </div>
-    </Layout>
+    // </Layout>
   );
 }
 

@@ -98,7 +98,7 @@ function ViewRegularEntry() {
   const navigate = useNavigate();
   const location = useLocation();
   const house = location.state;
-
+  console.log(house);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -110,7 +110,7 @@ function ViewRegularEntry() {
 
   return (
     <>
-      <Layout>
+      {/* <Layout> */}
         <div className="content-wrapper">
           {/* <BackButton/ > */}
           <Box>
@@ -173,7 +173,7 @@ function ViewRegularEntry() {
             )}
           </Box>
         </div>
-      </Layout>
+      {/* </Layout> */}
     </>
   );
 }

@@ -62,7 +62,7 @@ function AddUser() {
     }),
     onSubmit: async (values) => {
       const decode=jwtDecode(token)
-      console.log(decode);
+      // console.log(decode);
 
       
       const payload = {
@@ -71,7 +71,7 @@ function AddUser() {
         permissionLevel: rolesData.find((role) => role._id === values.role)?.permissionLevel,
         ...values,
       };
-      console.log(payload);
+      // console.log(payload);
       
       try {
         const url = `${PORT}register`;
@@ -104,7 +104,7 @@ function AddUser() {
   });
 
   return (
-    <Layout>
+    // <Layout>
       <div className="content-wrapper">
         <div className="col-lg-12 grid-margin stretch-card">
           <div className="container mt-0">
@@ -254,7 +254,7 @@ function AddUser() {
           </div>
         </div>
       </div>
-    </Layout>
+    // </Layout>
   );
 }
 

@@ -89,7 +89,7 @@ const clearLocalStorage=async()=>{
                     
                     localStorage.setItem('token',response.data.jwtToken)
                     localStorage.setItem('user',Responsedata._id)
-                    memberSession(Responsedata._id)
+                    await memberSession(Responsedata._id)
                       if(Responsedata.role?.permissionLevel===1)
                       {
                           successAlert("welcome Super Admin")

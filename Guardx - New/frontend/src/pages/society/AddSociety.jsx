@@ -142,9 +142,9 @@ useEffect(()=>{
         // societyLogo: Yup.mixed().required("Society Logo is required"),
     }),
     onSubmit: async (values) => {
-      console.log("Form values:", values);
+      // console.log("Form values:", values);
       const formData = new FormData();
-        console.log('medica',media);
+        // console.log('medica',media);
         
         if (logo) {
             formData.append("societyLogo", logo);
@@ -163,7 +163,7 @@ useEffect(()=>{
             "Content-Type": "multipart/form-data", // Important for file uploads
           },
         });
-        console.log(response);
+        // console.log(response);
 
         if (response.status == 201) {
           Swal.fire({
@@ -193,7 +193,7 @@ useEffect(()=>{
 
 
   return (
-    <Layout>
+    // <Layout>
       <div className="content-wrapper">
         <div className="col-lg-12 grid-margin stretch-card">
           <div className="container mt-0">
@@ -408,7 +408,7 @@ useEffect(()=>{
           </div>
         </div>
       </div>
-    </Layout>
+    // </Layout>  
   );
 }
 

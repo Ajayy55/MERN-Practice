@@ -38,7 +38,7 @@ function Navbar({ toggleSidenav }) {
      try {
        const url=`${PORT}memberSession`;
        const response=await axios.post(url,{memberId,login:false,sessionString})
-      //  console.log('dsdsd',response);
+       console.log('dsdsd',response);
        localStorage.setItem('sessionString',response.data.session)
      } catch (error) {
        console.log(error);
@@ -46,12 +46,15 @@ function Navbar({ toggleSidenav }) {
      }
    }
 
-  const handleLogout = async()=>{
-   await memberSession(localStorage.getItem('user'))
+  const handleLogout =async ()=>{
+    
+    await memberSession(localStorage.getItem('user'))
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-   
     navigate('/login')
+  }
+  const viewMyAttendance =async()=>{
+    navigate('/myAttendance')
   }
 
   return (
@@ -300,17 +303,17 @@ function Navbar({ toggleSidenav }) {
                 aria-labelledby="profileDropdown"
               >
                 <h6 className="p-3 mb-0 text-center">Profile</h6>
-                {/* <div className="dropdown-divider" />
-                <a className="dropdown-item preview-item">
+                <div className="dropdown-divider" />
+                <a className="dropdown-item preview-item" onClick={viewMyAttendance}>
                   <div className="preview-thumbnail">
                     <div className="preview-icon bg-dark rounded-circle">
                       <i className="mdi mdi-fingerprint text-success" />
                     </div>
                   </div>
                   <div className="preview-item-content">
-                    <p className="preview-subject mb-1">Attendance</p>
+                    <p className="preview-subject mb-1">My Attendance</p>
                   </div>
-                </a> */}
+                </a>
                 <div className="dropdown-divider" />
                 <a className="dropdown-item preview-item" onClick={handleLogout}>
                   <div className="preview-thumbnail">
