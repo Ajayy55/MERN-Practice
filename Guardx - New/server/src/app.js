@@ -1,6 +1,7 @@
 import express from 'express'
 import 'dotenv/config'
 import cors from 'cors'
+import cron from 'node-cron'
 const app = express()
 const port = process.env.PORT 
 
@@ -13,6 +14,10 @@ app.use(express.static('public'))
 app.get('/', (req, res) => res.send('Hello World!'))
 app.listen(port, () => console.log(`Server Running on port ${port}!`))
 
+cron.schedule('*/1 * * * *', () => {
+    console.log('This will run every minute');
+    genrateAutomaticBills();
+  });
 
 //user routes
 import userRouter from './routes/user.routes.js'
@@ -41,5 +46,9 @@ app.use(RegularEntriesRoutes);
 //attendance 
 import attendanceRoutes from './routes/attendance.routes.js';
 app.use(attendanceRoutes);
+
+import billRoutes from './routes/bills.routes.js';
+import { genrateAutomaticBills } from './controllers/bills.controller.js'
+app.use(billRoutes)
 
 export {app}

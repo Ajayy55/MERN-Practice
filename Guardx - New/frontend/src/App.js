@@ -49,6 +49,7 @@ import AddRegularEntry from "./pages/regular/AddRegularEntry";
 import ViewRegularEntry from "./pages/regular/ViewRegularEntry";
 import RegularAttendanceView from "./pages/regular/RegularAttendanceView";
 import UserAttendance from "./pages/attendance/UserAttendance";
+import EmailVerify from "./pages/utils/EmailVerify";
 
 function App() {
   return (
@@ -103,7 +104,7 @@ function App() {
               {/* Roles */}
 
               <Route path="roles">
-                <Route index element={<RolesList />} />
+                <Route index element={<RolesList />}/>
                 <Route path="addRoles" element={<AddRoles />} />
                 <Route path="editRoles" element={<EditRoles />} />
               </Route>
@@ -170,6 +171,7 @@ function App() {
             </Route>
           </Route>
           <Route path="*/" element={<Error404 />} />
+          <Route path="/email" element={<EmailVerify/>} />
 
           {/* Guard */}
         </Routes>
